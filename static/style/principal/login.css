@@ -1,4 +1,4 @@
-        /* Polices */
+/* Polices */
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;600&display=swap');
         
         /* Variables - Thème désert avec les couleurs exactes de la palette */
@@ -423,6 +423,39 @@
         .modal-close:hover {
             color: var(--color-primary);
         }
+        
+        /* Messages d'alerte */
+        .messages-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+    text-align: center;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    border-left: 4px solid #dc3545;
+    color: #721c24;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    border-left: 4px solid #28a745;
+    color: #155724;
+}
+
+.alert-info {
+    background-color: #cce5ff;
+    border-left: 4px solid #0d6efd;
+    color: #004085;
+}
         
         /* Responsive */
         @media (max-width: 768px) {

@@ -78,14 +78,39 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Boutique(models.Model):
+    fournisseur = models.ForeignKey('Fournisseur', models.DO_NOTHING)
     nom = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     date_creation = models.DateTimeField(blank=True, null=True)
-    rccm = models.CharField(unique=True, max_length=50)
 
     class Meta:
         managed = False
         db_table = 'boutique'
+
+
+class Categorie(models.Model):
+    nom = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'categorie'
+
+
+class Client(models.Model):
+    nom = models.CharField(max_length=100)
+    prenom = models.CharField(max_length=100)
+    email = models.CharField(unique=True, max_length=255)
+    telephone = models.CharField(max_length=20, blank=True, null=True)
+    adresse = models.CharField(max_length=255)
+    ville = models.CharField(max_length=100)
+    code_postal = models.CharField(max_length=10, blank=True, null=True)  # Modification ici
+    pays = models.CharField(max_length=100)
+    date_inscription = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'client'
 
 
 class Commande(models.Model):
@@ -143,6 +168,25 @@ class DjangoSession(models.Model):
         db_table = 'django_session'
 
 
+class Fournisseur(models.Model):
+    nom_entreprise = models.CharField(max_length=255)
+    rccm = models.CharField(unique=True, max_length=14)
+    description = models.TextField(blank=True, null=True)  # Nouveau champ description
+    telephone = models.CharField(max_length=20)
+    adresse = models.CharField(max_length=255)
+    ville = models.CharField(max_length=100)
+    code_postal = models.CharField(max_length=10, blank=True, null=True)
+    pays = models.CharField(max_length=100)
+    type_entreprise = models.CharField(max_length=50)
+    date_inscription = models.DateTimeField(blank=True, null=True)
+    statut = models.CharField(max_length=10, blank=True, null=True)
+    site_web = models.URLField(max_length=200, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'fournisseur'
+
+
 class Orderitem(models.Model):
     commande = models.ForeignKey(Commande, models.DO_NOTHING)
     produit = models.ForeignKey('Produit', models.DO_NOTHING)
@@ -172,9 +216,18 @@ class Produit(models.Model):
     prix = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField(blank=True, null=True)
     boutique = models.ForeignKey(Boutique, models.DO_NOTHING)
-    image = models.CharField(max_length=255, blank=True, null=True)
+    categorie = models.ForeignKey(Categorie, models.DO_NOTHING, blank=True, null=True)
     date_ajout = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'produit'
+
+
+class Produitimage(models.Model):
+    produit = models.ForeignKey(Produit, models.DO_NOTHING)
+    image_url = models.ImageField(upload_to='produit/', blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'produitimage'

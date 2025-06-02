@@ -435,6 +435,49 @@
             color: var(--color-primary);
         }
         
+        /* Messages */
+        .messages {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            width: 300px;
+        }
+        
+        .messages-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        
+        .alert {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .alert-error {
+            background-color: #fff8f8;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+        
+        .alert-success {
+            background-color: #f8fff9;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+        
+        .alert-info {
+            background-color: #f8faff;
+            border-left: 4px solid #17a2b8;
+            color: #0c5460;
+        }
+        
         /* Responsive */
         @media (max-width: 992px) {
             .register-container {

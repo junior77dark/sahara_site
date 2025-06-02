@@ -45,9 +45,15 @@
             </nav>
             
             <div class="header-icons">
-                <a href="{% url 'login' %}" aria-label="Mon compte">
-                    <i class="fas fa-user"></i>
-                </a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'user_profile' %}" aria-label="Mon profil">
+                        <i class="fas fa-user"></i>
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" aria-label="Connexion">
+                        <i class="fas fa-user"></i>
+                    </a>
+                {% endif %}
                 <a href="{% url 'panier' %}" class="cart-icon-container" aria-label="Mon panier" id="cart-icon">
                     <i class="fas fa-shopping-cart"></i>
                     <span class="cart-counter" id="cart-counter">0</span>

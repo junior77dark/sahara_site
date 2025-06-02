@@ -29,6 +29,7 @@ urlpatterns = [
     
     # Pages utilisateur
     path('login.html', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),  # Nouvelle URL pour la déconnexion
     path('s\'inscrire.html', views.inscription, name='inscription'),
     path('user-profile.html', views.user_profile, name='user_profile'),
     path('panier.html', views.panier, name='panier'),

@@ -1,10 +1,13 @@
 -- Table Client
 CREATE TABLE Client (
     id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(100) NOT NULL,
+    prenom VARCHAR(100) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     telephone VARCHAR(20),
     adresse VARCHAR(255) NOT NULL,
     ville VARCHAR(100) NOT NULL,
-    code_postal VARCHAR(10) NOT NULL,
+    code_postal VARCHAR(10),
     pays VARCHAR(100) NOT NULL,
     date_inscription TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -13,11 +16,12 @@ CREATE TABLE Client (
 CREATE TABLE Fournisseur (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom_entreprise VARCHAR(255) NOT NULL,
-    siret VARCHAR(14) NOT NULL UNIQUE,
+    rccm VARCHAR(14) NOT NULL UNIQUE,
     telephone VARCHAR(20) NOT NULL,
+    site_web VARCHAR(255) ,
     adresse VARCHAR(255) NOT NULL,
     ville VARCHAR(100) NOT NULL,
-    code_postal VARCHAR(10) NOT NULL,
+    code_postal VARCHAR(10),
     pays VARCHAR(100) NOT NULL,
     type_entreprise VARCHAR(50) NOT NULL,
     date_inscription TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -33,9 +37,11 @@ CREATE TABLE Categorie (
 -- Table Boutique (Chaque fournisseur peut en créer une)
 CREATE TABLE Boutique (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    fournisseur_id INT NOT NULL,
     nom VARCHAR(255) NOT NULL,
     description TEXT,
-    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (fournisseur_id) REFERENCES Fournisseur(id) ON DELETE CASCADE
 );
 
 -- Table Produit (Ajout de la relation avec Categorie)
@@ -46,7 +52,7 @@ CREATE TABLE Produit (
     prix DECIMAL(10,2) NOT NULL,
     stock INT DEFAULT 0,
     boutique_id INT NOT NULL,
-    categorie_id INT NOT NULL,
+    categorie_id INT,  -- Suppression du NOT NULL
     date_ajout TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (boutique_id) REFERENCES Boutique(id) ON DELETE CASCADE,
     FOREIGN KEY (categorie_id) REFERENCES Categorie(id) ON DELETE SET NULL

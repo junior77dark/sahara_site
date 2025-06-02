@@ -27,10 +27,22 @@
                     <p>Accédez à votre compte SAHARA</p>
                 </div>
                 
-                <form class="login-form">
+                <form class="login-form" method="POST">
+                    {% csrf_token %}
+                    <!-- Placer le conteneur de messages ici, juste avant les champs du formulaire -->
+                    <div class="messages-container">
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+                        <label for="email">Email ou nom d'utilisateur</label>
+                        <input type="text" id="email" name="email" placeholder="Votre email ou nom d'utilisateur" value="{{ email }}" required>
                     </div>
                     
                     <div class="form-group">
@@ -78,5 +90,22 @@
             </div>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                // Affiche le message
+                alert.style.opacity = '1';
+                
+                // Fait disparaître le message après 3 secondes
+                setTimeout(function() {
+                    alert.style.opacity = '0';
+                    setTimeout(function() {
+                        alert.remove();
+                    }, 500);
+                }, 3000);
+            });
+        });
+    </script>
 </body>
 </html>

@@ -26,7 +26,18 @@
                     <h1>Créer un compte</h1>
                     <p>Rejoignez la communauté SAHARA</p>
                 </div>
-                
+
+                <!-- Placer les messages juste après le header et avant les tabs -->
+                <div class="messages-container">
+                    {% if messages %}
+                        {% for message in messages %}
+                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                            {{ message }}
+                        </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
                 <div class="tabs">
                     <button class="tab-btn active" data-tab="client">Client</button>
                     <button class="tab-btn" data-tab="business">Entreprise / Fournisseur</button>
@@ -34,7 +45,9 @@
                 
                 <!-- Formulaire Client -->
                 <div class="tab-content active" id="client-tab">
-                    <form class="register-form" id="client-form">
+                    <form class="register-form" id="client-form" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="client">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="client-firstname">Prénom</label>
@@ -64,7 +77,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="client-confirm-password">Confirmer le mot de passe</label>
-                                <input type="password" id="client-confirm-password" name="confirm-password" placeholder="Confirmez votre mot de passe" required>
+                                <input type="password" id="client-confirm-password" name="confirm_password" placeholder="Confirmez votre mot de passe" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="client-username">Nom d'utilisateur</label>
+                                <input type="text" id="client-username" name="username" placeholder="Choisissez un nom d'utilisateur" required>
                             </div>
                         </div>
                         
@@ -119,7 +139,9 @@
                 
                 <!-- Formulaire Entreprise / Fournisseur -->
                 <div class="tab-content" id="business-tab">
-                    <form class="register-form" id="business-form">
+                    <form class="register-form" id="business-form" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" name="form_type" value="business">
                         <div class="form-section">
                             <h3>Informations de l'entreprise</h3>
                             <div class="form-row">
@@ -142,12 +164,8 @@
                             
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="business-siret">Numéro SIRET</label>
-                                    <input type="text" id="business-siret" name="siret" placeholder="Numéro SIRET de l'entreprise" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="business-vat">Numéro de TVA</label>
-                                    <input type="text" id="business-vat" name="vat" placeholder="Numéro de TVA intracommunautaire">
+                                    <label for="business-rccm">Numéro RCCM</label>
+                                    <input type="text" id="business-rccm" name="rccm" placeholder="Numéro RCCM de l'entreprise" required>
                                 </div>
                             </div>
                             
@@ -253,7 +271,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="business-confirm-password">Confirmer le mot de passe</label>
-                                    <input type="password" id="business-confirm-password" name="confirm-password" placeholder="Confirmez votre mot de passe" required>
+                                    <input type="password" id="business-confirm-password" name="confirm_password" placeholder="Confirmez votre mot de passe" required>
                                 </div>
                             </div>
                         </div>
@@ -262,15 +280,16 @@
                             <h3>Documents</h3>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label for="business-kbis">Extrait Kbis (PDF, moins de 3 mois)</label>
-                                    <input type="file" id="business-kbis" name="kbis" accept=".pdf">
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
                                     <label for="business-id">Pièce d'identité du représentant légal</label>
                                     <input type="file" id="business-id" name="id" accept=".pdf,.jpg,.jpeg,.png">
                                 </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="business-username">Nom d'utilisateur</label>
+                                <input type="text" id="business-username" name="username" placeholder="Choisissez un nom d'utilisateur" required>
                             </div>
                         </div>
                         
@@ -323,5 +342,32 @@
             });
         });
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const messages = document.querySelectorAll('.alert');
+    
+    messages.forEach(function(message) {
+        // Ajoute une classe pour l'animation d'entrée
+        message.style.opacity = '1';
+        
+        // Fait disparaître le message après 5 secondes
+        setTimeout(function() {
+            message.style.opacity = '0';
+            message.style.transform = 'translateY(-10px)';
+            
+            // Supprime le message après la fin de l'animation
+            setTimeout(function() {
+                message.style.maxHeight = '0';
+                message.style.padding = '0';
+                message.style.margin = '0';
+                
+                setTimeout(function() {
+                    message.remove();
+                }, 300);
+            }, 500);
+        }, 5000);
+    });
+});
+</script>
 </body>
 </html>
