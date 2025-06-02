@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Découvrez notre collection d'ustensiles et accessoires de cuisine">
+    <title>SAHARA - Cuisine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style/categories/cuisine.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                <div class="categories-dropdown" id="categories-dropdown">
+                    <div class="categories-dropdown-btn" id="categories-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="categorie-high-tech.html"><span>🖥️</span> High-Tech</a>
+                        <a href="categorie-vetements.html"><span>👕</span> Vêtements</a>
+                        <a href="categorie-decoration.html"><span>🏠</span> Décoration</a>
+                        <a href="categorie-bijoux.html"><span>💎</span> Bijoux</a>
+                        <a href="categorie-livres.html"><span>📚</span> Livres</a>
+                        <a href="categorie-jeux.html"><span>🎮</span> Jeux/Jouets</a>
+                        <a href="categorie-cuisine.html"><span>🍽️</span> Cuisine</a>
+                        <a href="categorie-sport.html"><span>🏋️</span> Sport/Loisirs</a>
+                    </div>
+                </div>
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="user-profile.html" aria-label="Mon compte">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="{% url 'panier' %}" class="cart-icon-container" aria-label="Mon panier" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter" id="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> High-Tech</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Décoration</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux/Jouets</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport/Loisirs</a>
+            </div>
+            <a href="{% url 'promotion' %}">Promotions</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'user_profile' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <!-- Barre de recherche sous le menu de navigation -->
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" id="search-input-center" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
+            <button class="search-btn-center" id="search-btn-center" aria-label="Rechercher">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <!-- En-tête de la catégorie -->
+        <section class="category-header">
+            <div class="container">
+                <h1>CUISINE</h1>
+                <p>Découvrez notre collection d'ustensiles et accessoires de cuisine</p>
+            </div>
+        </section>
+        
+        <!-- Filtres -->
+        <section class="filters">
+            <div class="container filters-container">
+                <div class="filter-group">
+                    <span class="filter-label">Prix:</span>
+                    <select class="filter-select">
+                        <option value="all">Tous les prix</option>
+                        <option value="0-20">0€ - 20€</option>
+                        <option value="20-50">20€ - 50€</option>
+                        <option value="50-100">50€ - 100€</option>
+                        <option value="100+">100€ et plus</option>
+                    </select>
+                </div>
+                
+                <div class="filter-search">
+                    <input type="text" placeholder="Rechercher dans Cuisine">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Produits -->
+        <section class="products">
+            <div class="container">
+                <div class="products-grid">
+                    <!-- Produit 1 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Set de couteaux</h3>
+                            <div class="product-price">79,99 €</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 2 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Robot de cuisine</h3>
+                            <div class="product-price">199,99 €</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 3 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1594282486552-05a3b6fbfb63?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Ensemble de casseroles</h3>
+                            <div class="product-price">129,99 €</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 4 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Machine à café</h3>
+                            <div class="product-price">149,99 €</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 5 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1576473086800-c0f9e1eb9e31?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Ustensiles en bois</h3>
+                            <div class="product-price">29,99 €</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 6 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Planche à découper</h3>
+                            <div class="product-price">24,99 €</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 7 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1592156328697-ee6e1c071a3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Mixeur plongeant</h3>
+                            <div class="product-price">49,99 €</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 8 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1607877742574-a7253426f5af?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Moules à pâtisserie</h3>
+                            <div class="product-price">19,99 €</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#" class="pagination-item" id="prev-page"><i class="fas fa-chevron-left"></i></a>
+                    <div class="pagination-numbers"></div>
+                    <a href="#" class="pagination-item" id="next-page"><i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>À propos</h3>
+                    <ul>
+                        <li><a href="#">Notre histoire</a></li>
+                        <li><a href="#">Nos valeurs</a></li>
+                        <li><a href="#">Nos engagements</a></li>
+                        <li><a href="#">Nos partenaires</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Informations</h3>
+                    <ul>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">Retours</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Mentions légales</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Mon compte</h3>
+                    <ul>
+                        <li><a href="#">Se connecter</a></li>
+                        <li><a href="#">Mes commandes</a></li>
+                        <li><a href="#">Mes favoris</a></li>
+                        <li><a href="#">Mes informations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Inscrivez-vous pour recevoir nos offres exclusives</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+                        <button type="submit" class="newsletter-btn">OK</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="{% static 'script/pagination.js' %}"></script>
+    <script src="{% static 'script/mobile_responsive.js' %}"></script>
+    <script src="{% static 'script/panier.js' %}"></script>
+</body>
+</html>

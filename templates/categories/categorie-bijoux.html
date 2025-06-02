@@ -1,0 +1,279 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Découvrez notre collection de bijoux et accessoires élégants">
+    <title>SAHARA - Bijoux</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style/categories/bijoux.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                <div class="categories-dropdown" id="categories-dropdown">
+                    <div class="categories-dropdown-btn" id="categories-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> High-Tech</a>
+                        <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Décoration</a>
+                        <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                        <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux/Jouets</a>
+                        <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport/Loisirs</a>
+                    </div>
+                </div>
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="{% url 'user_profile' %}" aria-label="Mon compte">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="{% url 'panier' %}" class="cart-icon-container" aria-label="Mon panier" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter" id="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> High-Tech</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Décoration</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux/Jouets</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport/Loisirs</a>
+            </div>
+            <a href="{% url 'promotion' %}">Promotions</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'user_profile' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <!-- Barre de recherche sous le menu de navigation -->
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" id="search-input-center" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
+            <button class="search-btn-center" id="search-btn-center" aria-label="Rechercher">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <!-- En-tête de la catégorie -->
+        <section class="category-header">
+            <div class="container">
+                <h1>BIJOUX</h1>
+                <p>Découvrez notre collection de bijoux et accessoires élégants</p>
+            </div>
+        </section>
+        
+        <!-- Filtres -->
+        <section class="filters">
+            <div class="container filters-container">
+                <div class="filter-group">
+                    <span class="filter-label">Prix:</span>
+                    <select class="filter-select">
+                        <option value="all">Tous les prix</option>
+                        <option value="0-50">0Fcfa - 50Fcfa</option>
+                        <option value="50-100">50Fcfa - 100Fcfa</option>
+                        <option value="100-200">100Fcfa - 200Fcfa</option>
+                        <option value="200+">200Fcfa et plus</option>
+                    </select>
+                </div>
+                
+                <div class="filter-search">
+                    <input type="text" placeholder="Rechercher dans Bijoux">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Produits -->
+        <section class="products">
+            <div class="container">
+                <div class="products-grid">
+                    <!-- Produit 1 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Collier en or</h3>
+                            <div class="product-price">149,99 Fcfa</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 2 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1603561591411-07134e71a2a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Bague en argent</h3>
+                            <div class="product-price">79,99 Fcfa</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 3 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1611652022419-a9419f74343d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Bracelet en or rose</h3>
+                            <div class="product-price">99,99 Fcfa</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 4 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Boucles d'oreilles</h3>
+                            <div class="product-price">59,99 Fcfa</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 5 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1599459182681-c938b7f65344?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Montre élégante</h3>
+                            <div class="product-price">199,99 Fcfa</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 6 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1588444837495-c6cfeb53f32d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Pendentif diamant</h3>
+                            <div class="product-price">249,99 Fcfa</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 7 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1611591437281-460bfbe1220a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Ensemble bijoux</h3>
+                            <div class="product-price">179,99 Fcfa</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Produit 8 -->
+                    <div class="product-card">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
+                        <div class="product-info">
+                            <h3 class="product-name">Bracelet en perles</h3>
+                            <div class="product-price">49,99 Fcfa</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#" class="pagination-item" id="prev-page"><i class="fas fa-chevron-left"></i></a>
+                    <div class="pagination-numbers"></div>
+                    <a href="#" class="pagination-item" id="next-page"><i class="fas fa-chevron-right"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>À propos</h3>
+                    <ul>
+                        <li><a href="#">Notre histoire</a></li>
+                        <li><a href="#">Nos valeurs</a></li>
+                        <li><a href="#">Nos engagements</a></li>
+                        <li><a href="#">Nos partenaires</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Informations</h3>
+                    <ul>
+                        <li><a href="#">Livraison</a></li>
+                        <li><a href="#">Retours</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Mentions légales</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Mon compte</h3>
+                    <ul>
+                        <li><a href="#">Se connecter</a></li>
+                        <li><a href="#">Mes commandes</a></li>
+                        <li><a href="#">Mes favoris</a></li>
+                        <li><a href="#">Mes informations</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column footer-newsletter">
+                    <h3>Newsletter</h3>
+                    <p>Inscrivez-vous pour recevoir nos offres exclusives</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+                        <button type="submit" class="newsletter-btn">OK</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'script/pagination.js' %}"></script>
+    <script src="{% static 'script/mobile_responsive.js' %}"></script>
+    <script src="{% static 'script/panier.js' %}"></script>
+</body>
+</html>

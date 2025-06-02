@@ -1,0 +1,418 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Contactez-nous pour toute question ou demande">
+    <title>SAHARA - Contact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=V8gIWPgoogI6ZqFJ1OFvx412BOjVZhdJoKv1f6lA62LM0Cli1Bbp_mNu6bHGRn9odF23D6QP96IhxUo2yPtjlEYakZQXqGMkMR7GgvB0OsrliWwONxUtvDoABN4Exax_71N0ag3a5Ld-VZWqp4T3WHOijHpOD1sbPxCNT9krPinX6wMMUiwCIQZTJkbrFQfOpJRbe3k8YfF-yLdaO-YdFcYcWN3GEcbflAzbLXnCpCvhSA-_5rBXdA_ioJUDTLiPlJ5iwJ3Zc0K6wfEsMQH6HCpbwEuGMumIbEmUxtwz-u1sGRM0S-p2f7AZWfJ5A7r7EiuTCDb5QK_aMiSFVYNNSEjDRcRR5Tw7SeC6Yr-lj6wOzBOw6GR8p9aqdvGhHTCHVXywk46PUjxwM5o4uq8Wjj504ychTYFCSoQYt8uIneAv07TeIOR2s3pEfMRzx8IEdRjSbLFgxzw3xCeG9wCR5MRI7YqGu0updATkKLoc67_PH4sTXPvbclOWOyhUeP7X_HjlsRo50jQNVr2UR7w6HMhom_MdfCNJPEbQADqABe_HKszte7KUo9iZzRIZryCTReN_CRE2ZrYTykqtBgFLRh3iBUK2O2j7pmap5n2ji8N80wPXmlCGmZ-3MetTplUq9xoAEo6gumYwPvW7jhY8KCRThtRgo2B2RuyMLygsn1M_juyuwVvNQiXUZYo8D2GH7PHove1Nwkw29qYk6j9NDT2MKA6Wd1D4YWV6mvLk0SPq_3nW4TbFluVY6GFLim7nXPsY5rfZubwGEq4J5Ejs7hNl7Y4LD_8HEKLHPoA8dp3syTkIYl1x3gufWcsLpHqky83ASZVQwYZskrzwGr42TPLLI2enqVDbKulwAvxkE205v9_bVUsnsP6jLZ1_1G6QuCoWKPkcGpkiF_iV7v8w36lxaQnqTpbb_WyVKXXIHyON_l6et1xaGrabBcdc3R-t51DDlw8XsnnwS6zycImXhM-Rw4LkM4lxuSGuDtRajWNVt6SrZ4amXc0lgAuKpZNdgOZt-_n3-AmBfD2Bd1oUFsY3Iw74s16i3ULEWZy0WFPgJATjHAIScQhsiv8DboIAsAwa_PX0dX5MV6qZyElRZ1a3rTGmfM-f7FmOunIsOZIFsgsTQNDmFp0-IeKsdSrosrY2eBAjQ27psSCXclf9IT4Kr6v6QeoeYAKaDF5uk4_YGJY36YHvscr1bGu2zrLEpi1jM7t_8QFD7HiCDXSA8Q" charset="UTF-8"></script>
+    <link rel="stylesheet" href="{% static 'style/principal/contact.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                
+                <div class="categories-dropdown">
+                    <div class="categories-dropdown-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                        <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                        <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                        <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                        <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+                    </div>
+                </div>
+                
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="{% url 'user_profile' %}" class="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="{% url 'panier' %}" class="cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav">
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+            </div>
+            <a href="{% url 'promotion' %}">Promotions</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'user_profile' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" placeholder="Rechercher un produit, une catégorie...">
+            <button class="search-btn-center">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <section class="page-title-section">
+            <div class="container">
+                <h1>Contactez-nous</h1>
+                <p>Nous sommes à votre écoute pour toute question, suggestion ou demande d'information</p>
+            </div>
+        </section>
+        
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-container">
+                    <div class="contact-info">
+                        <h2>Nos Coordonnées</h2>
+                        <p>N'hésitez pas à nous contacter par téléphone, email ou en nous rendant visite dans notre showroom. Notre équipe est disponible pour vous aider et répondre à toutes vos questions.</p>
+                        
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h3>Adresse</h3>
+                                    <p>123 Rue du Désert<br>75000 OUAGADOUGOU, BURKINA FASO</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h3>Téléphone</h3>
+                                    <p>+226 05 38 47 89</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h3>Email</h3>
+                                    <p>contact_sahara@gmail.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <h3>Horaires d'ouverture</h3>
+                                    <p>Lundi - Vendredi: 7h - 22h<br>Samedi: 7h - 20h<br>Dimanche: Fermé</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-social">
+                            <h3>Suivez-nous</h3>
+                            <div class="social-icons">
+                                <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-pinterest-p"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <h2>Envoyez-nous un message</h2>
+                        <form class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Nom</label>
+                                    <input type="text" id="name" name="name" placeholder="Votre nom" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" name="email" placeholder="Votre email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Sujet</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="" disabled selected>Sélectionnez un sujet</option>
+                                    <option value="information">Demande d'information</option>
+                                    <option value="commande">Question sur une commande</option>
+                                    <option value="retour">Retour produit</option>
+                                    <option value="partenariat">Proposition de partenariat</option>
+                                    <option value="autre">Autre</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" placeholder="Votre message" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Envoyer le message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        
+        <section class="faq-section">
+            <div class="container">
+                <h2 class="section-title">Questions Fréquentes</h2>
+                
+                <div class="faq-container">
+                    <div class="accordion">
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="accordion-title">Quels sont les délais de livraison ?</h3>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <p>Nos délais de livraison varient généralement entre 3 et 7 jours ouvrés pour la France métropolitaine. Pour les livraisons internationales, comptez entre 7 et 14 jours ouvrés. Vous recevrez un email de confirmation avec un numéro de suivi dès que votre commande sera expédiée.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="accordion-title">Comment puis-je retourner un produit ?</h3>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <p>Vous disposez de 14 jours à compter de la réception de votre commande pour nous retourner un produit. Pour initier un retour, connectez-vous à votre compte client et suivez les instructions dans la section "Mes commandes". Vous pouvez également nous contacter directement par email ou téléphone pour obtenir de l'aide.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="accordion-title">Quels sont les modes de paiement acceptés ?</h3>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <p>Nous acceptons plusieurs modes de paiement : carte bancaire (Visa, Mastercard, American Express), PayPal, virement bancaire et paiement en 3 ou 4 fois sans frais (pour les commandes supérieures à 100Fcfa). Tous les paiements sont sécurisés par un système de cryptage SSL.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="accordion-title">Proposez-vous des services de personnalisation ?</h3>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <p>Oui, nous proposons des services de personnalisation pour certains produits. Vous pouvez nous contacter directement pour discuter de vos besoins spécifiques. Notre équipe d'artisans peut adapter les dimensions, les finitions ou les matériaux selon vos préférences. Des frais supplémentaires peuvent s'appliquer en fonction de la complexité de la demande.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <div class="accordion-header">
+                                <h3 class="accordion-title">Comment puis-je suivre ma commande ?</h3>
+                                <i class="fas fa-chevron-down accordion-icon"></i>
+                            </div>
+                            <div class="accordion-content">
+                                <div class="accordion-body">
+                                    <p>Une fois votre commande expédiée, vous recevrez un email contenant un numéro de suivi et un lien vers le site du transporteur. Vous pouvez également suivre votre commande en vous connectant à votre compte client sur notre site, dans la section "Mes commandes". Si vous avez des questions concernant le statut de votre livraison, n'hésitez pas à nous contacter.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>SAHARA</h3>
+                <p>Votre destination pour une décoration d'intérieur inspirée du désert, alliant tradition et modernité pour créer des espaces chaleureux et accueillants.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'accueil' %}">Accueil</a></li>
+                    <li><a href="#">Catégories</a></li>
+                    <li><a href="{% url 'promotion' %}">Promotions</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Rue du Désert, OUAGADOUGOU , BURKINA FASO</p>
+                    <p><i class="fas fa-phone"></i> +226 05 38 47 89 </p>
+                    <p><i class="fas fa-envelope"></i> contact_sahara@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lun-Ven: 7h-22h, Sam: 7h-19hh</p>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p class="footer-newsletter">Inscrivez-vous pour recevoir nos dernières offres et nouveautés.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Votre adresse email">
+                    <button type="submit" class="newsletter-btn">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <div class="container">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu burger mobile
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            const mobileCategoriesToggle = document.getElementById('mobile-categories-toggle');
+            const mobileCategoriesSubmenu = document.getElementById('mobile-categories-submenu');
+            
+            // Ouvrir le menu mobile
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                mobileMenuToggle.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement de la page
+            });
+            
+            // Fermer le menu mobile
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                document.body.style.overflow = ''; // Réactiver le défilement de la page
+            });
+            
+            // Toggle sous-menu catégories en mobile
+            mobileCategoriesToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileCategoriesToggle.classList.toggle('active');
+                mobileCategoriesSubmenu.classList.toggle('active');
+            });
+            
+            // Toggle Categories Dropdown (desktop)
+            const categoriesDropdown = document.querySelector('.categories-dropdown');
+            const categoriesBtn = document.querySelector('.categories-dropdown-btn');
+            
+            categoriesBtn.addEventListener('click', function() {
+                categoriesDropdown.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!categoriesDropdown.contains(event.target)) {
+                    categoriesDropdown.classList.remove('active');
+                }
+            });
+            
+            // FAQ Accordion
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                
+                header.addEventListener('click', () => {
+                    // Close all other items
+                    accordionItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Toggle current item
+                    item.classList.toggle('active');
+                });
+            });
+            
+            // Form submission
+            const contactForm = document.querySelector('.contact-form');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate form submission
+                const submitBtn = this.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.textContent = 'Envoi en cours...';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    alert('Votre message a été envoyé avec succès ! Nous vous répondrons dans les plus brefs délais.');
+                    contactForm.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,327 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Inscription à votre compte">
+    <title>SAHARA - Inscription</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=-PCPMQmUuLdhEjX3j1oEY3bRxZt0BKMUtg3Y5eF4YfhZTNwNj0FhhejvBueq2SUlxYkLA65o75U7ojEyYmmlR8tHpntvrptjFyBaTv6vZit_otduFwOUdXnYUsbvKfXmF6o3YZjmrAxfUNYBOYdq7RaQ0aSP75_TxSqguWqWXbi785sl7CPxe8QbWrRPk0-l2eLV8Zbb5jvV6wEZTsZR4MVjvC9Paq4JzbKAZLc4IA-0Me0YyyVGu_rnB0nke_CPfCbTvt3Rwxjz6_S3-H-hjhGkjPuUXTvfWO7fIvyk8HvJo7yR-XE_4YYypzyQCNG9yZD2_zTAmrlRzJCNmAE84sI-MAMjST14EyJmYJC19lQMQVeEDWB5mXbUzeGmPrptgMAz3rdkwT173nH-kv5G8MgbFA1m2GP-AaotMTctHiS8yYn5JHG1qyk8SwUW8vGKQQoKLCa6bUllNeLm8uCYIKvwnA2PsIjRTnkZPqtzgoIYqD-DvCHMI8h_5_9djlpxXjzPx3_zKIlyxGcDbOyDUqGZB4rpYyByRQtLLYruFGBSQd8SdjtMZ2IeFVZSq2g1Op1O462AKUq48AmIccIHkKkuuOE94bc-7HKDBbAVWZ0NKuLeyJdcs54K-mR4bClifAZJ56nnULwtvtUKYhTUH_w_iLlk0dbcvgFvLi0hazUzgNlYoDMQEHkPwxIYOHU3Nnz5eBICFPI-WEn8wFoBEi-dbUOIm5QjVnxDl3EZXL9uzXrPHQJqxoK0CoPA3fg43wtLA90CIbRduORZRSmuEFZ8qvPSMXXx2lwZ_JhSwDhRuUA8PHvYHDvjWIeMYwyPMJakAR5-uah7Y3Z7vIvTLR0_WMmmxzCxn-cbBqX1-HSwJwmUjEGWhCxk8UbGsVzU_g7U3fWkvpQ6vi79Wh1yG5GBOFRv_hhNMhoSf5DS8EcRzwlhqKZKM_U6zJRAa_wWCsknTIeMqssk0gw98MBCKHjk8XThK049ChNesqB5zVmNQKun97vNN3IPdrRgP8twWsrKRjIaj3x_Ifbl0953kn8azdjCTYvl7AMQYMltU2z3wdVF0qVe-7vEUSXAC9dBLqJSxkjCG3XTmtUJbk1S1WqbyNFaPO67F-JJSrHApbU61au9IeRGjH1g08edHwz94gpumkXYTJdflwopXEUVHk_4kLuxwi5BK_mus1okgjAxqac92xokIbr-d1pBW1YU" charset="UTF-8"></script>
+    <link rel="stylesheet" href="{% static 'style/principal/inscription.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="register-section">
+            <div class="register-container">
+                <div class="register-header">
+                    <h1>Créer un compte</h1>
+                    <p>Rejoignez la communauté SAHARA</p>
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="client">Client</button>
+                    <button class="tab-btn" data-tab="business">Entreprise / Fournisseur</button>
+                </div>
+                
+                <!-- Formulaire Client -->
+                <div class="tab-content active" id="client-tab">
+                    <form class="register-form" id="client-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="client-firstname">Prénom</label>
+                                <input type="text" id="client-firstname" name="firstname" placeholder="Votre prénom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="client-lastname">Nom</label>
+                                <input type="text" id="client-lastname" name="lastname" placeholder="Votre nom" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="client-email">Email</label>
+                                <input type="email" id="client-email" name="email" placeholder="Votre adresse email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="client-phone">Téléphone</label>
+                                <input type="tel" id="client-phone" name="phone" placeholder="Votre numéro de téléphone">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="client-password">Mot de passe</label>
+                                <input type="password" id="client-password" name="password" placeholder="Créez un mot de passe" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="client-confirm-password">Confirmer le mot de passe</label>
+                                <input type="password" id="client-confirm-password" name="confirm-password" placeholder="Confirmez votre mot de passe" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Adresse de livraison</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="client-address">Adresse</label>
+                                    <input type="text" id="client-address" name="address" placeholder="Votre adresse">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="client-city">Ville</label>
+                                    <input type="text" id="client-city" name="city" placeholder="Votre ville">
+                                </div>
+                                <div class="form-group">
+                                    <label for="client-postal">Code postal</label>
+                                    <input type="text" id="client-postal" name="postal" placeholder="Votre code postal">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="client-country">Pays</label>
+                                    <select id="client-country" name="country">
+                                        <option value="">Sélectionnez un pays</option>
+                                        <option value="FR">France</option>
+                                        <option value="BE">Belgique</option>
+                                        <option value="CH">Suisse</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="Other">Autre</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="client-newsletter" name="newsletter">
+                            <label for="client-newsletter">Je souhaite recevoir les actualités et offres promotionnelles de SAHARA par email.</label>
+                        </div>
+                        
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="client-terms" name="terms" required>
+                            <label for="client-terms">J'ai lu et j'accepte les <a href="#">conditions générales d'utilisation</a> et la <a href="#">politique de confidentialité</a>.</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">CRÉER MON COMPTE</button>
+                    </form>
+                </div>
+                
+                <!-- Formulaire Entreprise / Fournisseur -->
+                <div class="tab-content" id="business-tab">
+                    <form class="register-form" id="business-form">
+                        <div class="form-section">
+                            <h3>Informations de l'entreprise</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-name">Nom de l'entreprise</label>
+                                    <input type="text" id="business-name" name="business-name" placeholder="Nom de votre entreprise" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="business-type">Type d'entreprise</label>
+                                    <select id="business-type" name="business-type" required>
+                                        <option value="">Sélectionnez un type</option>
+                                        <option value="retailer">Détaillant</option>
+                                        <option value="wholesaler">Grossiste</option>
+                                        <option value="manufacturer">Fabricant</option>
+                                        <option value="service">Prestataire de services</option>
+                                        <option value="other">Autre</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-siret">Numéro SIRET</label>
+                                    <input type="text" id="business-siret" name="siret" placeholder="Numéro SIRET de l'entreprise" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="business-vat">Numéro de TVA</label>
+                                    <input type="text" id="business-vat" name="vat" placeholder="Numéro de TVA intracommunautaire">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-website">Site web</label>
+                                    <input type="url" id="business-website" name="website" placeholder="Site web de l'entreprise">
+                                </div>
+                                <div class="form-group">
+                                    <label for="business-employees">Nombre d'employés</label>
+                                    <select id="business-employees" name="employees">
+                                        <option value="">Sélectionnez une option</option>
+                                        <option value="1-10">1-10</option>
+                                        <option value="11-50">11-50</option>
+                                        <option value="51-200">51-200</option>
+                                        <option value="201-500">201-500</option>
+                                        <option value="500+">Plus de 500</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-description">Description de l'entreprise</label>
+                                    <textarea id="business-description" name="description" placeholder="Décrivez votre entreprise, vos produits ou services..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Adresse de l'entreprise</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-address">Adresse</label>
+                                    <input type="text" id="business-address" name="address" placeholder="Adresse de l'entreprise" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-city">Ville</label>
+                                    <input type="text" id="business-city" name="city" placeholder="Ville" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="business-postal">Code postal</label>
+                                    <input type="text" id="business-postal" name="postal" placeholder="Code postal" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-country">Pays</label>
+                                    <select id="business-country" name="country" required>
+                                        <option value="">Sélectionnez un pays</option>
+                                        <option value="FR">France</option>
+                                        <option value="BE">Belgique</option>
+                                        <option value="CH">Suisse</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="Other">Autre</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Contact principal</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-contact-firstname">Prénom</label>
+                                    <input type="text" id="business-contact-firstname" name="contact-firstname" placeholder="Prénom du contact" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="business-contact-lastname">Nom</label>
+                                    <input type="text" id="business-contact-lastname" name="contact-lastname" placeholder="Nom du contact" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-position">Fonction</label>
+                                    <input type="text" id="business-position" name="position" placeholder="Fonction dans l'entreprise" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-email">Email professionnel</label>
+                                    <input type="email" id="business-email" name="email" placeholder="Email professionnel" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="business-phone">Téléphone professionnel</label>
+                                    <input type="tel" id="business-phone" name="phone" placeholder="Téléphone professionnel" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Informations de connexion</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-password">Mot de passe</label>
+                                    <input type="password" id="business-password" name="password" placeholder="Créez un mot de passe" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="business-confirm-password">Confirmer le mot de passe</label>
+                                    <input type="password" id="business-confirm-password" name="confirm-password" placeholder="Confirmez votre mot de passe" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h3>Documents</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-kbis">Extrait Kbis (PDF, moins de 3 mois)</label>
+                                    <input type="file" id="business-kbis" name="kbis" accept=".pdf">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="business-id">Pièce d'identité du représentant légal</label>
+                                    <input type="file" id="business-id" name="id" accept=".pdf,.jpg,.jpeg,.png">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="business-newsletter" name="newsletter">
+                            <label for="business-newsletter">Je souhaite recevoir les actualités et offres promotionnelles de SAHARA par email.</label>
+                        </div>
+                        
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="business-terms" name="terms" required>
+                            <label for="business-terms">J'ai lu et j'accepte les <a href="#">conditions générales d'utilisation</a>, les <a href="#">conditions générales de vente</a> et la <a href="#">politique de confidentialité</a>.</label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">CRÉER UN COMPTE ENTREPRISE</button>
+                    </form>
+                </div>
+                
+                <div class="register-footer">
+                    <p>Vous avez déjà un compte ? <a href="{% url 'login' %}">Connectez-vous</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Show corresponding content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

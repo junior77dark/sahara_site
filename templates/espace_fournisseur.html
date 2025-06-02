@@ -1,0 +1,419 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Gérez votre boutique et vos produits en tant que fournisseur">
+    <title>SAHARA - Boutique Fournisseur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=F8VZmj87l4F_r559reJNxp8l1oHxL44l4-YnrVu8DSZjG22I8-vJfxEWmt2kWGGGqPOjEqSEU50ab5PlABMDkj62y7zFatd53NJLnCpzYM9kVZsANfCdW_v4mzoBdSZts5qoxkFaykgR0S5ziL-acKh8G8_TvVpjpTDudlxyLCgrwZEWmXOAV96r9BX05QNHiGVZ3WLsUG8mr5Tmrs9AdgfvcxBgKCSZhzWG0Dq-33X5T5xHaeL3ayexvG12uSt6ekiaCJjgYm4rrwWENvMOsenapUrzD_vImfeSNhcyIrJCfbw68u6NWOauLVxT12vZiDWJnQKPkMpnYykYsrOHofMB9IMf4kWBgjL6yiJ7QHvQ4c-jwpSTLv3D1iIB3ibgIKJg69nR7_YVGH15nHtpmAVNNbberccqL-05FRHmO4f6y6Wu_mlckCO5Ov-xOM5e2lrWW7zGpS-is6fdgJ1s3vIo8IQKpKzTsns1tqipQ-RFBmK_50czEmMz_2Brk_j3cIWP9WzaVc8PbZP65eOzNXRoq84giTZM5JAZdAuOtZtN1Idy7lrIzbEkR4Km_PSNfsREKKcXUNauqeGbH8jvV-eyxGlvnK0yQ86fE5rXDpVOvnjonM_928LILniGK_0M-nsOounSVgTbSfdnVyjEtHuhYrhNhAearnHqWYrhCmZvg_E_rvhU4AD0VGryY85LEJeEz99-TMZlL7hiP3ESFloYCFKpZxzd-1WXweZAkOhMonQKf085t7GU-5A-Osq2fCAqzYMSgkKx4Zh617uBYFWH6-xqYzkR0Mt-NVQXT9LrFLF0nmPwMnUpNerK2LUOC3vf5cyuacoWAOlZhqbPfdNZ0Gsr1wJ34SYc3BIVtO36wRDBRwZD1xcxLRWr2GVOEXd2k8RoxTp58YX-DDfZrf4X3IuCadm2Ox24pLJ3jzCvZKwGImU5JTCDpmwA87ELgQMxMa1HLQhGSyt_jVYhN0xlIZnIVsPDGatu5p2v8J94BqDf09Exll4QxkBh9Eqcjt70vOS1iIlE8tMTm9qnN_FS_vl_RwHhX_Ywfut_NMteldP0Plf0pL7FRPg_rQcKeg0HPt-3Yzdijl3qVJnXiF1b15jhAdV4Aq7bXvDb-M5p_vY-b2ZCKi7lpUg8KY4l3U-MXi2X5FIInAKMOCjDS8f5SvhCi8kl98HpixYvyAllgGzZ9g6sPFRvqpvY_yIB" charset="UTF-8"></script>
+    <link rel="stylesheet" href="{% static 'style/principal/fournisseur.css' %}">
+    <body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                
+                <div class="categories-dropdown">
+                    <div class="categories-dropdown-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                        <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                        <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                        <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                        <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+                    </div>
+                </div>
+                
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="{% url 'user_profile' %}" class="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="{% url 'panier' %}" class="cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+            </div>
+            <a href="{% url 'promotion' %}">Promotions</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'user_profile' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" placeholder="Rechercher un produit, une catégorie...">
+            <button class="search-btn-center">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <section class="page-title-section">
+            <div class="container">
+                <h1>Boutique Fournisseur</h1>
+                <p>Gérez vos produits, suivez vos ventes et développez votre activité sur notre marketplace</p>
+            </div>
+        </section>
+        
+        <section class="vendor-shop-section">
+            <div class="container vendor-shop-container">
+                <!-- Sidebar du fournisseur -->
+                <div class="vendor-sidebar">
+                    <div class="vendor-avatar">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h2 class="vendor-name">Artisanat du Sahara</h2>
+                    <div class="vendor-type">Fournisseur</div>
+                    
+                    <div class="vendor-info">
+                        <div class="vendor-info-item">
+                            <div class="vendor-info-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="vendor-info-text">
+                                <div class="vendor-info-label">Propriétaire</div>
+                                <div class="vendor-info-value">Ahmed Touré</div>
+                            </div>
+                        </div>
+                        <div class="vendor-info-item">
+                            <div class="vendor-info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="vendor-info-text">
+                                <div class="vendor-info-label">Localisation</div>
+                                <div class="vendor-info-value">Ouagadougou, Burkina Faso</div>
+                            </div>
+                        </div>
+                        <div class="vendor-info-item">
+                            <div class="vendor-info-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <div class="vendor-info-text">
+                                <div class="vendor-info-label">Membre depuis</div>
+                                <div class="vendor-info-value">Janvier 2023</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                </div>
+                
+                <!-- Contenu principal -->
+                <div class="vendor-content">
+                    <div class="vendor-content-header">
+                        <h2 class="vendor-content-title">Tableau de bord</h2>
+                        <div class="vendor-content-actions">
+                            <a href="{% url 'add_product' %}" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Ajouter un produit
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Cartes de statistiques -->
+                    <div class="dashboard-cards">
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-icon" style="background-color: rgba(76, 175, 80, 0.2); color: var(--color-success);">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="dashboard-card-content">
+                                <div class="dashboard-card-value">42</div>
+                                <div class="dashboard-card-label">Commandes ce mois</div>
+                            </div>
+                        </div>
+                        <div class="dashboard-card">
+                            <div class="dashboard-card-icon" style="background-color: rgba(33, 150, 243, 0.2); color: #2196F3;">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="dashboard-card-content">
+                                <div class="dashboard-card-value">3 850 Fcfa</div>
+                                <div class="dashboard-card-label">Revenus</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-list">
+                        <table class="product-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Produit</th>
+                                    <th>Prix</th>
+                                    <th>Stock</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Théière en cuivre" class="product-image"></td>
+                                    <td>
+                                        <div class="product-name">Théière en cuivre ciselé</div>
+                                        <div class="product-category">Cuisine > Ustensiles</div>
+                                    </td>
+                                    <td class="product-price">79,99 Fcfa</td>
+                                    <td><span class="product-stock stock-medium">8</span></td>
+                                    <td><span class="product-status status-active">Actif</span></td>
+                                    <td>
+                                        <div class="product-actions">
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="https://images.unsplash.com/photo-1551907234-fb773fb08a2a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Lampe en bois" class="product-image"></td>
+                                    <td>
+                                        <div class="product-name">Lampe en bois sculpté</div>
+                                        <div class="product-category">Maison > Éclairage</div>
+                                    </td>
+                                    <td class="product-price">149,99 Fcfa</td>
+                                    <td><span class="product-stock stock-low">2</span></td>
+                                    <td><span class="product-status status-active">Actif</span></td>
+                                    <td>
+                                        <div class="product-actions">
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="https://images.unsplash.com/photo-1603006905393-c8bef9f7d488?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Coussin décoratif" class="product-image"></td>
+                                    <td>
+                                        <div class="product-name">Coussin décoratif motifs berbères</div>
+                                        <div class="product-category">Maison > Textile</div>
+                                    </td>
+                                    <td class="product-price">39,99 Fcfa</td>
+                                    <td><span class="product-stock stock-high">32</span></td>
+                                    <td><span class="product-status status-active">Actif</span></td>
+                                    <td>
+                                        <div class="product-actions">
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><img src="https://images.unsplash.com/photo-1600263621318-be9821a64e3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Vase en terre cuite" class="product-image"></td>
+                                    <td>
+                                        <div class="product-name">Vase en terre cuite peint à la main</div>
+                                        <div class="product-category">Maison > Décoration</div>
+                                    </td>
+                                    <td class="product-price">59,99 Fcfa</td>
+                                    <td><span class="product-stock stock-medium">15</span></td>
+                                    <td><span class="product-status status-pending">En attente</span></td>
+                                    <td>
+                                        <div class="product-actions">
+                                            <button class="action-btn"><i class="fas fa-eye"></i></button>
+                                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                            <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <div class="pagination">
+                        <a href="#" class="pagination-item"><i class="fas fa-chevron-left"></i></a>
+                        <a href="#" class="pagination-item active">1</a>
+                        <a href="#" class="pagination-item">2</a>
+                        <a href="#" class="pagination-item">3</a>
+                        <a href="#" class="pagination-item">...</a>
+                        <a href="#" class="pagination-item">10</a>
+                        <a href="#" class="pagination-item"><i class="fas fa-chevron-right"></i></a>
+                    </div> 
+                </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>SAHARA</h3>
+                <p>Votre destination pour une décoration d'intérieur inspirée du désert, alliant tradition et modernité pour créer des espaces chaleureux et accueillants.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'accueil' %}">Accueil</a></li>
+                    <li><a href="#">Catégories</a></li>
+                    <li><a href="{% url 'promotion' %}">Promotions</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Rue du Désert, OUAGADOUGOU, BURKINA FASO</p>
+                    <p><i class="fas fa-phone"></i> +226 05 38 47 89</p>
+                    <p><i class="fas fa-envelope"></i> contact_sahara@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lun-Ven: 7h-20h, Sam: 7h-20h</p>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p class="footer-newsletter">Inscrivez-vous pour recevoir nos dernières offres et nouveautés.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Votre adresse email">
+                    <button type="submit" class="newsletter-btn">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <div class="container">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu burger mobile
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            const mobileCategoriesToggle = document.getElementById('mobile-categories-toggle');
+            const mobileCategoriesSubmenu = document.getElementById('mobile-categories-submenu');
+            
+            // Ouvrir le menu mobile
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                mobileMenuToggle.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement de la page
+            });
+            
+            // Fermer le menu mobile
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                document.body.style.overflow = ''; // Réactiver le défilement de la page
+            });
+            
+            // Toggle sous-menu catégories en mobile
+            mobileCategoriesToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileCategoriesToggle.classList.toggle('active');
+                mobileCategoriesSubmenu.classList.toggle('active');
+            });
+            
+            // Toggle Categories Dropdown (desktop)
+            const categoriesDropdown = document.querySelector('.categories-dropdown');
+            const categoriesBtn = document.querySelector('.categories-dropdown-btn');
+            
+            categoriesBtn.addEventListener('click', function() {
+                categoriesDropdown.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!categoriesDropdown.contains(event.target)) {
+                    categoriesDropdown.classList.remove('active');
+                }
+            });
+            
+            // Navigation dans le menu du fournisseur
+            const vendorNavLinks = document.querySelectorAll('.vendor-nav-link');
+            
+            vendorNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Supprimer la classe active de tous les liens
+                    vendorNavLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Ajouter la classe active au lien cliqué
+                    this.classList.add('active');
+                });
+            });
+            
+            // Actions sur les produits
+            const actionButtons = document.querySelectorAll('.action-btn');
+            
+            actionButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Exemple d'action pour le bouton de suppression
+                    if (this.classList.contains('delete')) {
+                        if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
+                            // Code pour supprimer le produit
+                            console.log('Produit supprimé');
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

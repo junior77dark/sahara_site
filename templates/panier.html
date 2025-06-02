@@ -1,0 +1,533 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Votre panier d'achat">
+    <title>SAHARA - Panier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=v6fZElo7nlEYD7uUmvR4WyZ1zpK11rnss9D5Dl0UsFjJnpNu2RUEoJyXEbOKWOQtJbJjiZfzDzQKEugzT9ktuMJdzeIb9dZm8rQYhT3LPr7UhKyft1wRdzCDluLsn_VU64mqJM0O7MUCi9AKiSEM9WucT-ND61CO6Pi0d7UrELrO_Q93fWnpPjgLLE41ppfzKTn2HWDdYB79YcVocKjVehyT3R7DajoIdWww2vax6ND6AdGUpkLCYBPIkxnqHx8_0YaDs53itzVZZ1NOCwZXicXubgaaBY_ObpHPx12O4B4ogPKGQSvXndmRee7WtRxcdV3xW-6ljhGjgmTA4njCH_XD5PxNSKYAbRUosxPcZ69CrulSmr1OSatppFzRnyA6XEoBINiGPMlTJbO1T5dvyv82Ae8sCvB-md5hZcap297Fr1OfHZzh99o48CmJY2G4B8DGB1Uphy24C2pv2lAmFPowmL_Ue3FyOUbe9CFgn5BBxzTP3ejI4Bld4uFFLKv512JIByDJFhokTBVg-A-D4jD09aosCno9ifm_6HVVAsfIYxj1lu62sEBYyOWgQk0POH2aJo6JU-cJPWKB373ZHYCXokuX4-hnRrCj-fjSSGCAmI_K97NizWfmMGyqzH-Z8KdiTcx_btWjisfA5gIhm0sPwmwo2x8TuDvWRvVJRaYccrBxIqKCiasMeU1YFhEPnMUyAlpih9NOEKSkSrYC3Rk0gLIxSsPHwVjqYQ1gqCWlu1ECxfAPWYzI7_PZ1ndp-jdBAlFHlLdL7XT52aYmPuzpisU_fi2YD5yqr-kWb5SPvo13uMfIEbfGPL4lmJkCK-mgCTBVUgdB13CcWzFmc8ybaTSPGJyKxHMSxPHjENd0zI5RbyBKnn4d-ypg4QVI9NJfKCb8zkrxKrycWe9d4mih6Z3avJEH4CPWBx5g4fHHE1Gh4m_lk53NWEBaEZp7Vvt1zQehfjBnYhzvtQbOqu4dL-1WLaWpZmfLnYKk70CtLbBFYdTgVNXkLPp7FhJ1TP6EEQLtWpN-X9R2ziAZyRceUzMxyrpQB8hIIDbdKkPs4HPWjSSx7A2KUB161sZPmKNMbiR__kSlgE1z_Y7P9N5bz6bIzYopjLhfLJABVrV64yJxwg8PPsePL-ePWFXOPCNC142p8V_UGhI70OzWSG9UFEeZoix-EJKRpNlUQJlx20l3j07m_vVC3ef-nqtT4uf9DnBbNL6-p1MYenfb0Q" charset="UTF-8"></script>
+    <link rel="stylesheet" href="{% static 'style/principal/panier.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                
+                <div class="categories-dropdown">
+                    <div class="categories-dropdown-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                        <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                        <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                        <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                        <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+                    </div>
+                </div>
+                
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="{% url 'user_profile' %}" class="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="{% url 'panier' %}" class="cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter">3</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+            </div>
+            <a href="{% url 'promotion' %}">Promotions</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'user_profile' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" placeholder="Rechercher un produit, une catégorie...">
+            <button class="search-btn-center">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <section class="page-title-section">
+            <div class="container">
+                <h1>Votre Panier</h1>
+                <p>Consultez et modifiez les articles de votre panier avant de finaliser votre commande</p>
+            </div>
+        </section>
+        
+        <section class="cart-section">
+            <div class="container">
+                <div class="cart-container" id="cart-container">
+                    <div class="cart-items">
+                        <div class="cart-header">
+                            <h2 class="cart-title">Articles dans votre panier</h2>
+                            <span class="cart-count" id="cart-count">3 articles</span>
+                        </div>
+                        
+                        <!-- Les articles du panier seront générés dynamiquement ici -->
+                    </div>
+                    
+                    <div class="cart-summary">
+                        <h2 class="summary-title">Récapitulatif</h2>
+                        
+                        <div class="summary-row">
+                            <span>Sous-total</span>
+                            <span class="summary-value" id="subtotal">0,00 Fcfa</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Frais de livraison</span>
+                            <span class="summary-value" id="shipping">Gratuit</span>
+                        </div>
+                        
+                        <div class="summary-row">
+                            <span>Taxes (20%)</span>
+                            <span class="summary-value" id="taxes">0,00 Fcfa</span>
+                        </div>
+                        
+                        <div class="summary-row total">
+                            <span>Total</span>
+                            <span class="summary-value total" id="total">0,00 Fcfa</span>
+                        </div>
+                        
+                        <button class="checkout-btn" id="checkout-btn">
+                            Procéder au paiement
+                        </button>
+                        
+                        <a href="{% url 'accueil' %}" class="continue-shopping">
+                            <i class="fas fa-arrow-left"></i> Continuer mes achats
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Empty Cart State (Hidden by default) -->
+                <div class="cart-empty" style="display: none;" id="empty-cart">
+                    <i class="fas fa-shopping-cart cart-empty-icon"></i>
+                    <h2 class="cart-empty-title">Votre panier est vide</h2>
+                    <p class="cart-empty-text">Parcourez notre catalogue et ajoutez des produits à votre panier.</p>
+                    <a href="{% url 'accueil' %}" class="btn btn-primary">Découvrir nos produits</a>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>SAHARA</h3>
+                <p>Votre destination pour une décoration d'intérieur inspirée du désert, alliant tradition et modernité pour créer des espaces chaleureux et accueillants.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'accueil' %}">Accueil</a></li>
+                    <li><a href="#">Catégories</a></li>
+                    <li><a href="{% url 'promotion' %}">Promotions</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Rue du Désert, OUAGADOUGOU, BURKINA FASO </p>
+                    <p><i class="fas fa-phone"></i> +226 05 38 47 89 </p>
+                    <p><i class="fas fa-envelope"></i> contact_sahara@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lun-Ven: 9h-20h, Sam: 7h-20h</p>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p class="footer-newsletter">Inscrivez-vous pour recevoir nos dernières offres et nouveautés.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Votre email" required>
+                    <button type="submit" class="newsletter-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+        </div>
+    </footer>
+    
+    <!-- Modal de connexion -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal-container">
+            <button class="modal-close" id="modal-close" aria-label="Fermer">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="login-header">
+                <h2>Connexion</h2>
+                <p>Accédez à votre compte SAHARA</p>
+            </div>
+            
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary login-btn">SE CONNECTER</button>
+            </form>
+            
+            <div class="social-login">
+                <p>connectez-vous avec</p>
+                <div class="social-buttons">
+                    <a href="#" class="social-btn facebook" aria-label="Se connecter avec Facebook">
+                        <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                    </a>
+                    <a href="#" class="social-btn google" aria-label="Se connecter avec Google">
+                        <i class="fab fa-google" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="login-footer">
+                <p>Vous n'avez pas de compte ? <a href="{% url 'inscription' %}l">Inscrivez-vous</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu mobile
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.add('active');
+                    mobileMenuToggle.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                mobileMenuClose.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            // Sous-menu des catégories en mobile
+            const mobileCategoriesToggle = document.getElementById('mobile-categories-toggle');
+            const mobileCategoriesSubmenu = document.getElementById('mobile-categories-submenu');
+            
+            if (mobileCategoriesToggle) {
+                mobileCategoriesToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    mobileCategoriesToggle.classList.toggle('active');
+                    mobileCategoriesSubmenu.classList.toggle('active');
+                });
+            }
+            
+            // Menu déroulant des catégories
+            const categoriesDropdown = document.querySelector('.categories-dropdown');
+            const categoriesBtn = document.querySelector('.categories-dropdown-btn');
+            
+            if (categoriesBtn) {
+                categoriesBtn.addEventListener('click', function() {
+                    categoriesDropdown.classList.toggle('active');
+                });
+                
+                // Fermer le menu déroulant en cliquant en dehors
+                document.addEventListener('click', function(e) {
+                    if (!categoriesDropdown.contains(e.target)) {
+                        categoriesDropdown.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Récupérer les produits du panier depuis le localStorage
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const cartContainer = document.getElementById('cart-container');
+            const emptyCart = document.getElementById('empty-cart');
+            const cartCountElement = document.getElementById('cart-count');
+            const cartCounter = document.querySelector('.cart-counter');
+            
+            // Afficher les produits du panier
+            function displayCartItems() {
+                // Vider le conteneur des articles du panier sauf l'en-tête
+                const cartHeader = cartItemsContainer.querySelector('.cart-header');
+                cartItemsContainer.innerHTML = '';
+                cartItemsContainer.appendChild(cartHeader);
+                
+                if (cartItems.length === 0) {
+                    // Afficher le message de panier vide
+                    cartContainer.style.display = 'none';
+                    emptyCart.style.display = 'block';
+                    cartCounter.textContent = '0';
+                    cartCountElement.textContent = '0 article';
+                    return;
+                }
+                
+                // Mettre à jour le compteur du panier
+                cartCounter.textContent = cartItems.length;
+                cartCountElement.textContent = cartItems.length + (cartItems.length > 1 ? ' articles' : ' article');
+                
+                // Afficher chaque article du panier
+                cartItems.forEach((item, index) => {
+                    // Extraire le prix numérique
+                    const priceText = item.price;
+                    const priceValue = parseFloat(priceText.replace(/[^\d,]/g, '').replace(',', '.'));
+                    
+                    const cartItemHTML = `
+                        <div class="cart-item" data-id="${item.id}" data-price="${priceValue}">
+                            <div class="cart-item-image">
+                                <img src="${item.image}" alt="${item.name}">
+                            </div>
+                            <div class="cart-item-details">
+                                <div>
+                                    <h3 class="cart-item-name">${item.name}</h3>
+                                    <p class="cart-item-category">Produit</p>
+                                    <p class="cart-item-price">${item.price}</p>
+                                </div>
+                                <div class="cart-item-actions">
+                                    <div class="quantity-control">
+                                        <button class="quantity-btn decrease" ${item.quantity <= 1 ? 'disabled' : ''}>-</button>
+                                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" max="10" readonly>
+                                        <button class="quantity-btn increase" ${item.quantity >= 10 ? 'disabled' : ''}>+</button>
+                                    </div>
+                                    <button class="remove-btn" data-index="${index}">
+                                        <i class="fas fa-trash"></i> Supprimer
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="cart-item-subtotal">${(priceValue * item.quantity).toFixed(2)} Fcfa</div>
+                        </div>
+                    `;
+                    
+                    cartItemsContainer.insertAdjacentHTML('beforeend', cartItemHTML);
+                });
+                
+                // Ajouter les écouteurs d'événements pour les boutons de quantité et de suppression
+                setupCartItemEvents();
+                
+                // Mettre à jour le total du panier
+                updateCartTotal();
+            }
+            
+            // Configurer les écouteurs d'événements pour les articles du panier
+            function setupCartItemEvents() {
+                const quantityBtns = document.querySelectorAll('.quantity-btn');
+                const removeBtns = document.querySelectorAll('.remove-btn');
+                
+                // Mise à jour des quantités
+                quantityBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const container = this.closest('.quantity-control');
+                        const input = container.querySelector('.quantity-input');
+                        const cartItem = this.closest('.cart-item');
+                        const itemId = cartItem.dataset.id;
+                        const price = parseFloat(cartItem.dataset.price);
+                        const subtotalElement = cartItem.querySelector('.cart-item-subtotal');
+                        let value = parseInt(input.value);
+                        
+                        // Trouver l'index de l'article dans le tableau cartItems
+                        const itemIndex = cartItems.findIndex(item => item.id.toString() === itemId);
+                        
+                        if (this.classList.contains('increase')) {
+                            if (value < 10) {
+                                value++;
+                                container.querySelector('.decrease').disabled = false;
+                            }
+                            if (value === 10) {
+                                this.disabled = true;
+                            }
+                        } else {
+                            if (value > 1) {
+                                value--;
+                                container.querySelector('.increase').disabled = false;
+                            }
+                            if (value === 1) {
+                                this.disabled = true;
+                            }
+                        }
+                        
+                        input.value = value;
+                        subtotalElement.textContent = (price * value).toFixed(2) + ' Fcfa';
+                        
+                        // Mettre à jour la quantité dans le tableau cartItems
+                        if (itemIndex !== -1) {
+                            cartItems[itemIndex].quantity = value;
+                            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                        }
+                        
+                        updateCartTotal();
+                    });
+                });
+                
+                // Suppression d'articles
+                removeBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.dataset.index);
+                        
+                        // Supprimer l'article du tableau cartItems
+                        cartItems.splice(index, 1);
+                        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                        
+                        // Rafraîchir l'affichage du panier
+                        displayCartItems();
+                    });
+                });
+            }
+            
+            // Mise à jour du total
+            function updateCartTotal() {
+                let subtotal = 0;
+                
+                cartItems.forEach(item => {
+                    const priceText = item.price;
+                    const price = parseFloat(priceText.replace(/[^\d,]/g, '').replace(',', '.'));
+                    subtotal += price * item.quantity;
+                });
+                
+                const taxes = subtotal * 0.2;
+                const total = subtotal + taxes;
+                
+                document.getElementById('subtotal').textContent = subtotal.toFixed(2) + ' Fcfa';
+                document.getElementById('taxes').textContent = taxes.toFixed(2) + ' Fcfa';
+                document.getElementById('total').textContent = total.toFixed(2) + ' Fcfa';
+            }
+            
+            // Afficher les articles du panier au chargement de la page
+            displayCartItems();
+            
+            // Modal de connexion
+            const checkoutBtn = document.getElementById('checkout-btn');
+            const loginModal = document.getElementById('login-modal');
+            const modalClose = document.getElementById('modal-close');
+            
+            checkoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêche le défilement de la page
+            });
+            
+            modalClose.addEventListener('click', function() {
+                loginModal.classList.remove('active');
+                document.body.style.overflow = ''; // Réactive le défilement de la page
+            });
+            
+            // Fermer la modal en cliquant en dehors
+            loginModal.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Ajouter au panier depuis les produits recommandés
+            const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
+            
+            addToCartBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const productTitle = productCard.querySelector('.product-title').textContent;
+                    const productCategory = productCard.querySelector('.product-category').textContent;
+                    const productPrice = productCard.querySelector('.product-price').textContent;
+                    const productImage = productCard.querySelector('.product-image img').src;
+                    
+                    // Créer un objet produit
+                    const product = {
+                        id: Date.now(), // Identifiant unique basé sur le timestamp
+                        name: productTitle,
+                        price: productPrice,
+                        image: productImage,
+                        quantity: 1
+                    };
+                    
+                    // Ajouter le produit au tableau des articles du panier
+                    cartItems.push(product);
+                    
+                    // Sauvegarder le panier mis à jour dans le localStorage
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    
+                    // Animation du compteur de panier
+                    cartCounter.classList.add('bounce');
+                    setTimeout(() => {
+                        cartCounter.classList.remove('bounce');
+                    }, 500);
+                    
+                    // Rafraîchir l'affichage du panier
+                    displayCartItems();
+                    
+                    // Afficher un message de confirmation
+                    alert(`${productTitle} a été ajouté à votre panier !`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

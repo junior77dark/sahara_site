@@ -1,0 +1,673 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Ajoutez facilement vos produits à notre marketplace">
+    <title>SAHARA - Nouvel Ajout de Produit</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=45TrMetDZloyMIlj1Yv5DIZJbUsbwlEDX0bHX987dfdzJnVdor3k8ZHK3k5Q3IsonyjGyFXLGOWpD5882FAuSrkodJvqySSZnbVYakg7nvlEaEvT0tXUjwIutuYQKXn1oV4IntKiVCyio5CCbzpaPs9JcOKYDjCCeZEEyWisO0NWt4favTsB-_4Up5L6JjuDs9f9cfVwVlPSzuy_HlnbcKyEXX2UOHnEBCZ6Tve-terQMGGnojw9WheI7vGQziN25Rs0sfrJlvHeIov_GyomUXeQj2T_pAGEvKBGGSCJ-xy5RzQ_5_I5qhvLiJ-5t28OVja-lLdcfVjUSNHUcAFQ9rmdBgTmI7ZIySpUfyEdJH9d09RmFYEDIoAJBouTX-Gc9KSCgnIYJLHUTshNYdaekX_zGstjeHk8k5zCPJU6ZaE1AClLcAcwNmL4QFh7ZGMvaaFa4BiTs2xPSlXMzx7Q-H5qzxQXtOn32Pi7yzlwXMiq3exJnYQOnCqnGUPCaLqrOvVOzGJ7XkF9S6Q1ni328nrUI0f-UKYvXcFDFiR--VJG4KTtRC5hbBWsHUVMft2A8s5BG91Fc303CqKMga6a1jK-gQPsekBxKP8mkvs2F9ZGBHMIT5-_edLB0W5AkxFzkNKRBhmvGjd7-_-bkRRppAouW4OBifLv9QYqVKQrgl9ZbG13yezqAJN8Sky4uNeX0TI3kFmip7D28vnyRR3GvlXv3f97SPt-nAZw_L8thWw5kkGXZZXbpYZwy_nf8w1FffAJscG7mr64uWn6L7EJ_Qgr6w3IzSJNQwbSGTuLy3HZ_YW9hak1utwu5OM98OoHZA1bCVJEdSYWZsynTooAAVNJNeTl3pIDPfeVSLEX4cXqRXBYjZRzkOkPlYTYvb5J6NoMFNKp7cUQMpLjWR2vh9KCaBIA8pKYq2PYuOGLZNhAgBvjmyqIFpVkY73yqAbwG-tm5Ovx9VWPGa8IB8z9zsmpE2Igzb77rDEfNDSMFoW57YWaaeY5qZUkfmhtoQ4PlfPoZ9KlbJ7MZIS_CW9v5ui_No-bt43Kn4A0Yj87rYmOTJFocyCBXNjv1YOm3NXhJB7QRXrdP76hS46nf_HgTpnHJa2n5UKysqL9Q1BCiJtnAP0UHen17p_cwK8aKtVIe9MevSrKyLSq8NK_PZk7BudnMzBnGsoKZZmRnYl7r_5sCgC7gfqhckIK7OSsD1P3rRgUUtr2nkc4Zy58KF1O6w" charset="UTF-8"></script>
+    <link rel="stylesheet" href="{% static 'style/principal/product.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                
+                <div class="categories-dropdown">
+                    <div class="categories-dropdown-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                        <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                        <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                        <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                        <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+                    </div>
+                </div>
+
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="{% url 'user_profile' %}" class="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="{% url 'panier' %}" class="cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+            </div>
+            <a href="{% url 'promotion' %}">Promotions</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'user_profile' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" placeholder="Rechercher un produit, une catégorie...">
+            <button class="search-btn-center">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <section class="page-title-section">
+            <div class="container">
+                <h1>Ajouter un Nouveau Produit</h1>
+                <p>Créez et publiez facilement vos produits sur notre marketplace en quelques étapes simples</p>
+            </div>
+        </section>
+        
+        <section class="new-product-section">
+            <div class="container">
+                <div class="steps-container">
+                    <div class="step active" id="step-1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Informations</div>
+                    </div>
+                    <div class="step" id="step-2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Image</div>
+                    </div>
+                    <div class="step" id="step-3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Prix & Stock</div>
+                    </div>
+                    <div class="step" id="step-4">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Finalisation</div>
+                    </div>
+                </div>
+                
+                <div class="form-container">
+                    <form id="product-form">
+                        <!-- Étape 1: Informations générales -->
+                        <div class="form-step active" id="form-step-1">
+                            <h2 class="form-title">Informations du Produit</h2>
+                            <p class="form-subtitle">Commençons par les informations essentielles de votre produit</p>
+                            
+                            <div class="form-grid">
+                                <div class="form-group form-grid-full">
+                                    <label for="product-name" class="form-label">Nom du produit *</label>
+                                    <input type="text" id="product-name" class="form-input" placeholder="Ex: Lampe de bureau design en bois" required>
+                                    <span class="form-help">Choisissez un nom clair et descriptif (5-70 caractères)</span>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="product-category" class="form-label">Catégorie *</label>
+                                    <select id="product-category" class="form-select" required>
+                                        <option value="">Sélectionnez une catégorie</option>
+                                        <option value="electronics">Électronique</option>
+                                        <option value="clothing">Vêtements</option>
+                                        <option value="home">Maison</option>
+                                        <option value="jewelry">Bijoux</option>
+                                        <option value="books">Livres</option>
+                                        <option value="games">Jeux</option>
+                                        <option value="kitchen">Cuisine</option>
+                                        <option value="sports">Sport</option>
+                                    </select>
+                                </div>
+                                
+                                
+                                <div class="form-group form-grid-full">
+                                    <label for="product-description" class="form-label">Description *</label>
+                                    <textarea id="product-description" class="form-textarea" placeholder="Décrivez votre produit en détail..." required></textarea>
+                                    <span class="form-help">Une description détaillée augmente les chances de vente (min. 100 caractères)</span>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-primary" id="next-1">Continuer vers Images</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Étape 2: Image -->
+                        <div class="form-step" id="form-step-2">
+                            <h2 class="form-title">Image du Produit</h2>
+                            <p class="form-subtitle">Ajoutez une photo de qualité pour mettre en valeur votre produit</p>
+                            
+                            <div class="dropzone" id="image-dropzone">
+                                <input type="file" id="image-upload" class="dropzone-input" accept="image/*">
+                                <div class="dropzone-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <h3 class="dropzone-title">Déposez votre image ici</h3>
+                                <p class="dropzone-text">ou</p>
+                                <label for="image-upload" class="dropzone-button">Parcourir les fichiers</label>
+                            </div>
+                            
+                            <div class="image-preview" id="image-preview">
+                                <!-- L'image téléchargée apparaîtra ici -->
+                            </div>
+                            
+                            <div class="form-help" style="text-align: center; margin-top: var(--spacing-md);">
+                                Ajoutez une image de haute qualité pour représenter votre produit.
+                                <br>Formats acceptés: JPG, PNG (max 5MB)
+                            </div>
+                            
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-outline" id="prev-2">Retour</button>
+                                <button type="button" class="btn btn-primary" id="next-2">Continuer vers Prix & Stock</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Étape 3: Prix et Stock -->
+                        <div class="form-step" id="form-step-3">
+                            <h2 class="form-title">Prix et Stock</h2>
+                            <p class="form-subtitle">Définissez le prix et la disponibilité de votre produit</p>
+                            
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="product-price" class="form-label">Prix de vente (Fcfa) *</label>
+                                    <div class="price-input-group">
+                                        <input type="number" id="product-price" class="form-input" placeholder="0.00" min="0" step="0.01" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="product-compare-price" class="form-label">Prix barré (Fcfa)-optionnel</label>
+                                    <div class="price-input-group">
+                                        <input type="number" id="product-compare-price" class="form-input" placeholder="0.00" min="0" step="0.01">
+                                    </div>
+                                    <span class="form-help">Utilisez ce champ pour afficher un prix promotionnel</span>
+                                </div>
+                                
+                                
+                                <div class="form-group">
+                                    <label for="product-stock" class="form-label">Quantité en stock *</label>
+                                    <div class="quantity-control">
+                                        <button type="button" class="quantity-btn" id="decrease-stock">-</button>
+                                        <input type="number" id="product-stock" class="quantity-input" value="1" min="0" required>
+                                        <button type="button" class="quantity-btn" id="increase-stock">+</button>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label">Gestion du stock</label>
+                                    <div style="margin-top: var(--spacing-sm);">
+                                        <label style="display: flex; align-items: center; gap: var(--spacing-sm); margin-bottom: var(--spacing-sm);">
+                                            <input type="checkbox" id="track-inventory">
+                                            <span>Suivre l'inventaire</span>
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: var(--spacing-sm);">
+                                            <input type="checkbox" id="continue-selling">
+                                            <span>Continuer à vendre quand le stock est épuisé</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-outline" id="prev-3">Retour</button>
+                                <button type="button" class="btn btn-primary" id="next-3">Continuer vers Finalisation</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Étape 4: Finalisation -->
+                        <div class="form-step" id="form-step-4">
+                            <h2 class="form-title">Finalisation</h2>
+                            <p class="form-subtitle">Vérifiez les informations de votre produit avant de le publier</p>
+                            
+                            <div class="product-summary" id="product-summary">
+                                <h3 class="summary-title">Résumé du produit</h3>
+                                
+                                <div class="summary-item">
+                                    <div class="summary-label">Nom</div>
+                                    <div class="summary-value" id="summary-name">-</div>
+                                </div>
+                                
+                                <div class="summary-item">
+                                    <div class="summary-label">Catégorie</div>
+                                    <div class="summary-value" id="summary-category">-</div>
+                                </div>
+                                
+                                <div class="summary-item">
+                                    <div class="summary-label">Prix</div>
+                                    <div class="summary-value" id="summary-price">-</div>
+                                </div>
+                                
+                                <div class="summary-item">
+                                    <div class="summary-label">Stock</div>
+                                    <div class="summary-value" id="summary-stock">-</div>
+                                </div>
+                                
+                                <div class="summary-item">
+                                    <div class="summary-label">Images</div>
+                                    <div class="summary-value" id="summary-images">Aucune image</div>
+                                </div>
+                                
+                                <div class="summary-item">
+                                    <div class="summary-label">Description</div>
+                                    <div class="summary-value" id="summary-description">-</div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin-top: var(--spacing-xl);">
+                                <label style="display: flex; align-items: flex-start; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+                                    <input type="checkbox" id="terms-checkbox" style="margin-top: 5px;" required>
+                                    <span>J'accepte les <a href="#" style="color: var(--color-accent);">conditions générales de vente</a> et je certifie que ce produit respecte les règles de la marketplace SAHARA.</span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-buttons">
+                                <button type="button" class="btn btn-outline" id="prev-4">Retour</button>
+                                <button type="submit" class="btn btn-primary" id="publish-product">Publier le produit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>SAHARA</h3>
+                <p>Votre destination pour une décoration d'intérieur inspirée du désert, alliant tradition et modernité pour créer des espaces chaleureux et accueillants.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'accueil' %}">Accueil</a></li>
+                    <li><a href="#">Catégories</a></li>
+                    <li><a href="{% url 'promotion' %}">Promotions</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Rue du Désert, OUAGADOUGOU, BURKINA FASO</p>
+                    <p><i class="fas fa-phone"></i> +226 05 38 47 89</p>
+                    <p><i class="fas fa-envelope"></i> contact_sahara@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lun-Ven: 7h-20h, Sam: 7h-20h</p>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p class="footer-newsletter">Inscrivez-vous pour recevoir nos dernières offres et nouveautés.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Votre adresse email">
+                    <button type="submit" class="newsletter-btn">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <div class="container">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu burger mobile
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            const mobileCategoriesToggle = document.getElementById('mobile-categories-toggle');
+            const mobileCategoriesSubmenu = document.getElementById('mobile-categories-submenu');
+            
+            // Ouvrir le menu mobile
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                mobileMenuToggle.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement de la page
+            });
+            
+            // Fermer le menu mobile
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                document.body.style.overflow = ''; // Réactiver le défilement de la page
+            });
+            
+            // Toggle sous-menu catégories en mobile
+            mobileCategoriesToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileCategoriesToggle.classList.toggle('active');
+                mobileCategoriesSubmenu.classList.toggle('active');
+            });
+            
+            // Toggle Categories Dropdown (desktop)
+            const categoriesDropdown = document.querySelector('.categories-dropdown');
+            const categoriesBtn = document.querySelector('.categories-dropdown-btn');
+            
+            categoriesBtn.addEventListener('click', function() {
+                categoriesDropdown.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!categoriesDropdown.contains(event.target)) {
+                    categoriesDropdown.classList.remove('active');
+                }
+            });
+            
+            // Navigation entre les étapes du formulaire
+            const steps = document.querySelectorAll('.step');
+            const formSteps = document.querySelectorAll('.form-step');
+            
+            // Boutons suivant
+            document.getElementById('next-1').addEventListener('click', function() {
+                goToStep(2);
+            });
+            
+            document.getElementById('next-2').addEventListener('click', function() {
+                goToStep(3);
+            });
+            
+            document.getElementById('next-3').addEventListener('click', function() {
+                updateSummary();
+                goToStep(4);
+            });
+            
+            // Boutons précédent
+            document.getElementById('prev-2').addEventListener('click', function() {
+                goToStep(1);
+            });
+            
+            document.getElementById('prev-3').addEventListener('click', function() {
+                goToStep(2);
+            });
+            
+            document.getElementById('prev-4').addEventListener('click', function() {
+                goToStep(3);
+            });
+            
+            function goToStep(stepNumber) {
+                // Masquer toutes les étapes
+                formSteps.forEach(step => step.classList.remove('active'));
+                steps.forEach(step => step.classList.remove('active', 'completed'));
+                
+                // Afficher l'étape demandée
+                document.getElementById(`form-step-${stepNumber}`).classList.add('active');
+                
+                // Mettre à jour les indicateurs d'étape
+                for (let i = 1; i <= steps.length; i++) {
+                    const step = document.getElementById(`step-${i}`);
+                    if (i < stepNumber) {
+                        step.classList.add('completed');
+                    } else if (i === stepNumber) {
+                        step.classList.add('active');
+                    }
+                }
+                
+                // Scroll vers le haut du formulaire
+                document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Gestion des sous-catégories
+            const productCategory = document.getElementById('product-category');
+            const productSubcategory = document.getElementById('product-subcategory');
+            
+            // Définir les sous-catégories pour chaque catégorie
+            const subcategories = {
+                'electronics': ['Smartphones', 'Ordinateurs', 'Audio', 'TV & Vidéo', 'Accessoires'],
+                'clothing': ['Hommes', 'Femmes', 'Enfants', 'Chaussures', 'Accessoires'],
+                'home': ['Meubles', 'Décoration', 'Linge de maison', 'Éclairage', 'Tapis'],
+                'jewelry': ['Bagues', 'Colliers', 'Bracelets', 'Boucles d\'oreilles', 'Montres'],
+                'books': ['Romans', 'Biographies', 'Jeunesse', 'Cuisine', 'Business'],
+                'games': ['Jeux vidéo', 'Jeux de société', 'Puzzles', 'Jouets', 'Jeux de cartes'],
+                'kitchen': ['Ustensiles', 'Électroménager', 'Vaisselle', 'Accessoires', 'Rangement'],
+                'sports': ['Fitness', 'Vêtements de sport', 'Chaussures de sport', 'Équipement', 'Accessoires']
+            };
+            
+            productCategory.addEventListener('change', function() {
+                const category = this.value;
+                
+                // Vider les options actuelles
+                productSubcategory.innerHTML = '<option value="">Sélectionnez une sous-catégorie</option>';
+                
+                // Ajouter les nouvelles options
+                if (category && subcategories[category]) {
+                    subcategories[category].forEach(subcategory => {
+                        const option = document.createElement('option');
+                        option.value = subcategory.toLowerCase().replace(' ', '-');
+                        option.textContent = subcategory;
+                        productSubcategory.appendChild(option);
+                    });
+                }
+            });
+            
+            // Gestion du téléchargement d'image
+            const imageUpload = document.getElementById('image-upload');
+            const imagePreview = document.getElementById('image-preview');
+            const imageDropzone = document.getElementById('image-dropzone');
+            
+            imageUpload.addEventListener('change', handleImageUpload);
+            
+            function handleImageUpload(e) {
+                const file = e.target.files[0];
+                
+                if (file) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        // Vider la prévisualisation existante
+                        imagePreview.innerHTML = '';
+                        
+                        const imageItem = document.createElement('div');
+                        imageItem.className = 'image-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = 'Image du produit';
+                        
+                        const removeBtn = document.createElement('div');
+                        removeBtn.className = 'image-item-remove';
+                        removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        removeBtn.addEventListener('click', function() {
+                            imageItem.remove();
+                            imageUpload.value = '';
+                        });
+                        
+                        imageItem.appendChild(img);
+                        imageItem.appendChild(removeBtn);
+                        imagePreview.appendChild(imageItem);
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            }
+            
+            // Drag and drop pour les images
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                imageDropzone.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                imageDropzone.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                imageDropzone.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                imageDropzone.classList.add('highlight');
+            }
+            
+            function unhighlight() {
+                imageDropzone.classList.remove('highlight');
+            }
+            
+            imageDropzone.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                imageUpload.files = files;
+                handleImageUpload({target: {files: files}});
+            }
+            
+            // Gestion des contrôles de quantité
+            const decreaseStock = document.getElementById('decrease-stock');
+            const increaseStock = document.getElementById('increase-stock');
+            const productStock = document.getElementById('product-stock');
+            
+            decreaseStock.addEventListener('click', function() {
+                let value = parseInt(productStock.value);
+                if (value > 0) {
+                    productStock.value = value - 1;
+                }
+            });
+            
+            increaseStock.addEventListener('click', function() {
+                let value = parseInt(productStock.value);
+                productStock.value = value + 1;
+            });
+            
+            // Gestion des options et variantes
+            const addOptionBtn = document.getElementById('add-option-btn');
+            const optionsContainer = document.getElementById('options-container');
+            
+            addOptionBtn.addEventListener('click', function() {
+                const optionItem = document.createElement('div');
+                optionItem.className = 'option-item';
+                
+                optionItem.innerHTML = `
+                    <input type="text" class="form-input option-input" placeholder="Nom de l'option (ex: Couleur, Taille)">
+                    <i class="fas fa-times option-remove"></i>
+                `;
+                
+                optionsContainer.appendChild(optionItem);
+                
+                // Ajouter l'événement de suppression
+                optionItem.querySelector('.option-remove').addEventListener('click', function() {
+                    optionItem.remove();
+                });
+            });
+            
+            // Mise à jour du résumé
+            function updateSummary() {
+                document.getElementById('summary-name').textContent = document.getElementById('product-name').value || '-';
+                
+                const categorySelect = document.getElementById('product-category');
+                document.getElementById('summary-category').textContent = categorySelect.options[categorySelect.selectedIndex].text || '-';
+                
+                const price = document.getElementById('product-price').value;
+                document.getElementById('summary-price').textContent = price ? `${price} Fcfa` : '-';
+                
+                document.getElementById('summary-stock').textContent = document.getElementById('product-stock').value || '-';
+                
+                const imageCount = document.getElementById('image-preview').children.length;
+                document.getElementById('summary-images').textContent = imageCount > 0 ? `${imageCount} image(s)` : 'Aucune image';
+                
+                document.getElementById('summary-description').textContent = document.getElementById('product-description').value || '-';
+            }
+            
+            // Soumission du formulaire
+            document.getElementById('product-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Vérifier que les champs obligatoires sont remplis
+                const requiredFields = [
+                    'product-name',
+                    'product-category',
+                    'product-description',
+                    'product-price',
+                    'product-stock'
+                ];
+                
+                let isValid = true;
+                
+                requiredFields.forEach(field => {
+                    const element = document.getElementById(field);
+                    if (!element.value) {
+                        isValid = false;
+                        element.classList.add('error');
+                    } else {
+                        element.classList.remove('error');
+                    }
+                });
+                
+                // Vérifier que les conditions sont acceptées
+                if (!document.getElementById('terms-checkbox').checked) {
+                    isValid = false;
+                    alert('Vous devez accepter les conditions générales de vente.');
+                }
+                
+                if (isValid) {
+                    // Simuler l'envoi du formulaire
+                    alert('Votre produit a été publié avec succès !');
+                    
+                    // Redirection vers la page de profil (section produits)
+                    // window.location.href = 'user-profile.html';
+                }
+            });
+            
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,374 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Découvrez notre thème Désert avec une large sélection de produits de qualité">
+    <title>SAHARA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=BV5v5RqlUuHHKVirbZcDmmlcU6Mn48l79aasqA2keynEpVWnsxbDhXKZiHqcWmMAxe7B50OsnrBDTdx3gUpDJTHQZq0JoahttLFtyAb7Wvz2_aXaR2vRYfs9qFBIFD-Ebvpjp6SVgyhe0q7FPItzlN4W2GfbGM3GchdR_-88l7IQJHRPm3b4cCgN0ipsZSf8K61r-HvCxpToAPW5NQsQRrdapvUKiJ64de8ZKyrO1blYASebwQienjDKOem0gFnZsjxxJoo9kOjb8tcNJsfQe9NxRVJAOQ2_HgekCsY-AETbxEYywHgY957d88FJIHnnQlIkC3bUqf8Fe4DwhvKMP_MZW5skuymWP-di4VKx34TZIXjaHZ-LdtgbDt-G-JTJnaLchqo37k9wtewQa0YKifLJm-nDvFQu-xujvsWt5fj8SQc4kZPecidEjFnDnq885Y6DFJ83aUyzKTkXtcaDMXEUbm0gY7VwpTd7-1TG6wrRMLaBcIZ9xH-85shWaMf7DOVmvHzAbz2YZUmEUglaFBFr45qRULLZH-A2RalnPA4quLpngxKy2G_lHfXYPj6wKZpKUZxyuyIQ7X8iz_PfGAV2A8gC3PSTKUvhCUTLxLRiii5Jy8BU2TrAgceIjAWt_DQnprdPJJLGeOHoKiO24TnXndWdzVq-rm59UPXNSv8Nd0GEjLluGVqOMQszZYRQyQnUpX5iGxOaC-cFXZ5pMxZCKIHhKVqfVXFuRE1SauHCeOeCGPuFnh4mAJIVjlLON7WA0Z_cqnOPFE2SnPo2Obwrwzu5f_9-c33WhR_-Y-7ugmaB6xrWisxGF4yHpWrxIPpCU0khM0wHwSqNFmaoIAFEldPmBKkIQRp-0vm5VxWjUF_j3npVxUKId79b5avxX8_W5On5f5Qvbg-AKNJWTnZ3_6TARg60bOAoBU0QNGiapgry3xIy5wPpJNr8siW7263aEyhcZQZKEXd6igwJU_wCY8NiKFrHHsspoSamSiJM_JbNQR_6GcL_eA2LY2Ut1PBAj-8SazviJgW_il2LimFpV8wkbfvea4ecZVK2ml2oTZiIqcF4tOM_rTsiUQFuhlULvmBB0johQaFC2jimZrT3GtKkV7Y0d7SRu1U75AVqH7NNaglnmf1jec2uVQSiK6YVtKwABtYEDHuge5P-HaYbHWMZse3QdMCYzgltJOBtSILdae_liSPG2zUS2L5iWh32JpwgnSDsXF3YJCeFcw" charset="UTF-8"></script><script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=6FphAK2x74OP5v6gLBRc9PnKPbciH3WBLsvfwSXgdYyqx7L-wBqVWsbDOB1mg3Yq_xq0J8EFSGlyYQLteGLzJQsGdIJ-hp4umEmXurzaeegXN_9QZnKRGiskPRQNim0MmXzg7el5x7FzbmBygOw6L8O0WeAi4ijyx3oazXQDzfVDYqgAPTWRJ4p4kkJMN1LjhYEOR3hEnU2bhbgo8MoPtuueVxApDR7gqQi93jwBfZr-m6P3wPe1ydtptT9JhbPZj_e51-5DftCRAUjT_XDiYTkjvjT4PgG3YPg_3AzGJ2KW4Jw0Pv_gJDAHq4ZFyovA3ZEFzvbziFsoxI-IX7tKsMDbtnrK99JNqua87vnI2hskUB62Wx-MMaZSsdqeGAvW-En5ufGvJWHpSrFYdtPhwLyU2tFzue7mTQzouCGw9BnvEFqP60EcMYqE78YtlnhtCpSIGbuZMF0jsF3eec-dSj39Z7ypMtMWHzeHkj4g4FHf132RGpbgN1zXhlhCKZNsg84uooYmism7LIayjpdbCTm_6QmCQK7vwsqC8ZFyBUjggqwbUZmH0YYnLuVpUqHvRw4zskOrZxhY9GK8pSXT02ISJ8L0kSeg5-r5cGTdSvDD2_UccIUwvx8Hi0OMhDu7FYhKvcF8Fzd9qobBsDu5uvAtyqjloRK76IfqEVw-QCRQxGEZWR26V02gHAKwEOfpP_qFR9tt0JbjvhM_xNxYMxiGXAFrrosuwC-rEdKfHFqyuqoQmmdWUUMbFGl0q8-YwRH5sD7-u943C6zSWaje2zzWoXRqSu-YlDPJb5xjQzG4oxvN8CNHVb9fHC3NzKhaSAeBPAIvmXd45sBL2pfCo2j2sWpUgIbJ1hisUHCCj3g0OIjjEvj5i5FKPVQNkwVG6haeuitBNrB7yysIScpcHN29v7UmCh1y2I_ec22AeA8mt9eou6sfm2PrQsGNYo8UBdOmbhp-xny98f1Wiv8rNRAa0mVfbvF7tLUYs2ewn2Svdlloxft3aqBpPWBeltBHUmy-pWJilbORXCq1flKdAJl32rSBwWqetCkslTbcME_WD0URdeM21Y5jj09ktlhOI5g9aqAR1EC7aNV4SI47dZxR_wvcJ16BraEn8AtCjapt5ung9J4egwt4CcSwaVQTbu_TPp4XQHC7nyVUuEz4ZhgRlqBIih9kmtFMvqRPLIjDNZagMmJGXLpWP178NzSOAt_jogtdyCjcr66hp0_2Lw" charset="UTF-8"></script>
+    <link rel="stylesheet" href="{% static 'style/principal/accueil.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                <div class="categories-dropdown" id="categories-dropdown">
+                    <div class="categories-dropdown-btn" id="categories-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> High-Tech</a>
+                        <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Décoration</a>
+                        <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                        <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux/Jouets</a>
+                        <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport/Loisirs</a>
+                    </div>
+                </div>
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="{% url 'login' %}" aria-label="Mon compte">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="{% url 'panier' %}" class="cart-icon-container" aria-label="Mon panier" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter" id="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="#">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+            </div>
+            <a href="#">Nouveautés</a>
+            <a href="#">Promotions</a>
+            <a href="#">Contact</a>
+            <a href="{% url 'login' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <!-- Barre de recherche sous le menu de navigation avec couleur chocolat -->
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" id="search-input-center" placeholder="Rechercher un produit..." aria-label="Rechercher un produit" >
+            <button class="search-btn-center" id="search-btn-center" aria-label="Rechercher">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1 class="fade-in">DÉCOUVREZ L'UNIVERS SAHARA</h1>
+                <p class="fade-in">Une expérience shopping d'exception</p>
+            </div>
+        </section>
+        
+        <section class="categories">
+            <div class="container">
+                <h2 class="section-title">CATÉGORIES POPULAIRES</h2>
+                <div class="categories-grid">
+                    <a href="{% url 'categorie_high_tech' %}" class="category-item slide-in-left" data-delay="0">
+                        <span class="category-icon">🖥️</span>
+                        <span class="category-name">High-Tech</span>
+                    </a>
+                    <a href="{% url 'categorie_vetements' %}" class="category-item slide-in-left" data-delay="100">
+                        <span class="category-icon">👕</span>
+                        <span class="category-name">Vêtement</span>
+                    </a>
+                    <a href="{% url 'categorie_decoration' %}" class="category-item slide-in-left" data-delay="200">
+                        <span class="category-icon">🏠</span>
+                        <span class="category-name">Décoration</span>
+                    </a>
+                    <a href="{% url 'categorie_bijoux' %}" class="category-item slide-in-left" data-delay="300">
+                        <span class="category-icon">💎</span>
+                        <span class="category-name">Bijoux</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="products">
+            <div class="container">
+                <h2 class="section-title">NOUVEAUTÉS</h2>
+                <div class="products-grid">
+                    <div class="product-card slide-in-right" data-delay="0">
+                        <div class="product-badge">NOUVEAU</div>
+                        <div class="product-image lazy-image" data-src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">MONTRE PREMIUM</div>
+                        <div class="product-info">
+                            <h3 class="product-name">Smartwatch Pro</h3>
+                            <div class="product-price">199,99 Fcfa</div>
+                            <div class="product-rating">★★★★☆</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card slide-in-right" data-delay="100">
+                        <div class="product-badge">POPULAIRE</div>
+                        <div class="product-image lazy-image" data-src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">CASQUE AUDIO</div>
+                        <div class="product-info">
+                            <h3 class="product-name">Casque Bluetooth Premium</h3>
+                            <div class="product-price">149,99 Fcfa</div>
+                            <div class="product-rating">★★★★★</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card slide-in-right" data-delay="200">
+                        <div class="product-image lazy-image" data-src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">CHAUSSURES</div>
+                        <div class="product-info">
+                            <h3 class="product-name">Baskets Confort</h3>
+                            <div class="product-price">89,99 Fcfa</div>
+                            <div class="product-rating">★★★★☆</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card slide-in-right" data-delay="300">
+                        <div class="product-badge">PROMO</div>
+                        <div class="product-image lazy-image" data-src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">APPAREIL PHOTO</div>
+                        <div class="product-info">
+                            <h3 class="product-name">Appareil Photo Numérique</h3>
+                            <div class="product-price">299,99 Fcfa</div>
+                            <div class="product-rating">★★★★☆</div>
+                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="promo">
+            <div class="container">
+                <h2>OFFRE SPÉCIALE</h2>
+                <p>Profitez de 20% de réduction sur votre première commande</p>
+                <a href="#" class="btn btn-primary">DÉCOUVRIR</a>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>À propos</h3>
+                    <ul>
+                        <li><a href="#">Notre histoire</a></li>
+                        <li><a href="#">Nos valeurs</a></li>
+                        <li><a href="#">Nos engagements</a></li>
+                        <li><a href="#">Carrières</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service client</h3>
+                    <ul>
+                        <li><a href="#">Contactez-nous</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Livraison & Retours</a></li>
+                        <li><a href="#">Conditions générales</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Mon compte</h3>
+                    <ul>
+                        <li><a href="{% url 'login' %}">Connexion</a></li>
+                        <li><a href="{% url 'inscription' %}">Inscription</a></li>
+                        <li><a href="#">Historique des commandes</a></li>
+                        <li><a href="#">Liste de souhaits</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Inscrivez-vous pour recevoir nos offres exclusives</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Votre email" required>
+                        <button type="submit" class="btn btn-primary">S'INSCRIRE</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Lazy loading pour les images
+        document.addEventListener('DOMContentLoaded', function() {
+            const lazyImages = document.querySelectorAll('.lazy-image');
+            
+            lazyImages.forEach(function(img) {
+                const src = img.getAttribute('data-src');
+                if (src) {
+                    img.style.backgroundImage = `url(${src})`;
+                    img.classList.add('loaded');
+                }
+            });
+            
+            // Animation des éléments avec délai
+            const animatedElements = document.querySelectorAll('[data-delay]');
+            
+            animatedElements.forEach(function(el) {
+                const delay = parseInt(el.getAttribute('data-delay'));
+                setTimeout(function() {
+                    el.style.opacity = '1';
+                }, delay);
+            });
+            
+            // Gestion du panier
+            const addToCartButtons = document.querySelectorAll('.add-to-cart');
+            const cartCounter = document.getElementById('cart-counter');
+            let cartCount = 0;
+            
+            // Récupérer les produits du panier depuis le localStorage s'ils existent
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            
+            // Mettre à jour le compteur du panier avec le nombre d'articles dans le localStorage
+            cartCount = cartItems.length;
+            cartCounter.textContent = cartCount;
+            
+            addToCartButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Récupérer les informations du produit
+                    const productCard = this.closest('.product-card');
+                    const productName = productCard.querySelector('.product-name').textContent;
+                    const productPrice = productCard.querySelector('.product-price').textContent;
+                    const productImage = productCard.querySelector('.product-image').getAttribute('data-src');
+                    
+                    // Créer un objet produit
+                    const product = {
+                        id: Date.now(), // Identifiant unique basé sur le timestamp
+                        name: productName,
+                        price: productPrice,
+                        image: productImage,
+                        quantity: 1
+                    };
+                    
+                    // Ajouter le produit au tableau des articles du panier
+                    cartItems.push(product);
+                    
+                    // Sauvegarder le panier mis à jour dans le localStorage
+                    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                    
+                    // Incrémenter le compteur du panier
+                    cartCount++;
+                    cartCounter.textContent = cartCount;
+                    
+                    // Ajouter l'animation de rebond
+                    cartCounter.classList.add('bounce');
+                    setTimeout(function() {
+                        cartCounter.classList.remove('bounce');
+                    }, 500);
+                });
+            });
+            
+            // Menu déroulant des catégories
+            const categoriesBtn = document.getElementById('categories-btn');
+            const categoriesDropdown = document.getElementById('categories-dropdown');
+            
+            if (categoriesBtn) {
+                categoriesBtn.addEventListener('click', function() {
+                    categoriesDropdown.classList.toggle('active');
+                });
+                
+                // Fermer le menu déroulant en cliquant en dehors
+                document.addEventListener('click', function(e) {
+                    if (!categoriesDropdown.contains(e.target)) {
+                        categoriesDropdown.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Menu mobile
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.add('active');
+                    mobileMenuToggle.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                mobileMenuClose.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            // Sous-menu des catégories en mobile
+            const mobileCategoriesToggle = document.getElementById('mobile-categories-toggle');
+            const mobileCategoriesSubmenu = document.getElementById('mobile-categories-submenu');
+            
+            if (mobileCategoriesToggle) {
+                mobileCategoriesToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    mobileCategoriesToggle.classList.toggle('active');
+                    mobileCategoriesSubmenu.classList.toggle('active');
+                });
+            }
+            
+            // Redirection vers la page du panier
+            const cartIcon = document.getElementById('cart-icon');
+            
+            cartIcon.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'panier.html';
+            });
+        });
+    </script>
+</body>
+</html>

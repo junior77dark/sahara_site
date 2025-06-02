@@ -1,0 +1,639 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Votre profil utilisateur et historique d'achats">
+    <title>SAHARA - Profil Utilisateur</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=vewFBgeqK7UQYdB1mG-d1WrPaD_7gqEVttd5i8438e-7c665_5zr-8jxJGzF46hOqZeafzHGLcDYbqJ5pX-cgFvIeT2al1tsmMZbQ7YgRZQHE1nl2WoxoX0M1w5r5Ht9-kYrIJwuLoWMvHvPS5e-wbSrDYnVGLmn3b7_c9L_4mgBoSJ5zmh-8aksqi6MdT_pCVXUhDJZ1-RsaDHUW2SzD6zCxgaGHOXDrKEFEV7ZTrAcWDM5RyS86uLckT2uPy-kYd7kN4KrR2-As4ToDx3YysROJr2FvDiz3Utpth3Cz_ThYsXoyOzMRq5-ZXVlLXnt9pr_tQSETLo1ttd8aaGEVJoQcCFMjnNEmSnZPzqdMh0l3i3X8myWvZ5c60Rt4OJxJTvOgAZ9s2sHHdKlWmZVZ2WunlOMeOyEaBcA22N5UGUSylBQVJhuIdhKGqXF1dyeeuLbVDJVoxCH_kBSO7rm1Vdkl-kWWXFsdqYJYlnuZrGGBrlBtj9f_H3dOOhwRRPBphTxICNrypGrCKneAHCNOVEyoc7QItFgP9QFqOo0ZE5gNO9MlMJ01qEqVjprCseLO63os4GzRxDShp7b_qfbZ3ctWjci_r4PY9WAU8TjNCp41fv0dlpDAnq57I94s6r95N5yTeS5YCqHeXkRdGyO1RbKnCgbr_7KoYBzqcAU7AW6UcXuPtmIydk06-DyW2XqbAah6mkOL71p4ErQS7JFuHyxu9vvOQuTBqHcMA_DPKck31KAwiF-3kbK2QUaS0Kx3HGDTeefqUArHqqjATo7o9m6nupMYdci_t4HWuReBlenZjMMimj-8Gl4GZovSyZt5Bvf6zzfvbHJx57zSfaDeubVMsyHy1MLhXg410s5hm1IGD_SxNWviy62w5w-2rGPq-neUXFKiRDJfd3KYeBJ8gc_6AhkFEM14TXpc2ILsJl8ONB4sBVMPVhJTC9yXDJ_Ti0ikck6WgF1bii_sihlnU6UbWAIqsGbUzEH4kOPh_lDN1epfTk0Sk4tyN49NdnSr890irR1mx6PonyJSo7hV_bv_Kxu_MMWarkb2f-NlU2LyXfhcsTYUs1c7ps8cxvy_SwMhb7lac8ZatkutSP6YVq6ywmceFZSLy2ztKeJjrZX11pdtGccX447fSKhdfbeiN2hXByvVHZB1JTEn8jyDo8sUxp1-L_a2XcmNv5dLZbCATkjZqxhfbSnxPimODQa-HTaI8YvdzWnuOF4x5tA1gO8ELmP3rOwJ10ddTN2Uds" charset="UTF-8"></script>
+    <link rel="stylesheet" href="{% static 'style/principal/profile.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                
+                <div class="categories-dropdown">
+                    <div class="categories-dropdown-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                        <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                        <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                        <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                        <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+                    </div>
+                </div>
+                
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="{% url 'user_profile' %}" class="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="{% url 'panier' %}" class="cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+            </div>
+            <a href="{% url 'promotion' %}">Promotions</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'user_profile' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" placeholder="Rechercher un produit, une catégorie...">
+            <button class="search-btn-center">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <section class="page-title-section">
+            <div class="container">
+                <h1>Mon Profil</h1>
+                <p>Gérez vos informations personnelles et suivez vos commandes</p>
+            </div>
+        </section>
+        
+        <section class="profile-section">
+            <div class="container">
+                <div class="profile-container">
+                    <div class="profile-sidebar">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h2 class="profile-name">SANON cheick fayçal</h2>
+                        <span class="profile-type" id="account-type">Client</span>
+                        
+                        <div class="profile-info">
+                            <div class="profile-info-item">
+                                <i class="fas fa-envelope profile-info-icon"></i>
+                                <div class="profile-info-text">
+                                    <div class="profile-info-label">Email</div>
+                                    <div class="profile-info-value">sanoncheickfaycal@gmail.com</div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-info-item">
+                                <i class="fas fa-phone profile-info-icon"></i>
+                                <div class="profile-info-text">
+                                    <div class="profile-info-label">Téléphone</div>
+                                    <div class="profile-info-value">+226 05 44 77 30</div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-info-item">
+                                <i class="fas fa-map-marker-alt profile-info-icon"></i>
+                                <div class="profile-info-text">
+                                    <div class="profile-info-label">Adresse</div>
+                                    <div class="profile-info-value"> 75000 OUAGADOUGOU, BURKINA FASO</div>
+                                </div>
+                            </div>
+                            
+                            <div class="profile-info-item">
+                                <i class="fas fa-calendar-alt profile-info-icon"></i>
+                                <div class="profile-info-text">
+                                    <div class="profile-info-label">Membre depuis</div>
+                                    <div class="profile-info-value">Janvier 2023</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <ul class="profile-nav">
+                            <li class="profile-nav-item">
+                                <a href="#" class="profile-nav-link active" data-tab="orders">
+                                    <i class="fas fa-shopping-bag profile-nav-icon"></i>
+                                    <span>Mes commandes</span>
+                                </a>
+                            </li>
+                            
+                            <li class="profile-nav-item">
+                                <a href="#" class="profile-nav-link" data-tab="addresses">
+                                    <i class="fas fa-map-marked-alt profile-nav-icon"></i>
+                                    <span>Adresses</span>
+                                </a>
+                            </li>
+                            
+
+                            <li class="profile-nav-item">
+                                <a href="#" class="profile-nav-link" data-tab="security">
+                                    <i class="fas fa-lock profile-nav-icon"></i>
+                                    <span>Sécurité</span>
+                                </a>
+                            </li>
+                            <li class="profile-nav-item">
+                                <a href="#" class="profile-nav-link">
+                                    <i class="fas fa-sign-out-alt profile-nav-icon"></i>
+                                    <span>Déconnexion</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="profile-content">
+                        <div class="profile-content-header">
+                            <h2 class="profile-content-title">Historique des commandes</h2>
+                        </div>
+                        
+                        <div class="order-history">
+                            <div class="order-card">
+                                <div class="order-header">
+                                    <div class="order-id">#ORD-2025-1234</div>
+                                    <div class="order-date">15 Mars 2025</div>
+                                    <span class="order-status status-delivered">Livré</span>
+                                </div>
+                                
+                                <div class="order-items">
+                                    <div class="order-item">
+                                        <div class="order-item-image">
+                                            <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25" alt="Canapé en cuir">
+                                        </div>
+                                        <div class="order-item-details">
+                                            <div class="order-item-name">Canapé en cuir marron</div>
+                                            <div class="order-item-price">899,00 Fcfa</div>
+                                        </div>
+                                        <div class="order-item-quantity">x1</div>
+                                    </div>
+                                    
+                                    <div class="order-item">
+                                        <div class="order-item-image">
+                                            <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15" alt="Lampe de table">
+                                        </div>
+                                        <div class="order-item-details">
+                                            <div class="order-item-name">Lampe de table en laiton</div>
+                                            <div class="order-item-price">149,00 Fcfa</div>
+                                        </div>
+                                        <div class="order-item-quantity">x2</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-footer">
+                                    <div class="order-total">
+                                        Total: <span class="order-total-value">1 197,00 Fcfa</span>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="btn btn-outline btn-sm">Détails</button>
+                                        <button class="btn btn-primary btn-sm">Acheter à nouveau</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="order-card">
+                                <div class="order-header">
+                                    <div class="order-id">#ORD-2025-1189</div>
+                                    <div class="order-date">28 Février 2025</div>
+                                    <span class="order-status status-delivered">Livré</span>
+                                </div>
+                                
+                                <div class="order-items">
+                                    <div class="order-item">
+                                        <div class="order-item-image">
+                                            <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11" alt="Coussin décoratif">
+                                        </div>
+                                        <div class="order-item-details">
+                                            <div class="order-item-name">Coussin décoratif motif désert</div>
+                                            <div class="order-item-price">39,90 Fcfa</div>
+                                        </div>
+                                        <div class="order-item-quantity">x3</div>
+                                    </div>
+                                    
+                                    <div class="order-item">
+                                        <div class="order-item-image">
+                                            <img src="https://images.unsplash.com/photo-1526057565006-20beab8dd2ed" alt="Vase en céramique">
+                                        </div>
+                                        <div class="order-item-details">
+                                            <div class="order-item-name">Vase en céramique artisanal</div>
+                                            <div class="order-item-price">79,00 Fcfa</div>
+                                        </div>
+                                        <div class="order-item-quantity">x1</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="order-footer">
+                                    <div class="order-total">
+                                        Total: <span class="order-total-value">198,70 Fcfa</span>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="btn btn-outline btn-sm">Détails</button>
+                                        <button class="btn btn-primary btn-sm">Acheter à nouveau</button>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        <!-- Supplier Section (Hidden by default) -->
+                        <div class="supplier-section">
+                            <div class="supplier-stats">
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-box"></i>
+                                    </div>
+                                    <div class="stat-value">24</div>
+                                    <div class="stat-label">Produits</div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-shopping-cart"></i>
+                                    </div>
+                                    <div class="stat-value">156</div>
+                                    <div class="stat-label">Ventes</div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="stat-value">4.8</div>
+                                    <div class="stat-label">Note moyenne</div>
+                                </div>
+                                
+                                <div class="stat-card">
+                                    <div class="stat-icon">
+                                        <i class="fas fa-euro-sign"></i>
+                                    </div>
+                                    <div class="stat-value">12 450</div>
+                                    <div class="stat-label">Revenus (Fcfa)</div>
+                                </div>
+                            </div>
+                            
+                            <div class="product-list">
+                                <div class="product-list-header">
+                                    <h3 class="product-list-title">Mes produits</h3>
+                                    <a href="add-product.html" class="btn btn-primary btn-sm">Ajouter un produit</a>
+                                </div>
+                                
+                                <table class="product-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Image</th>
+                                            <th>Produit</th>
+                                            <th>Prix</th>
+                                            <th>Stock</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="product-image">
+                                                    <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25" alt="Canapé en cuir">
+                                                </div>
+                                            </td>
+                                            <td class="product-name">Canapé en cuir marron</td>
+                                            <td class="product-price">899,00 Fcfa</td>
+                                            <td class="product-stock">
+                                                <span class="product-stock-value stock-in">En stock (12)</span>
+                                            </td>
+                                            <td class="product-actions">
+                                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="product-image">
+                                                    <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15" alt="Lampe de table">
+                                                </div>
+                                            </td>
+                                            <td class="product-name">Lampe de table en laiton</td>
+                                            <td class="product-price">149,00 Fcfa</td>
+                                            <td class="product-stock">
+                                                <span class="product-stock-value stock-low">Stock bas (3)</span>
+                                            </td>
+                                            <td class="product-actions">
+                                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="product-image">
+                                                    <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11" alt="Coussin décoratif">
+                                                </div>
+                                            </td>
+                                            <td class="product-name">Coussin décoratif motif désert</td>
+                                            <td class="product-price">39,90 Fcfa</td>
+                                            <td class="product-stock">
+                                                <span class="product-stock-value stock-in">En stock (45)</span>
+                                            </td>
+                                            <td class="product-actions">
+                                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="product-image">
+                                                    <img src="https://images.unsplash.com/photo-1556909114-44e3e9699e2b" alt="Service de table">
+                                                </div>
+                                            </td>
+                                            <td class="product-name">Service de table complet 12 pièces</td>
+                                            <td class="product-price">249,00 Fcfa</td>
+                                            <td class="product-stock">
+                                                <span class="product-stock-value stock-out">Rupture</span>
+                                            </td>
+                                            <td class="product-actions">
+                                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
+                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>SAHARA</h3>
+                <p>Votre destination pour une décoration d'intérieur inspirée du désert, alliant tradition et modernité pour créer des espaces chaleureux et accueillants.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'accueil' %}">Accueil</a></li>
+                    <li><a href="#">Catégories</a></li>
+                    <li><a href="{% url 'promotion' %}">Promotions</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Rue du Désert, OUAGADOUGOU, BURKINA FASO</p>
+                    <p><i class="fas fa-phone"></i> +226 05 38 47 89</p>
+                    <p><i class="fas fa-envelope"></i> contact_sahara@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lun-Ven: 9h-20h, Sam: 7h-20h</p>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p class="footer-newsletter">Inscrivez-vous pour recevoir nos dernières offres et nouveautés.</p>
+                <form class="newsletter-form">
+                    <input type="email" class="newsletter-input" placeholder="Votre adresse email">
+                    <button type="submit" class="newsletter-btn">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <div class="container">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu burger mobile
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            const mobileCategoriesToggle = document.getElementById('mobile-categories-toggle');
+            const mobileCategoriesSubmenu = document.getElementById('mobile-categories-submenu');
+            
+            // Ouvrir le menu mobile
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                mobileMenuToggle.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement de la page
+            });
+            
+            // Fermer le menu mobile
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                document.body.style.overflow = ''; // Réactiver le défilement de la page
+            });
+            
+            // Toggle sous-menu catégories en mobile
+            mobileCategoriesToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileCategoriesToggle.classList.toggle('active');
+                mobileCategoriesSubmenu.classList.toggle('active');
+            });
+            
+            // Toggle Categories Dropdown (desktop)
+            const categoriesDropdown = document.querySelector('.categories-dropdown');
+            const categoriesBtn = document.querySelector('.categories-dropdown-btn');
+            
+            categoriesBtn.addEventListener('click', function() {
+                categoriesDropdown.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!categoriesDropdown.contains(event.target)) {
+                    categoriesDropdown.classList.remove('active');
+                }
+            });
+            
+            // Profile Navigation Tabs
+            const navLinks = document.querySelectorAll('.profile-nav-link[data-tab]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(navLink => {
+                        navLink.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Update content title based on selected tab
+                    const tabName = this.getAttribute('data-tab');
+                    const contentTitle = document.querySelector('.profile-content-title');
+                    
+                    switch(tabName) {
+                        case 'orders':
+                            contentTitle.textContent = 'Historique des commandes';
+                            break;
+                        case 'personal-info':
+                            contentTitle.textContent = 'Informations personnelles';
+                            break;
+                        case 'addresses':
+                            contentTitle.textContent = 'Mes adresses';
+                            break;
+                        case 'products':
+                            contentTitle.textContent = 'Mes produits';
+                            break;
+                        case 'wishlist':
+                            contentTitle.textContent = 'Liste de souhaits';
+                            break;
+                        case 'security':
+                            contentTitle.textContent = 'Sécurité du compte';
+                            break;
+                    }
+                    
+                    // Show supplier section if products tab is selected and user is a supplier
+                    const supplierSection = document.querySelector('.supplier-section');
+                    const orderHistory = document.querySelector('.order-history');
+                    
+                    if (tabName === 'products' && document.getElementById('account-type').textContent === 'Fournisseur') {
+                        supplierSection.classList.add('active');
+                        orderHistory.style.display = 'none';
+                    } else {
+                        supplierSection.classList.remove('active');
+                        orderHistory.style.display = 'block';
+                    }
+                });
+            });
+            
+            // Toggle Account Type (Client/Supplier)
+            const toggleAccountTypeBtn = document.getElementById('toggle-account-type');
+            const accountTypeSpan = document.getElementById('account-type');
+            const supplierOnlyElements = document.querySelectorAll('.supplier-only');
+            
+            if (toggleAccountTypeBtn) {
+                toggleAccountTypeBtn.addEventListener('click', function() {
+                    if (accountTypeSpan.textContent === 'Client') {
+                        accountTypeSpan.textContent = 'Fournisseur';
+                        supplierOnlyElements.forEach(el => {
+                            el.style.display = 'block';
+                        });
+                    } else {
+                        accountTypeSpan.textContent = 'Client';
+                        supplierOnlyElements.forEach(el => {
+                            el.style.display = 'none';
+                        });
+                        
+                        // If currently on products tab, switch to orders tab
+                        const activeTab = document.querySelector('.profile-nav-link.active');
+                        if (activeTab.getAttribute('data-tab') === 'products') {
+                            document.querySelector('.profile-nav-link[data-tab="orders"]').click();
+                        }
+                    }
+                });
+            }
+            
+            // Order Details Buttons
+            const detailsButtons = document.querySelectorAll('.order-actions .btn-outline');
+            
+            detailsButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const orderCard = this.closest('.order-card');
+                    const orderId = orderCard.querySelector('.order-id').textContent;
+                    alert(`Détails de la commande ${orderId} - Cette fonctionnalité sera disponible prochainement.`);
+                });
+            });
+            
+            // Buy Again Buttons
+            const buyAgainButtons = document.querySelectorAll('.order-actions .btn-primary');
+            
+            buyAgainButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const orderCard = this.closest('.order-card');
+                    const orderId = orderCard.querySelector('.order-id').textContent;
+                    
+                    // Increment cart counter
+                    const cartCounter = document.querySelector('.cart-counter');
+                    const currentCount = parseInt(cartCounter.textContent);
+                    cartCounter.textContent = currentCount + 1;
+                    
+                    // Add bounce animation
+                    cartCounter.classList.add('bounce');
+                    setTimeout(() => {
+                        cartCounter.classList.remove('bounce');
+                    }, 500);
+                    
+                    alert(`Les produits de la commande ${orderId} ont été ajoutés à votre panier.`);
+                });
+            });
+            
+            // Supplier Product Actions
+            const editButtons = document.querySelectorAll('.action-btn.edit');
+            const deleteButtons = document.querySelectorAll('.action-btn.delete');
+            
+            editButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productRow = this.closest('tr');
+                    const productName = productRow.querySelector('.product-name').textContent;
+                    alert(`Modifier le produit: ${productName} - Cette fonctionnalité sera disponible prochainement.`);
+                });
+            });
+            
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productRow = this.closest('tr');
+                    const productName = productRow.querySelector('.product-name').textContent;
+                    if (confirm(`Êtes-vous sûr de vouloir supprimer le produit: ${productName}?`)) {
+                        alert(`Le produit ${productName} a été supprimé.`);
+                        productRow.remove();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

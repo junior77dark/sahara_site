@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Connexion à votre compte">
+    <title>SAHARA - Connexion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=gP8MNGn42kPgQFBPqj5Bvra_PG_V7OxkIh_NGlZNt0OWgj4sibmRi4N3w3e7ak0R3H_uqY7oC7wMh3AIfruesSlISkbAPjmecXLrr34PTz7-vNyeHqAUALRdMcY1_MDfW-ClpwL_vwxLxy79KLPzZ0Nc9_ch8DMpBS6fkbGKWo2AYp8wYN4DH7GUZgD68Q0YOcrAmTK9GXjBxtXtU4uOOEn1APG84BDSR0fhykBHvf4R2zRv6j_PFc6CHUACDthIpiqBUWLZt6acDSISNiAPMG6EVuUTK-tY6MdrAafUCeqI2jgl6F6o8wwGZZj4lRdXwxbCaDG7pVE82aPfPCCO_RM8GQM9ryzumJ7meYwdw0b6H1wy_uiV5dLIhf8GnfBlwhKx1AJqDsEZLJWKP8Ytk963eef2tVRNLLKrO6gUxiYQS1PMQd0BL7w2r0dzOVMeenRbGyMujujOg-_iTEF4pVHn5dac9nV1ssvGVPZ0ftnlkbv2GS14QRTv4ZYw62g7fldKKpF0bun4GqZ6JjztsqNXvD1zmtdzicfoV2BPqOzljlMYIife7Bc_7KMnva0yw5wIZfiDkZOgXRqRNNa_wsONCcvjHX_6mmfkOwrhtLNJVZPUBXxCqIt9N6QyY1v55J3AU0eOfllC3NOmotlaxcpBDMhVNxQ3xUGOyJQKsCAvx31SJzcLa83bPTwZ-xnBgUByutjWJzs1DpfU-eIWyo_clmD21MnLH0G9Yl4lvkuK9JZpnMaVjcxIjVKjx8JoyH8WjzA0h1Tuw2Z-k5rnhH2-zY1MVEhu2flZWJMXpEgfVbzk0T6Y9M5fQxJo1uav96fJdSL_7dhgv42YeCpL6cvtMGS2nngI-WMxnGro0NxE-pO8W3fN4SXtdDT2Wc4QRzdpvmYVkmR46TXtpI2YEFJSSuI5BdSaLKqLCpjEwwfWh_cEhYgDCkbuFZjbTsLKvFnMmn2N3nXtia5KhMmqSTxEmoGWoECF_mZ0MKDPSbUqLzoak8ba0G39cw7BRgoW6RCFbzJ41RPqXuHY8lU_pv9u3ziJtBmsW27CtakGFNMJ_2VIxbF-bajYySUxURVrch211HPuvwF9kDXz7GcQoEj15qML2sNRHr9EShwQJo5lB_0GdrhtU92SQ8dj1ITHQU8mlzcYQEO8nuEve9F7is2mzVNwESUu6GEp-2NdZkg" charset="UTF-8"></script>
+    <link rel="stylesheet" href="{% static 'style/principal/login.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <section class="login-section">
+            <div class="login-container">
+                <div class="login-header">
+                    <h1>Connexion</h1>
+                    <p>Accédez à votre compte SAHARA</p>
+                </div>
+                
+                <form class="login-form">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" name="password" placeholder="Votre mot de passe" required>
+                    </div>
+                    
+                    <div class="form-options">
+                        <div class="remember-me">
+                            <input type="checkbox" id="remember" name="remember">
+                            <label for="remember">Se souvenir de moi</label>
+                        </div>
+                        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">SE CONNECTER</button>
+                </form>
+                
+                <div class="social-login">
+                    <p>Ou connectez-vous avec</p>
+                    <div class="social-buttons">
+                        <a href="#" class="social-btn facebook" aria-label="Se connecter avec Facebook">
+                            <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-btn google" aria-label="Se connecter avec Google">
+                            <i class="fab fa-google" aria-hidden="true"></i>
+                        </a>
+                        <a href="#" class="social-btn twitter" aria-label="Se connecter avec Twitter">
+                            <i class="fab fa-twitter" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="login-footer">
+                    <p>Vous n'avez pas de compte ? <a href="{% url 'inscription' %}">Inscrivez-vous</a></p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

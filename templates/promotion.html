@@ -1,0 +1,327 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Découvrez nos promotions et offres spéciales">
+    <title>SAHARA - Promotions</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script type="text/javascript" src="https://me.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=m3Cqier91F2NIxXSDQb4uVO-wYGq_YJKb2imkui0G1bI4pAtpVq04qLxJSKgaXtGLLBRIQMFAcO1CRrKzh4yEAjVhRywplGjFyDZzl1ovrzYHwAeA1mSyCRuoL0mPRByIX2NncQQ8zUSP7As-nWgesrwYgpy3sS1ZoSRZ5VyaYECNgFqwu4tDeJD-Pn4M1XLDIrLiy6ojlJNJuCw6vbXQckNFwlXgilupTA2B3C_wDHCD82qD8cVxq08BDMUdiAZl3QfCFaNPJjz9H1gDLudWRsZxEe2L_5FdcTegmfvltuKcQkQwG7-wtCd9TbQ5LrcSK960BX3afiya8yoj8iCQWnDJmDDEOpyVQkVF5LqnhETOKQPJ7eMJ3V0z7uNPu1tFmRam6zw9iw0_YfrILWdseHmfefLm2p_tkwFnKyDOFAgVG8hlTzZbZpZOyJC7Hc5y3DLNOa0wgp-yslk8kRoSoUh8n4iYaG7Gf4DX2yhip8S-7tJ5k7sMa7lgoYUc0qORc5pYLmus9JkVh1Ip1r9RPNaCiYEEkEXLnzniV2Ao1XWSknQzMUDIKTNcbWcruXxI2G_m_zrtJyou58Yf_Y2s2FdwMq3HNtsMzUWHrzkbewak2RDsGBZ2cmZqIwBIw_8TH7fKcd1Uh1bDJd_pnw7y3lwszy71HD7a_oC6vHY4-KUuTQQo17w-A9SBAlmt2vdaFCSWLjm7vbNKP8TsUPf7nUxj78fxMdw4FeTsJ946Dog2mdlQvdFg3BmWnK3L0Ph-xLrvYmK66lEx2jzwsjt6C2e7iT2O0pzgsVfqG-rdTfW7XBWD44wlo1-AcMYi2Jc5dsF6vuN8HS0yTr37Ga6pMEUsF1kr2KGWnqqqYLwXJVLPSnZWfnOM7Gm4m8azThGqyRd6hLLro3OMynGvJ3moqx95bXECpYlhAOX1GC-hwzGbpfr4ng-P1eQsp0ocxKF7brQCUUcIhqv1Iglibx3OM3_zmQbBGtZrpvaAzahenq_3ARWr3tehpSdeBRkqhczPhJioUxpIEdh6MOEco-Hg7meBfjymMvW1TAeSGyO2jJNJRlNsv8Hyd-TDzOODrk_0ULDfA1LieLBAbMqCBsw0T67sQxqxGszDIw6bwe3tQgIHpNWRyl5RzLkcRMmw1dyisaEQ0IuQGhDadyptyKel9ZoEV18WmZkalyzD0UWPbAaRRpR4x-ABF7MtOLDso7m4Xr0PX4sx4QbTgJkRJjJjA" charset="UTF-8"></script>
+    <link rel="stylesheet" href="{% static 'style/principal/promotion.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                
+                <div class="categories-dropdown">
+                    <div class="categories-dropdown-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                        <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                        <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                        <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                        <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+                    </div>
+                </div>
+                
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="{% url 'user_profile' %}" class="user-icon">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="{% url 'panier' %}" class="cart-icon-container">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+            </div>
+            <a href="{% url 'promotion' %}">Promotions</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'user_profile' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" placeholder="Rechercher un produit, une catégorie...">
+            <button class="search-btn-center">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <section class="page-title-section">
+            <div class="container">
+                <h1>Nos Promotions</h1>
+                <p>Découvrez nos offres spéciales et réductions exclusives sur une sélection de produits</p>
+            </div>
+        </section>
+        
+        <section class="coming-soon-section">
+            <div class="container">
+                <div class="coming-soon-container">
+                    <i class="fas fa-gift coming-soon-icon"></i>
+                    <h2 class="coming-soon-title">Promotions à venir</h2>
+                    <p class="coming-soon-text">Nous préparons actuellement des offres exceptionnelles pour vous. Nos promotions seront bientôt disponibles avec des réductions exclusives sur une large sélection de produits de notre catalogue.</p>
+                    <p class="coming-soon-text">Inscrivez-vous à notre newsletter pour être informé en avant-première de nos promotions et offres spéciales.</p>
+                    
+                    <div class="newsletter-container">
+                        <h3 class="newsletter-title">Restez informé</h3>
+                        <form class="newsletter-form">
+                            <input type="email" class="newsletter-input" placeholder="Votre adresse email" required>
+                            <button type="submit" class="newsletter-btn">S'inscrire</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="countdown-section">
+            <div class="container">
+                <h2 class="countdown-title">Nos promotions arrivent dans</h2>
+                
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="countdown-days">14</div>
+                        <div class="countdown-label">Jours</div>
+                    </div>
+                    
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="countdown-hours">23</div>
+                        <div class="countdown-label">Heures</div>
+                    </div>
+                    
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="countdown-minutes">45</div>
+                        <div class="countdown-label">Minutes</div>
+                    </div>
+                    
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="countdown-seconds">19</div>
+                        <div class="countdown-label">Secondes</div>
+                    </div>
+                </div>
+                
+                <p class="countdown-message">Préparez-vous pour des offres exceptionnelles sur nos produits les plus populaires. Ne manquez pas cette occasion unique de transformer votre intérieur à prix réduit !</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-column">
+                <h3>SAHARA</h3>
+                <p>Votre destination pour une décoration d'intérieur inspirée du désert, alliant tradition et modernité pour créer des espaces chaleureux et accueillants.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Liens Rapides</h3>
+                <ul class="footer-links">
+                    <li><a href="{% url 'accueil' %}">Accueil</a></li>
+                    <li><a href="#">Catégories</a></li>
+                    <li><a href="{% url 'promotion' %}">Promotions</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <div class="footer-contact">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Rue du Désert, OUAGADOUGOU, BURKINA FASO</p>
+                    <p><i class="fas fa-phone"></i> +226 05 38 47 89</p>
+                    <p><i class="fas fa-envelope"></i> contact_sahara@gmail.com</p>
+                    <p><i class="fas fa-clock"></i> Lun-Ven: 7h-20h, Sam: 7h-20h</p>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Newsletter</h3>
+                <p class="footer-newsletter">Inscrivez-vous pour recevoir nos dernières offres et nouveautés.</p>
+                <form class="footer-newsletter-form">
+                    <input type="email" class="footer-newsletter-input" placeholder="Votre adresse email">
+                    <button type="submit" class="footer-newsletter-btn">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <div class="container">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menu burger mobile
+            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            const mobileCategoriesToggle = document.getElementById('mobile-categories-toggle');
+            const mobileCategoriesSubmenu = document.getElementById('mobile-categories-submenu');
+            
+            // Ouvrir le menu mobile
+            mobileMenuToggle.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                mobileMenuToggle.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Empêcher le défilement de la page
+            });
+            
+            // Fermer le menu mobile
+            mobileMenuClose.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+                document.body.style.overflow = ''; // Réactiver le défilement de la page
+            });
+            
+            // Toggle sous-menu catégories en mobile
+            mobileCategoriesToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileCategoriesToggle.classList.toggle('active');
+                mobileCategoriesSubmenu.classList.toggle('active');
+            });
+            
+            // Toggle Categories Dropdown (desktop)
+            const categoriesDropdown = document.querySelector('.categories-dropdown');
+            const categoriesBtn = document.querySelector('.categories-dropdown-btn');
+            
+            categoriesBtn.addEventListener('click', function() {
+                categoriesDropdown.classList.toggle('active');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!categoriesDropdown.contains(event.target)) {
+                    categoriesDropdown.classList.remove('active');
+                }
+            });
+            
+            // Countdown Timer
+            function updateCountdown() {
+                // Set the date we're counting down to (14 days from now)
+                const now = new Date();
+                const countDownDate = new Date();
+                countDownDate.setDate(now.getDate() + 14);
+                
+                // Update the countdown every 1 second
+                const x = setInterval(function() {
+                    // Get current date and time
+                    const currentTime = new Date().getTime();
+                    
+                    // Find the distance between now and the countdown date
+                    const distance = countDownDate.getTime() - currentTime;
+                    
+                    // Time calculations for days, hours, minutes and seconds
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                    
+                    // Display the result
+                    document.getElementById("countdown-days").textContent = days;
+                    document.getElementById("countdown-hours").textContent = hours;
+                    document.getElementById("countdown-minutes").textContent = minutes;
+                    document.getElementById("countdown-seconds").textContent = seconds;
+                    
+                    // If the countdown is finished, display message
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById("countdown-days").textContent = "0";
+                        document.getElementById("countdown-hours").textContent = "0";
+                        document.getElementById("countdown-minutes").textContent = "0";
+                        document.getElementById("countdown-seconds").textContent = "0";
+                    }
+                }, 1000);
+            }
+            
+            // Initialize countdown
+            updateCountdown();
+            
+            // Newsletter form submission
+            const newsletterForms = document.querySelectorAll('.newsletter-form, .footer-newsletter-form');
+            
+            newsletterForms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const emailInput = this.querySelector('input[type="email"]');
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    const originalText = submitBtn.textContent;
+                    
+                    if (emailInput.value) {
+                        submitBtn.textContent = 'Inscription...';
+                        submitBtn.disabled = true;
+                        
+                        // Simulate API call
+                        setTimeout(() => {
+                            alert('Merci pour votre inscription ! Vous recevrez bientôt nos offres promotionnelles.');
+                            emailInput.value = '';
+                            submitBtn.textContent = originalText;
+                            submitBtn.disabled = false;
+                        }, 1500);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
