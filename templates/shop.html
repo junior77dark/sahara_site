@@ -1,0 +1,206 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Créez votre boutique et commencez à vendre vos produits">
+    <title>SAHARA - Création de Boutique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style/principal/shop.css' %}">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="{% url 'accueil' %}">Accueil</a>
+                <div class="categories-dropdown" id="categories-dropdown">
+                    <div class="categories-dropdown-btn" id="categories-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> High-Tech</a>
+                        <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Décoration</a>
+                        <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                        <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux/Jouets</a>
+                        <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport/Loisirs</a>
+                    </div>
+                </div>
+                <a href="{% url 'promotion' %}">Promotions</a>
+                <a href="{% url 'contact' %}">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'user_profile' %}" aria-label="Mon profil">
+                        <i class="fas fa-user"></i>
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}" aria-label="Connexion">
+                        <i class="fas fa-user"></i>
+                    </a>
+                {% endif %}
+                <a href="{% url 'panier' %}" class="cart-icon-container" aria-label="Mon panier" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter" id="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="{% url 'accueil' %}">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="#">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> High-Tech</a>
+                <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
+                <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Décoration</a>
+                <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
+                <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
+                <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux/Jouets</a>
+                <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
+                <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport/Loisirs</a>
+            </div>
+            <a href="#">Nouveautés</a>
+            <a href="#">Promotions</a>
+            <a href="{% url 'contact' %}">Contact</a>
+            <a href="{% url 'user_profile' %}">Mon compte</a>
+            <a href="{% url 'panier' %}">Mon panier</a>
+        </nav>
+    </div>
+    
+    <!-- Barre de recherche sous le menu de navigation -->
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" id="search-input-center" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
+            <button class="search-btn-center" id="search-btn-center" aria-label="Rechercher">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <main>
+        <div class="container">
+            <div class="page-title">
+                <h1>Créer votre boutique</h1>
+                <p>Commencez à vendre vos produits en créant votre boutique personnalisée sur SAHARA.</p>
+            </div>
+
+            <div class="form-container">
+                <form id="createShopForm">
+                    <div class="form-section">
+                        <h2 class="form-section-title">Informations de la boutique</h2>
+                        
+                        <div class="form-group">
+                            <label for="shopName" class="form-label">Nom de la boutique *</label>
+                            <input type="text" id="shopName" class="form-control" placeholder="Entrez le nom de votre boutique" required>
+                            <div class="form-hint">Choisissez un nom unique et mémorable pour votre boutique.</div>
+                            <div class="form-error" id="shopNameError">Veuillez entrer un nom de boutique valide.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="ownerName" class="form-label">Nom du propriétaire *</label>
+                            <input type="text" id="ownerName" class="form-control" placeholder="Entrez votre nom complet" required>
+                            <div class="form-error" id="ownerNameError">Veuillez entrer un nom valide.</div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location" class="form-label">Localisation *</label>
+                            <input type="text" id="location" class="form-control" placeholder="Ville, Pays" required>
+                            <div class="form-hint">Indiquez où votre boutique est basée.</div>
+                            <div class="form-error" id="locationError">Veuillez entrer une localisation valide.</div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-submit">Créer ma boutique</button>
+                </form>
+            </div>
+
+            <div class="preview-section" id="previewSection">
+                <h2 class="preview-title">Prévisualisation de votre boutique</h2>
+                
+                <div class="shop-preview">
+                    <div class="shop-preview-header">
+                        <div class="shop-preview-name" id="previewShopName">Nom de la boutique</div>
+                        <div class="shop-preview-owner" id="previewOwnerName">Propriétaire: Nom du propriétaire</div>
+                        <div class="shop-preview-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span id="previewLocation">Localisation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>À propos</h3>
+                    <ul>
+                        <li><a href="#">Notre histoire</a></li>
+                        <li><a href="#">Nos valeurs</a></li>
+                        <li><a href="#">Nos engagements</a></li>
+                        <li><a href="#">Carrières</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service client</h3>
+                    <ul>
+                        <li><a href="#">Contactez-nous</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Livraison & Retours</a></li>
+                        <li><a href="#">Conditions générales</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Mon compte</h3>
+                    <ul>
+                        <li><a href="{% url 'login' %}">Connexion</a></li>
+                        <li><a href="{% url 'inscription' %}">Inscription</a></li>
+                        <li><a href="#">Historique des commandes</a></li>
+                        <li><a href="#">Liste de souhaits</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'script/shop.js' %}"></script>
+</body>
+</html>

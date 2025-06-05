@@ -56,33 +56,35 @@ def login_view(request):
             return render(request, 'login.html')
         
         try:
-            # Essayer d'abord de trouver l'utilisateur par email
+            # On tente d'abord de retrouver l'utilisateur par email
             user = User.objects.filter(email=login_field).first()
+
+            # Si aucun résultat, on tente par nom d'utilisateur
+            if not user:
+                user = User.objects.filter(username=login_field).first()
+
             if user:
-                # Si trouvé par email, authentifier avec le username
-                username = user.username
-            else:
-                # Sinon, considérer que c'est un username
-                username = login_field
-            
-            # Tentative d'authentification
-            user = authenticate(request, username=username, password=password)
-            
-            if user is not None:
-                if user.is_active:
+                if not user.is_active:
+                    messages.error(request, "Votre compte n'est pas encore activé. Veuillez patienter.")
+                    return render(request, 'login.html', {'email': login_field})
+
+                # Authentification
+                user = authenticate(request, username=user.username, password=password)
+
+                if user is not None:
                     login(request, user)
                     return redirect('accueil')
                 else:
-                    messages.error(request, "Votre compte n'est pas encore activé. Veuillez patienter.")
+                    messages.error(request, "Mot de passe incorrect.")
             else:
-                messages.error(request, "Identifiants incorrects.")
-                
+                messages.error(request, "Aucun compte n'est associé à ces identifiants.")
+
         except Exception as e:
             print(f"Erreur de connexion: {str(e)}")
             messages.error(request, "Une erreur est survenue lors de la connexion.")
         
         return render(request, 'login.html', {'email': login_field})
-    
+
     return render(request, 'login.html')
 
 def inscription(request):
@@ -220,6 +222,7 @@ def inscription(request):
                     fournisseur = Fournisseur.objects.create(
                         nom_entreprise=request.POST.get('business-name'),
                         rccm=request.POST.get('rccm'),
+                        email=email,
                         description=request.POST.get('description'),  # Optionnel
                         telephone=request.POST.get('phone'),
                         adresse=request.POST.get('address'),
@@ -229,7 +232,9 @@ def inscription(request):
                         type_entreprise=request.POST.get('business-type'),
                         site_web=request.POST.get('website'),  # Optionnel
                         date_inscription=timezone.now(),
+                        document_identite=request.FILES.get('id'),
                         statut='en_attente'
+                        
                     )
 
                     # Création du compte utilisateur pour le fournisseur
