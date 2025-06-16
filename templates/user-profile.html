@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="{% static 'style/principal/profile.css' %}">
 </head>
 <body>
+    <style>
+        .profile-info-value {
+            display: flex;
+            margin-left: -35px;
+        }
+    </style>
     <header>
         <div class="container header-container">
             <div class="mobile-menu-toggle" id="mobile-menu-toggle">
@@ -116,15 +122,24 @@
                         <div class="profile-avatar">
                             <i class="fas fa-user"></i>
                         </div>
-                        <h2 class="profile-name">SANON cheick fayçal</h2>
-                        <span class="profile-type" id="account-type">Client</span>
+                        <h2 class="profile-name">
+                            {% if user_info %}
+                                {% if user_type == 'Client' %}
+                                    {{ user_info.prenom }} {{ user_info.nom }}
+                                {% else %}
+                                    {{ user_info.nom_entreprise }}
+                                {% endif %}
+                            {% else %}
+                                {{ user.first_name }} {{ user.last_name }}
+                            {% endif %}</h2>
+                        <span class="profile-type" id="account-type">{{ user_type }}</span>
                         
                         <div class="profile-info">
                             <div class="profile-info-item">
                                 <i class="fas fa-envelope profile-info-icon"></i>
                                 <div class="profile-info-text">
                                     <div class="profile-info-label">Email</div>
-                                    <div class="profile-info-value">sanoncheickfaycal@gmail.com</div>
+                                    <div class="profile-info-value">{{ user.email }}</div>
                                 </div>
                             </div>
                             
@@ -132,7 +147,12 @@
                                 <i class="fas fa-phone profile-info-icon"></i>
                                 <div class="profile-info-text">
                                     <div class="profile-info-label">Téléphone</div>
-                                    <div class="profile-info-value">+226 05 44 77 30</div>
+                                    <div class="profile-info-value">
+                                        {% if user_info and user_info.telephone %}
+                                            {{ user_info.telephone }}
+                                        {% else %}
+                                            Non renseigné
+                                        {% endif %}</div>
                                 </div>
                             </div>
                             
@@ -140,7 +160,14 @@
                                 <i class="fas fa-map-marker-alt profile-info-icon"></i>
                                 <div class="profile-info-text">
                                     <div class="profile-info-label">Adresse</div>
-                                    <div class="profile-info-value"> 75000 OUAGADOUGOU, BURKINA FASO</div>
+                                    <div class="profile-info-value">
+                                        {% if user_info %}
+                                            {{ user_info.adresse }}
+                                            {% if user_info.code_postal %}, {{ user_info.code_postal }}{% endif %}
+                                            {{ user_info.ville }}, {{ user_info.pays }}
+                                        {% else %}
+                                            Non renseignée
+                                        {% endif %}</div>
                                 </div>
                             </div>
                             
@@ -148,7 +175,12 @@
                                 <i class="fas fa-calendar-alt profile-info-icon"></i>
                                 <div class="profile-info-text">
                                     <div class="profile-info-label">Membre depuis</div>
-                                    <div class="profile-info-value">Janvier 2023</div>
+                                    <div class="profile-info-value">
+                                        {% if date_inscription %}
+                                            {{ date_inscription }}
+                                        {% else %}
+                                            Non disponible
+                                        {% endif %}</div>
                                 </div>
                             </div>
                         </div>
@@ -160,14 +192,15 @@
                                     <span>Mes commandes</span>
                                 </a>
                             </li>
-                            
+
+                            {% if user_type == 'Fournisseur' %}
                             <li class="profile-nav-item">
-                                <a href="#" class="profile-nav-link" data-tab="addresses">
-                                    <i class="fas fa-map-marked-alt profile-nav-icon"></i>
-                                    <span>Adresses</span>
+                                <a href="#" class="profile-nav-link" data-tab="products">
+                                    <i class="fas fa-box profile-nav-icon"></i>
+                                    <span>Mes produits</span>
                                 </a>
                             </li>
-                            
+                            {% endif %}
 
                             <li class="profile-nav-item">
                                 <a href="#" class="profile-nav-link" data-tab="security">
@@ -186,9 +219,15 @@
                     
                     <div class="profile-content">
                         <div class="profile-content-header">
-                            <h2 class="profile-content-title">Historique des commandes</h2>
+                            <h2 class="profile-content-title">
+                                {% if user_type == 'Fournisseur' %}
+                                    Tableau de bord fournisseur
+                                {% else %}
+                                    Historique des commandes
+                                {% endif %}
+                            </h2>
                         </div>
-                        
+                        {% if user_type == 'Client' %}
                         <div class="order-history">
                             <div class="order-card">
                                 <div class="order-header">
@@ -273,8 +312,9 @@
                                     </div>
                                 </div>
                             </div>
-                        
+                            {% endif %}
                         <!-- Supplier Section (Hidden by default) -->
+                         {% if user_type == 'Fournisseur' %}
                         <div class="supplier-section">
                             <div class="supplier-stats">
                                 <div class="stat-card">
@@ -395,6 +435,7 @@
                                 </table>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>

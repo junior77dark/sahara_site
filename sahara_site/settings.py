@@ -78,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'sahara_db',
         'USER': 'junior',
-        'PASSWORD': '',
+        'PASSWORD': 'Inform@tique',
     }
 }
 

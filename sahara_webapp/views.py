@@ -43,8 +43,64 @@ def categorie_vetements(request):
     return render(request, 'categories/categorie-vetements.html')
 
 # Pages utilisateur
+# Ajoutez cette vue modifiée dans votre views.py
+
+@login_required
 def user_profile(request):
-    return render(request, 'user-profile.html')
+    """
+    Affiche le profil utilisateur avec ses informations personnelles
+    """
+    user = request.user
+    user_type = 'Client'  # Par défaut
+    user_info = None
+    
+    try:
+        # Vérifier si l'utilisateur est un client
+        client = Client.objects.get(email=user.email)
+        user_info = client
+        user_type = 'Client'
+    except Client.DoesNotExist:
+        try:
+            # Vérifier si l'utilisateur est un fournisseur
+            fournisseur = Fournisseur.objects.get(email=user.email)
+            user_info = fournisseur
+            user_type = 'Fournisseur'
+        except Fournisseur.DoesNotExist:
+            # Utilisateur sans profil client ou fournisseur
+            user_info = None
+    
+    # Formatage de la date d'inscription
+    date_inscription = None
+    if user_info and hasattr(user_info, 'date_inscription') and user_info.date_inscription:
+        date_inscription = user_info.date_inscription.strftime("%B %Y")
+        # Traduction des mois en français
+        mois_fr = {
+            'January': 'Janvier', 'February': 'Février', 'March': 'Mars',
+            'April': 'Avril', 'May': 'Mai', 'June': 'Juin',
+            'July': 'Juillet', 'August': 'Août', 'September': 'Septembre',
+            'October': 'Octobre', 'November': 'Novembre', 'December': 'Décembre'
+        }
+        for eng, fr in mois_fr.items():
+            date_inscription = date_inscription.replace(eng, fr)
+    elif user.date_joined:
+        date_inscription = user.date_joined.strftime("%B %Y")
+        mois_fr = {
+            'January': 'Janvier', 'February': 'Février', 'March': 'Mars',
+            'April': 'Avril', 'May': 'Mai', 'June': 'Juin',
+            'July': 'Juillet', 'August': 'Août', 'September': 'Septembre',
+            'October': 'Octobre', 'November': 'Novembre', 'December': 'Décembre'
+        }
+        for eng, fr in mois_fr.items():
+            date_inscription = date_inscription.replace(eng, fr)
+    
+    context = {
+        'user': user,
+        'user_info': user_info,
+        'user_type': user_type,
+        'date_inscription': date_inscription,
+    }
+    
+    return render(request, 'user-profile.html', context)
 
 def login_view(request):
     if request.method == 'POST':
