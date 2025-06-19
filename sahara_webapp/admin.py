@@ -1,8 +1,10 @@
-from django.contrib import admin, messages
-from django.utils.html import format_html
-from django.core.mail import send_mail
-from .models import Fournisseur, ValidationFournisseur
+from django.contrib import admin
 from django.contrib.auth.models import User
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+from django.contrib import messages
+from .models import Fournisseur, ValidationFournisseur
 
 
 @admin.action(description="✅ Activer le compte utilisateur lié")
@@ -16,56 +18,113 @@ def activer_utilisateur(modeladmin, request, queryset):
             fournisseur.statut = 'valide'
             fournisseur.save()
 
+            # Créer l'entrée de validation
             ValidationFournisseur.objects.create(
                 fournisseur=fournisseur,
                 valide_par=request.user,
                 decision='valide'
             )
 
-            send_mail(
+            # Préparer le contexte pour le template
+            context = {
+                'username': user.username,
+                'nom_entreprise': fournisseur.nom_entreprise,
+                'login_url': request.build_absolute_uri('/login/'),
+                'request': request  # Nécessaire pour la fonction static dans le template
+            }
+
+            # Rendre le template HTML
+            html_content = render_to_string('emails/email_accep.html', context)
+            text_content = strip_tags(html_content)
+
+            # Créer et envoyer l'email
+            email = EmailMultiAlternatives(
                 subject="Compte validé - Sahara",
-                message=(
-                    f"Bonjour {user.username},\n\n"
-                    "Félicitations ! Votre compte fournisseur sur Sahara a été validé.\n"
-                    "Vous pouvez maintenant vous connecter et publier vos produits.\n\n"
-                    "Cordialement,\nL'équipe Sahara."
-                ),
-                recipient_list=[user.email],
+                body=text_content,
                 from_email=None,
+                to=[user.email]
             )
+            email.attach_alternative(html_content, "text/html")
+            
+            try:
+                email.send()
+                messages.success(
+                    request, 
+                    f"Le compte de {fournisseur.nom_entreprise} a été activé et notifié"
+                )
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"Erreur lors de l'envoi de l'email à {fournisseur.email}: {str(e)}"
+                )
 
         except User.DoesNotExist:
-            messages.warning(request, f"Utilisateur introuvable pour : {fournisseur.email}")
+            messages.warning(
+                request,
+                f"Utilisateur introuvable pour : {fournisseur.email}"
+            )
+        except Exception as e:
+            messages.error(
+                request,
+                f"Erreur lors de l'activation de {fournisseur.email}: {str(e)}"
+            )
 
 
 @admin.action(description="❌ Refuser la validation (supprimer compte)")
 def refuser_validation(modeladmin, request, queryset):
-    motif = "Les informations transmises sont incomplètes, non valides ou illisibles."
     for fournisseur in queryset:
         try:
             user = User.objects.get(email=fournisseur.email)
 
-            # Envoi de l'email de refus
-            send_mail(
+            motif = "Les informations transmises sont incomplètes, non valides ou illisibles."
+
+            # Préparer le contexte pour le template
+            context = {
+                'user': user,
+                'fournisseur': fournisseur,
+                'motif': motif,
+                'request': request
+            }
+
+            # Rendre le template HTML
+            html_content = render_to_string('emails/email_refus.html', context)
+            text_content = strip_tags(html_content)
+
+            # Créer et envoyer l'email
+            email = EmailMultiAlternatives(
                 subject="Compte refusé - Sahara",
-                message=(
-                    f"Bonjour {user.username},\n\n"
-                    "Votre demande d'inscription fournisseur a été refusée.\n"
-                    f"Motif : {motif}\n\n"
-                    "Vous pouvez soumettre une nouvelle demande avec des documents clairs et valides.\n\n"
-                    "Cordialement,\nL'équipe Sahara."
-                ),
-                recipient_list=[user.email],
+                body=text_content,
                 from_email=None,
+                to=[user.email]
             )
+            email.attach_alternative(html_content, "text/html")
+            
+            try:
+                email.send()
+            except Exception as e:
+                messages.error(
+                    request,
+                    f"Erreur lors de l'envoi de l'email à {fournisseur.email}: {str(e)}"
+                )
 
             user.delete()
             fournisseur.delete()
+            messages.success(
+                request,
+                f"Le compte de {fournisseur.nom_entreprise} a été refusé et supprimé"
+            )
 
         except User.DoesNotExist:
             fournisseur.delete()
-
-    messages.success(request, "Les fournisseurs sélectionnés ont été refusés et supprimés.")
+            messages.warning(
+                request,
+                f"Utilisateur déjà supprimé pour : {fournisseur.email}"
+            )
+        except Exception as e:
+            messages.error(
+                request,
+                f"Erreur lors du refus de {fournisseur.email}: {str(e)}"
+            )
 
 
 @admin.register(Fournisseur)

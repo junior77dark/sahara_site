@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votre inscription chez Sahara</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background-color: #8B4513;
+            padding: 20px;
+            text-align: center;
+        }
+        .header img {
+            max-width: 200px;
+        }
+        .content {
+            padding: 40px 20px;
+            color: #333;
+        }
+        .alert {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .footer {
+            background-color: #f8f8f8;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #8B4513;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+        .button:hover {
+            background-color: #6B3410;
+        }
+        .text-center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="{% static 'saharalogo.png' %}" alt="Sahara">
+        </div>
+        <div class="content">
+            <h2>Demande de compte non validée</h2>
+            <p>Bonjour {{ user.username }},</p>
+            <p>Nous avons examiné votre demande de compte fournisseur pour <strong>{{ fournisseur.nom_entreprise }}</strong>.</p>
+            <p>Malheureusement, nous ne pouvons pas valider votre demande.</p>
+            
+            <div class="alert">
+                <strong>Motif du refus :</strong><br>
+                {{ motif }}
+            </div>
+            
+            <p>Vous pouvez soumettre une nouvelle demande en veillant à :</p>
+            <ul>
+                <li>Fournir des documents clairs et lisibles</li>
+                <li>Compléter toutes les informations requises</li>
+            </ul>
+            
+            <div class="text-center">
+                <a href="{{ request.scheme }}://{{ request.get_host }}{% url 'inscription' %}" class="button">
+                    Réessayer l'inscription
+                </a>
+            </div>
+            
+            <p>Si vous pensez qu'il s'agit d'une erreur, n'hésitez pas à contacter notre service support.</p>
+            <p>Cordialement,<br>L'équipe Sahara</p>
+        </div>
+        <div class="footer">
+            © {% now "Y" %} Sahara. Tous droits réservés.
+        </div>
+    </div>
+</body>
+</html>
+
