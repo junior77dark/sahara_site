@@ -67,7 +67,7 @@
 <body>
     <div class="container">
         <div class="header">
-            <img src="{% static 'saharalogo.png' %}" alt="Sahara">
+            <img src="{{ request.scheme }}://{{ request.get_host }}{% static 'saharalogo.png' %}" alt="Sahara">
         </div>
         <div class="content">
             <h2>Félicitations ! Votre compte a été validé</h2>
