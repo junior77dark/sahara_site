@@ -120,7 +120,14 @@
                 <div class="profile-container">
                     <div class="profile-sidebar">
                         <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
+                            <label for="profile-picture-upload" class="profile-avatar-label">
+                                <img src="https://via.placeholder.com/150" alt="Photo de profil" id="profile-picture-preview">
+                                <div class="change-picture-overlay">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Changer</span>
+                                </div>
+                            </label>
+                            <input type="file" id="profile-picture-upload" accept="image/*" class="hidden-file-input">
                         </div>
                         <h2 class="profile-name">
                             {% if user_info %}
@@ -219,143 +226,133 @@
                     
                     <div class="profile-content">
                         <div class="profile-content-header">
-                            <h2 class="profile-content-title">
-                                {% if user_type == 'Fournisseur' %}
-                                    Tableau de bord fournisseur
-                                {% else %}
-                                    Historique des commandes
-                                {% endif %}
-                            </h2>
+                            <h2 class="profile-content-title">Historique des commandes</h2>
                         </div>
-                        {% if user_type == 'Client' %}
-                        <div class="order-history">
-                            <div class="order-card">
-                                <div class="order-header">
-                                    <div class="order-id">#ORD-2025-1234</div>
-                                    <div class="order-date">15 Mars 2025</div>
-                                    <span class="order-status status-delivered">Livré</span>
-                                </div>
-                                
-                                <div class="order-items">
-                                    <div class="order-item">
-                                        <div class="order-item-image">
-                                            <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25" alt="Canapé en cuir">
-                                        </div>
-                                        <div class="order-item-details">
-                                            <div class="order-item-name">Canapé en cuir marron</div>
-                                            <div class="order-item-price">899,00 Fcfa</div>
-                                        </div>
-                                        <div class="order-item-quantity">x1</div>
+                        
+                        <!-- Contenu des onglets -->
+                        <div class="profile-tab-content active" data-content="orders">
+                            {% if user_type == 'Client' %}
+                            <div class="order-history">
+                                <div class="order-card">
+                                    <div class="order-header">
+                                        <div class="order-id">#ORD-2025-1234</div>
+                                        <div class="order-date">15 Mars 2025</div>
+                                        <span class="order-status status-delivered">Livré</span>
                                     </div>
                                     
-                                    <div class="order-item">
-                                        <div class="order-item-image">
-                                            <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15" alt="Lampe de table">
+                                    <div class="order-items">
+                                        <div class="order-item">
+                                            <div class="order-item-image">
+                                                <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25" alt="Canapé en cuir">
+                                            </div>
+                                            <div class="order-item-details">
+                                                <div class="order-item-name">Canapé en cuir marron</div>
+                                                <div class="order-item-price">899,00 Fcfa</div>
+                                            </div>
+                                            <div class="order-item-quantity">x1</div>
                                         </div>
-                                        <div class="order-item-details">
-                                            <div class="order-item-name">Lampe de table en laiton</div>
-                                            <div class="order-item-price">149,00 Fcfa</div>
+                                        
+                                        <div class="order-item">
+                                            <div class="order-item-image">
+                                                <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15" alt="Lampe de table">
+                                            </div>
+                                            <div class="order-item-details">
+                                                <div class="order-item-name">Lampe de table en laiton</div>
+                                                <div class="order-item-price">149,00 Fcfa</div>
+                                            </div>
+                                            <div class="order-item-quantity">x2</div>
                                         </div>
-                                        <div class="order-item-quantity">x2</div>
+                                    </div>
+                                    
+                                    <div class="order-footer">
+                                        <div class="order-total">
+                                            Total: <span class="order-total-value">1 197,00 Fcfa</span>
+                                        </div>
+                                        <div class="order-actions">
+                                            <button class="btn btn-outline btn-sm">Détails</button>
+                                            <button class="btn btn-primary btn-sm">Acheter à nouveau</button>
+                                        </div>
                                     </div>
                                 </div>
                                 
-                                <div class="order-footer">
-                                    <div class="order-total">
-                                        Total: <span class="order-total-value">1 197,00 Fcfa</span>
+                                <div class="order-card">
+                                    <div class="order-header">
+                                        <div class="order-id">#ORD-2025-1189</div>
+                                        <div class="order-date">28 Février 2025</div>
+                                        <span class="order-status status-delivered">Livré</span>
                                     </div>
-                                    <div class="order-actions">
-                                        <button class="btn btn-outline btn-sm">Détails</button>
-                                        <button class="btn btn-primary btn-sm">Acheter à nouveau</button>
+                                    
+                                    <div class="order-items">
+                                        <div class="order-item">
+                                            <div class="order-item-image">
+                                                <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11" alt="Coussin décoratif">
+                                            </div>
+                                            <div class="order-item-details">
+                                                <div class="order-item-name">Coussin décoratif motif désert</div>
+                                                <div class="order-item-price">39,90 Fcfa</div>
+                                            </div>
+                                            <div class="order-item-quantity">x3</div>
+                                        </div>
+                                        
+                                        <div class="order-item">
+                                            <div class="order-item-image">
+                                                <img src="https://images.unsplash.com/photo-1526057565006-20beab8dd2ed" alt="Vase en céramique">
+                                            </div>
+                                            <div class="order-item-details">
+                                                <div class="order-item-name">Vase en céramique artisanal</div>
+                                                <div class="order-item-price">79,00 Fcfa</div>
+                                            </div>
+                                            <div class="order-item-quantity">x1</div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="order-footer">
+                                        <div class="order-total">
+                                            Total: <span class="order-total-value">198,70 Fcfa</span>
+                                        </div>
+                                        <div class="order-actions">
+                                            <button class="btn btn-outline btn-sm">Détails</button>
+                                            <button class="btn btn-primary btn-sm">Acheter à nouveau</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            <div class="order-card">
-                                <div class="order-header">
-                                    <div class="order-id">#ORD-2025-1189</div>
-                                    <div class="order-date">28 Février 2025</div>
-                                    <span class="order-status status-delivered">Livré</span>
-                                </div>
-                                
-                                <div class="order-items">
-                                    <div class="order-item">
-                                        <div class="order-item-image">
-                                            <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11" alt="Coussin décoratif">
-                                        </div>
-                                        <div class="order-item-details">
-                                            <div class="order-item-name">Coussin décoratif motif désert</div>
-                                            <div class="order-item-price">39,90 Fcfa</div>
-                                        </div>
-                                        <div class="order-item-quantity">x3</div>
+                            {% else %}
+                            <div class="supplier-section">
+                                <div class="supplier-stats">
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-box"></i></div>
+                                        <div class="stat-value">24</div>
+                                        <div class="stat-label">Produits</div>
                                     </div>
-                                    
-                                    <div class="order-item">
-                                        <div class="order-item-image">
-                                            <img src="https://images.unsplash.com/photo-1526057565006-20beab8dd2ed" alt="Vase en céramique">
-                                        </div>
-                                        <div class="order-item-details">
-                                            <div class="order-item-name">Vase en céramique artisanal</div>
-                                            <div class="order-item-price">79,00 Fcfa</div>
-                                        </div>
-                                        <div class="order-item-quantity">x1</div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                                        <div class="stat-value">156</div>
+                                        <div class="stat-label">Ventes</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-star"></i></div>
+                                        <div class="stat-value">4.8</div>
+                                        <div class="stat-label">Note moyenne</div>
+                                    </div>
+                                    <div class="stat-card">
+                                        <div class="stat-icon"><i class="fas fa-euro-sign"></i></div>
+                                        <div class="stat-value">12 450</div>
+                                        <div class="stat-label">Revenus (Fcfa)</div>
                                     </div>
                                 </div>
-                                
-                                <div class="order-footer">
-                                    <div class="order-total">
-                                        Total: <span class="order-total-value">198,70 Fcfa</span>
-                                    </div>
-                                    <div class="order-actions">
-                                        <button class="btn btn-outline btn-sm">Détails</button>
-                                        <button class="btn btn-primary btn-sm">Acheter à nouveau</button>
-                                    </div>
-                                </div>
+                                <p class="text-center" style="margin-top: var(--spacing-xl);">L'historique des commandes sera bientôt disponible ici.</p>
                             </div>
                             {% endif %}
-                        <!-- Supplier Section (Hidden by default) -->
-                         {% if user_type == 'Fournisseur' %}
-                        <div class="supplier-section">
-                            <div class="supplier-stats">
-                                <div class="stat-card">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-box"></i>
-                                    </div>
-                                    <div class="stat-value">24</div>
-                                    <div class="stat-label">Produits</div>
-                                </div>
-                                
-                                <div class="stat-card">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </div>
-                                    <div class="stat-value">156</div>
-                                    <div class="stat-label">Ventes</div>
-                                </div>
-                                
-                                <div class="stat-card">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-star"></i>
-                                    </div>
-                                    <div class="stat-value">4.8</div>
-                                    <div class="stat-label">Note moyenne</div>
-                                </div>
-                                
-                                <div class="stat-card">
-                                    <div class="stat-icon">
-                                        <i class="fas fa-euro-sign"></i>
-                                    </div>
-                                    <div class="stat-value">12 450</div>
-                                    <div class="stat-label">Revenus (Fcfa)</div>
-                                </div>
-                            </div>
-                            
+                        </div>
+                        
+                        {% if user_type == 'Fournisseur' %}
+                        <div class="profile-tab-content" data-content="products">
                             <div class="product-list">
                                 <div class="product-list-header">
                                     <h3 class="product-list-title">Mes produits</h3>
                                     <a href="add-product.html" class="btn btn-primary btn-sm">Ajouter un produit</a>
                                 </div>
-                                
                                 <table class="product-table">
                                     <thead>
                                         <tr>
@@ -436,6 +433,88 @@
                             </div>
                         </div>
                         {% endif %}
+                        
+                        <div class="profile-tab-content" data-content="security">
+                            <div class="security-section">
+                                <!-- Change Profile Information Card -->
+                                <div class="security-card">
+                                    <h3 class="security-card-title">Informations du profil</h3>
+                                    <form class="profile-info-form">
+                                        <div class="profile-info-fields">
+                                            {% if user_type == 'Client' %}
+                                            <div class="form-group">
+                                                <label for="user-username">Nom d'utilisateur</label>
+                                                <input type="text" id="user-username" value="{{ user.username }}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="user-firstname">Prénom</label>
+                                                <input type="text" id="user-firstname" value="{% if user_info %}{{ user_info.prenom }}{% else %}{{ user.first_name }}{% endif %}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="user-lastname">Nom</label>
+                                                <input type="text" id="user-lastname" value="{% if user_info %}{{ user_info.nom }}{% else %}{{ user.last_name }}{% endif %}">
+                                            </div>
+                                            {% else %}
+                                            <div class="form-group">
+                                                <label for="shop-name">Nom de la boutique</label>
+                                                <input type="text" id="shop-name" value="{% if user_info %}{{ user_info.nom_entreprise }}{% endif %}">
+                                            </div>
+                                            {% endif %}
+                                            <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- Change Password Card -->
+                                <div class="security-card">
+                                    <h3 class="security-card-title">Changer le mot de passe</h3>
+                                    <form id="change-password-form">
+                                        <div id="current-password-section">
+                                            <p>Pour des raisons de sécurité, veuillez confirmer votre mot de passe actuel avant d'en choisir un nouveau.</p>
+                                            <div class="form-group-inline">
+                                                <input type="password" id="current-password" placeholder="Mot de passe actuel" required>
+                                                <button type="button" id="verify-password-btn" class="btn btn-outline btn-sm">Confirmer</button>
+                                            </div>
+                                            <div id="password-error-message" class="error-message" style="display: none;">Mot de passe actuel incorrect.</div>
+                                        </div>
+                                        <div id="new-password-section" style="display: none;">
+                                            <p>Choisissez un nouveau mot de passe fort.</p>
+                                            <div class="form-group">
+                                                <label for="new-password">Nouveau mot de passe</label>
+                                                <input type="password" id="new-password" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="confirm-password">Confirmer le nouveau mot de passe</label>
+                                                <input type="password" id="confirm-password" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Changer le mot de passe</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- Danger Zone Card -->
+                                <div class="security-card danger-zone">
+                                    <h3 class="security-card-title">Zone de Danger</h3>
+                                    {% if user_type == 'Fournisseur' %}
+                                    <div class="danger-action">
+                                        <div>
+                                            <h4>Supprimer la boutique</h4>
+                                            <p>Cette action est irréversible. Tous vos produits et données de vente seront définitivement supprimés.</p>
+                                        </div>
+                                        <button class="btn btn-danger" id="delete-shop-btn">Supprimer la boutique</button>
+                                    </div>
+                                    {% endif %}
+                                    <div class="danger-action">
+                                        <div>
+                                            <h4>Supprimer le compte</h4>
+                                            <p>Cette action est irréversible. Toutes vos données personnelles et votre historique de commandes seront définitivement supprimés.</p>
+                                        </div>
+                                        <button class="btn btn-danger" id="delete-account-btn">Supprimer mon compte</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -494,6 +573,7 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // --- MENU ET NAVIGATION ---
             // Menu burger mobile
             const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -501,179 +581,198 @@
             const mobileCategoriesToggle = document.getElementById('mobile-categories-toggle');
             const mobileCategoriesSubmenu = document.getElementById('mobile-categories-submenu');
             
-            // Ouvrir le menu mobile
-            mobileMenuToggle.addEventListener('click', function() {
-                mobileMenu.classList.add('active');
-                mobileMenuToggle.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Empêcher le défilement de la page
-            });
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.add('active');
+                    mobileMenuToggle.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
             
-            // Fermer le menu mobile
-            mobileMenuClose.addEventListener('click', function() {
-                mobileMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-                document.body.style.overflow = ''; // Réactiver le défilement de la page
-            });
+            if (mobileMenuClose) {
+                mobileMenuClose.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    mobileMenuToggle.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
             
-            // Toggle sous-menu catégories en mobile
-            mobileCategoriesToggle.addEventListener('click', function(e) {
-                e.preventDefault();
-                mobileCategoriesToggle.classList.toggle('active');
-                mobileCategoriesSubmenu.classList.toggle('active');
-            });
+            if (mobileCategoriesToggle) {
+                mobileCategoriesToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    mobileCategoriesToggle.classList.toggle('active');
+                    mobileCategoriesSubmenu.classList.toggle('active');
+                });
+            }
             
-            // Toggle Categories Dropdown (desktop)
+            // Dropdown des catégories (desktop)
             const categoriesDropdown = document.querySelector('.categories-dropdown');
-            const categoriesBtn = document.querySelector('.categories-dropdown-btn');
-            
-            categoriesBtn.addEventListener('click', function() {
-                categoriesDropdown.classList.toggle('active');
-            });
-            
-            // Close dropdown when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!categoriesDropdown.contains(event.target)) {
-                    categoriesDropdown.classList.remove('active');
-                }
-            });
-            
-            // Profile Navigation Tabs
+            if (categoriesDropdown) {
+                const categoriesBtn = categoriesDropdown.querySelector('.categories-dropdown-btn');
+                categoriesBtn.addEventListener('click', function() {
+                    categoriesDropdown.classList.toggle('active');
+                });
+                document.addEventListener('click', function(event) {
+                    if (!categoriesDropdown.contains(event.target)) {
+                        categoriesDropdown.classList.remove('active');
+                    }
+                });
+            }
+
+            // --- GESTION DES ONGLETS DU PROFIL ---
             const navLinks = document.querySelectorAll('.profile-nav-link[data-tab]');
-            
+            const tabContents = document.querySelectorAll('.profile-tab-content');
+            const contentTitle = document.querySelector('.profile-content-title');
+
             navLinks.forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // Remove active class from all links
-                    navLinks.forEach(navLink => {
-                        navLink.classList.remove('active');
-                    });
-                    
-                    // Add active class to clicked link
-                    this.classList.add('active');
-                    
-                    // Update content title based on selected tab
                     const tabName = this.getAttribute('data-tab');
-                    const contentTitle = document.querySelector('.profile-content-title');
-                    
+
+                    // Mise à jour des liens de navigation
+                    navLinks.forEach(navLink => navLink.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Mise à jour du titre
                     switch(tabName) {
                         case 'orders':
-                            contentTitle.textContent = 'Historique des commandes';
-                            break;
-                        case 'personal-info':
-                            contentTitle.textContent = 'Informations personnelles';
-                            break;
-                        case 'addresses':
-                            contentTitle.textContent = 'Mes adresses';
+                            contentTitle.textContent = document.getElementById('account-type').textContent === 'Fournisseur' ? 'Tableau de bord' : 'Historique des commandes';
                             break;
                         case 'products':
                             contentTitle.textContent = 'Mes produits';
                             break;
-                        case 'wishlist':
-                            contentTitle.textContent = 'Liste de souhaits';
-                            break;
                         case 'security':
-                            contentTitle.textContent = 'Sécurité du compte';
+                            contentTitle.textContent = 'Sécurité et Informations';
                             break;
                     }
-                    
-                    // Show supplier section if products tab is selected and user is a supplier
-                    const supplierSection = document.querySelector('.supplier-section');
-                    const orderHistory = document.querySelector('.order-history');
-                    
-                    if (tabName === 'products' && document.getElementById('account-type').textContent === 'Fournisseur') {
-                        supplierSection.classList.add('active');
-                        orderHistory.style.display = 'none';
-                    } else {
-                        supplierSection.classList.remove('active');
-                        orderHistory.style.display = 'block';
-                    }
+
+                    // Affichage du contenu de l'onglet
+                    tabContents.forEach(content => {
+                        if (content.getAttribute('data-content') === tabName) {
+                            content.classList.add('active');
+                        } else {
+                            content.classList.remove('active');
+                        }
+                    });
                 });
             });
-            
-            // Toggle Account Type (Client/Supplier)
-            const toggleAccountTypeBtn = document.getElementById('toggle-account-type');
-            const accountTypeSpan = document.getElementById('account-type');
-            const supplierOnlyElements = document.querySelectorAll('.supplier-only');
-            
-            if (toggleAccountTypeBtn) {
-                toggleAccountTypeBtn.addEventListener('click', function() {
-                    if (accountTypeSpan.textContent === 'Client') {
-                        accountTypeSpan.textContent = 'Fournisseur';
-                        supplierOnlyElements.forEach(el => {
-                            el.style.display = 'block';
-                        });
-                    } else {
-                        accountTypeSpan.textContent = 'Client';
-                        supplierOnlyElements.forEach(el => {
-                            el.style.display = 'none';
-                        });
-                        
-                        // If currently on products tab, switch to orders tab
-                        const activeTab = document.querySelector('.profile-nav-link.active');
-                        if (activeTab.getAttribute('data-tab') === 'products') {
-                            document.querySelector('.profile-nav-link[data-tab="orders"]').click();
+
+            // --- FONCTIONNALITÉS DE L'ONGLET SÉCURITÉ ---
+
+            // Changement de la photo de profil
+            const profilePicUpload = document.getElementById('profile-picture-upload');
+            const profilePicPreview = document.getElementById('profile-picture-preview');
+            if(profilePicUpload && profilePicPreview) {
+                profilePicUpload.addEventListener('change', function(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            profilePicPreview.src = e.target.result;
                         }
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+
+            // Vérification du mot de passe actuel
+            const verifyPasswordBtn = document.getElementById('verify-password-btn');
+            const currentPasswordInput = document.getElementById('current-password');
+            const newPasswordSection = document.getElementById('new-password-section');
+            const passwordErrorMessage = document.getElementById('password-error-message');
+
+            if (verifyPasswordBtn) {
+                verifyPasswordBtn.addEventListener('click', function() {
+                    // Simulation: on considère que "password123" est le mot de passe correct
+                    if (currentPasswordInput.value === 'password123') { 
+                        newPasswordSection.style.display = 'block';
+                        passwordErrorMessage.style.display = 'none';
+                        currentPasswordInput.style.borderColor = '';
+                    } else {
+                        newPasswordSection.style.display = 'none';
+                        passwordErrorMessage.style.display = 'block';
+                        currentPasswordInput.style.borderColor = '#C62828'; // Rouge erreur
                     }
                 });
             }
             
-            // Order Details Buttons
-            const detailsButtons = document.querySelectorAll('.order-actions .btn-outline');
+            // Actions de la "Danger Zone"
+            const deleteAccountBtn = document.getElementById('delete-account-btn');
+            const deleteShopBtn = document.getElementById('delete-shop-btn');
+
+            if (deleteAccountBtn) {
+                deleteAccountBtn.addEventListener('click', function() {
+                    const confirmation = prompt("Êtes-vous absolument sûr ? Cette action est irréversible. Pour confirmer, tapez 'SUPPRIMER MON COMPTE' dans le champ ci-dessous.");
+                    if (confirmation === 'SUPPRIMER MON COMPTE') {
+                        alert('Votre compte a été supprimé.');
+                        // Redirection vers la page d'accueil ou de déconnexion
+                        window.location.href = "{% url 'accueil' %}";
+                    } else {
+                        alert('La suppression a été annulée.');
+                    }
+                });
+            }
+
+            if (deleteShopBtn) {
+                deleteShopBtn.addEventListener('click', function() {
+                    const confirmation = prompt("Êtes-vous absolument sûr ? La suppression de votre boutique entraînera la perte de tous vos produits et données de vente. Pour confirmer, tapez 'SUPPRIMER MA BOUTIQUE'.");
+                    if (confirmation === 'SUPPRIMER MA BOUTIQUE') {
+                        alert('Votre boutique a été supprimée.');
+                        // Ici, logique de suppression backend
+                    } else {
+                        alert('La suppression a été annulée.');
+                    }
+                });
+            }
+
+
+            // --- ACTIONS DIVERSES ---
             
-            detailsButtons.forEach(button => {
+            // Boutons "Détails de la commande"
+            document.querySelectorAll('.order-actions .btn-outline').forEach(button => {
                 button.addEventListener('click', function() {
-                    const orderCard = this.closest('.order-card');
-                    const orderId = orderCard.querySelector('.order-id').textContent;
-                    alert(`Détails de la commande ${orderId} - Cette fonctionnalité sera disponible prochainement.`);
+                    const orderId = this.closest('.order-card').querySelector('.order-id').textContent;
+                    alert(`Détails de la commande ${orderId} - Cette fonctionnalité sera bientôt disponible.`);
                 });
             });
             
-            // Buy Again Buttons
-            const buyAgainButtons = document.querySelectorAll('.order-actions .btn-primary');
-            
-            buyAgainButtons.forEach(button => {
+            // Boutons "Acheter à nouveau"
+            document.querySelectorAll('.order-actions .btn-primary').forEach(button => {
                 button.addEventListener('click', function() {
-                    const orderCard = this.closest('.order-card');
-                    const orderId = orderCard.querySelector('.order-id').textContent;
-                    
-                    // Increment cart counter
                     const cartCounter = document.querySelector('.cart-counter');
                     const currentCount = parseInt(cartCounter.textContent);
                     cartCounter.textContent = currentCount + 1;
-                    
-                    // Add bounce animation
                     cartCounter.classList.add('bounce');
-                    setTimeout(() => {
-                        cartCounter.classList.remove('bounce');
-                    }, 500);
-                    
-                    alert(`Les produits de la commande ${orderId} ont été ajoutés à votre panier.`);
+                    setTimeout(() => cartCounter.classList.remove('bounce'), 500);
+                    alert(`Les produits ont été ajoutés à votre panier.`);
                 });
             });
             
-            // Supplier Product Actions
-            const editButtons = document.querySelectorAll('.action-btn.edit');
-            const deleteButtons = document.querySelectorAll('.action-btn.delete');
-            
-            editButtons.forEach(button => {
+            // Actions sur les produits du fournisseur
+            document.querySelectorAll('.action-btn.edit').forEach(button => {
                 button.addEventListener('click', function() {
-                    const productRow = this.closest('tr');
-                    const productName = productRow.querySelector('.product-name').textContent;
-                    alert(`Modifier le produit: ${productName} - Cette fonctionnalité sera disponible prochainement.`);
+                    const productName = this.closest('tr').querySelector('.product-name').textContent;
+                    alert(`Modifier le produit : ${productName} - Bientôt disponible.`);
                 });
             });
             
-            deleteButtons.forEach(button => {
+            document.querySelectorAll('.action-btn.delete').forEach(button => {
                 button.addEventListener('click', function() {
                     const productRow = this.closest('tr');
                     const productName = productRow.querySelector('.product-name').textContent;
-                    if (confirm(`Êtes-vous sûr de vouloir supprimer le produit: ${productName}?`)) {
+                    if (confirm(`Êtes-vous sûr de vouloir supprimer le produit : ${productName} ?`)) {
                         alert(`Le produit ${productName} a été supprimé.`);
                         productRow.remove();
                     }
                 });
             });
+
+            // Initialiser le titre au chargement
+            const initialActiveTab = document.querySelector('.profile-nav-link.active');
+            if (initialActiveTab) {
+                const event = new Event('click');
+                initialActiveTab.dispatchEvent(event);
+            }
         });
     </script>
 </body>

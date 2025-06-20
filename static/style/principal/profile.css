@@ -416,17 +416,51 @@
             justify-content: center;
             overflow: hidden;
             border: 3px solid var(--color-accent);
+            position: relative; /* Important pour le positionnement de l'overlay */
         }
         
-        .profile-avatar i {
-            font-size: 60px;
-            color: var(--color-primary);
+        .profile-avatar-label {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            position: relative;
         }
-        
+
         .profile-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .profile-avatar .change-picture-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity var(--transition-normal);
+            border-radius: 50%;
+        }
+
+        .profile-avatar:hover .change-picture-overlay {
+            opacity: 1;
+        }
+
+        .profile-avatar .change-picture-overlay i {
+            font-size: 24px;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .hidden-file-input {
+            display: none;
         }
         
         .profile-name {
@@ -614,6 +648,152 @@
             font-size: 14px;
         }
         
+        .btn-danger {
+            background-color: #C62828; /* Rouge foncé */
+            color: white;
+            border: 2px solid #C62828;
+        }
+
+        .btn-danger:hover {
+            background-color: #B71C1C; /* Rouge plus foncé */
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Profile Tab Content */
+        .profile-tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .profile-tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Security Section */
+        .security-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xl);
+        }
+
+        .security-card {
+            background-color: var(--color-background);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-xl);
+            border: 1px solid var(--color-sand);
+        }
+
+        .security-card-title {
+            font-family: var(--font-subtitle);
+            font-size: 20px;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-lg);
+            padding-bottom: var(--spacing-md);
+            border-bottom: 1px solid var(--color-sand);
+        }
+        
+        /* Profile Info Form */
+        .profile-info-form {
+            /* Plus de styles flexbox nécessaires ici car il n'y a qu'un seul enfant */
+        }
+
+        .profile-info-fields {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-md);
+        }
+        
+        /* Form Styles */
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-sm);
+            font-size: 14px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        #current-password {
+            padding: var(--spacing-md);
+            border: 1px solid var(--color-sand-dark);
+            border-radius: var(--border-radius-md);
+            background-color: white;
+            font-family: var(--font-body);
+            font-size: 16px;
+            transition: border-color var(--transition-normal);
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="password"]:focus,
+        #current-password:focus {
+            outline: none;
+            border-color: var(--color-accent);
+        }
+
+        .form-group-inline {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .form-group-inline input {
+            flex-grow: 1;
+        }
+
+        .error-message {
+            color: #C62828;
+            font-size: 14px;
+            margin-top: var(--spacing-sm);
+        }
+        
+        #change-password-form p {
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Danger Zone */
+        .danger-zone {
+            border-color: #FFCDD2;
+            background-color: #FFF8F8;
+        }
+
+        .danger-zone .security-card-title {
+            color: #C62828;
+        }
+
+        .danger-action {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--spacing-lg);
+            padding: var(--spacing-md) 0;
+        }
+        
+        .danger-action:not(:last-child) {
+            border-bottom: 1px solid #FFCDD2;
+        }
+        
+        .danger-action h4 {
+            font-family: var(--font-subtitle);
+            color: #C62828;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .danger-action p {
+            font-size: 14px;
+            max-width: 400px;
+        }
+
         /* Order History */
         .order-history {
             margin-top: var(--spacing-xl);
@@ -1283,6 +1463,25 @@
             .search-btn-center i {
                 font-size: 14px;
             }
+
+            .profile-info-form {
+                /* Plus de styles nécessaires ici */
+            }
+
+            .profile-info-fields {
+                width: 100%;
+            }
+
+            .danger-action {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .danger-action .btn {
+                width: 100%;
+                margin-top: var(--spacing-md);
+            }
         }
         
         @media (max-width: 576px) {
@@ -1342,6 +1541,19 @@
             
             .search-btn-center i {
                 font-size: 12px;
+            }
+
+            .profile-info-form {
+                /* Plus de règles spécifiques pour profile-info-form ici */
+            }
+
+            .form-group-inline {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .form-group-inline .btn {
+                width: 100%;
             }
         }
         

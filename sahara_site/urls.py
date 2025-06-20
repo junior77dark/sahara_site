@@ -30,9 +30,14 @@ urlpatterns = [
     # Pages utilisateur
     path('login.html', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),  # Nouvelle URL pour la déconnexion
-    path('s\'inscrire.html', views.inscription, name='inscription'),
+    path('inscription.html', views.inscription, name='inscription'),
     path('user-profile.html', views.user_profile, name='user_profile'),
     path('panier.html', views.panier, name='panier'),
+    path('panier/', views.afficher_panier, name='afficher_panier'),
+    path('panier/ajouter/', views.ajouter_au_panier, name='ajouter_au_panier'),
+    path('panier/modifier/', views.modifier_quantite_panier, name='modifier_quantite_panier'),
+    path('panier/supprimer/', views.supprimer_du_panier, name='supprimer_du_panier'),
+    path('panier/json/', views.panier_json, name='panier_json'),
     
     # Pages fournisseur
     path('espace_fournisseur.html', views.espace_fournisseur, name='espace_fournisseur'),
@@ -47,6 +52,14 @@ urlpatterns = [
     path('categories/categorie-livres.html', views.categorie_livres, name='categorie_livres'),
     path('categories/categorie-sport.html', views.categorie_sport, name='categorie_sport'),
     path('categories/categorie-vetements.html', views.categorie_vetements, name='categorie_vetements'),
+    
+    # API sécurité profil utilisateur
+    path('profil/verifier-mdp/', views.verifier_mdp, name='verifier_mdp'),
+    path('profil/changer-mdp/', views.changer_mdp, name='changer_mdp'),
+    path('profil/maj-client/', views.maj_client, name='maj_client'),
+    path('profil/maj-fournisseur/', views.maj_fournisseur, name='maj_fournisseur'),
+    path('profil/supprimer-boutique/', views.supprimer_boutique, name='supprimer_boutique'),
+    path('profil/supprimer-compte/', views.supprimer_compte, name='supprimer_compte'),
 ]
 
 if settings.DEBUG:

@@ -220,22 +220,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Gestion du compteur de panier
-    const cartCounter = document.getElementById('cart-counter');
-    const cartIcon = document.getElementById('cart-icon');
-    
-    if (cartIcon && cartCounter) {
-        cartIcon.addEventListener('click', function(e) {
-            e.preventDefault();
-            cartCounter.classList.add('bounce');
-            
-            // Retirer la classe après l'animation
-            setTimeout(() => {
-                cartCounter.classList.remove('bounce');
-            }, 500);
-        });
-    }
-    
     // Animations au défilement
     const animateOnScroll = function() {
         const elements = document.querySelectorAll('.fade-in, .slide-in-up, .slide-in-left, .slide-in-right');

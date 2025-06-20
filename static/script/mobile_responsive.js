@@ -1,4 +1,3 @@
-
         // Toggle du menu mobile
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -36,16 +35,4 @@
         mobileCategoriesToggle.addEventListener('click', function(e) {
             e.preventDefault();
             mobileCategoriesSubmenu.classList.toggle('active');
-        });
-        
-        // Simulation du compteur de panier
-        const addToCartButtons = document.querySelectorAll('.add-to-cart');
-        const cartCounter = document.getElementById('cart-counter');
-        let cartCount = 0;
-        
-        addToCartButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                cartCount++;
-                cartCounter.textContent = cartCount;
-            });
         });

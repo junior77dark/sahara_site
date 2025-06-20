@@ -139,85 +139,20 @@
         <section class="products">
             <div class="container">
                 <div class="products-grid">
-                    <!-- Produit 1 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1556911220-bff31c812dba?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Set de couteaux</h3>
-                            <div class="product-price">79,99 €</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                    {% for produit in produits %}
+                        <div class="product-card" data-produit-id="{{ produit.id }}">
+                            {% if produit.produitimage_set.first %}
+                                <div class="product-image" style="background-image: url('{{ produit.produitimage_set.first.image_url.url }}');"></div>
+                            {% else %}
+                                <div class="product-image" style="background-image: url('{% static 'logo.png' %}');"></div>
+                            {% endif %}
+                            <div class="product-info">
+                                <h3 class="product-name">{{ produit.nom }}</h3>
+                                <div class="product-price">{{ produit.prix }} Fcfa</div>
+                                <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Produit 2 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1585032226651-759b368d7246?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Robot de cuisine</h3>
-                            <div class="product-price">199,99 €</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 3 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1594282486552-05a3b6fbfb63?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Ensemble de casseroles</h3>
-                            <div class="product-price">129,99 €</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 4 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1544233726-9f1d2b27be8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Machine à café</h3>
-                            <div class="product-price">149,99 €</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 5 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1576473086800-c0f9e1eb9e31?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Ustensiles en bois</h3>
-                            <div class="product-price">29,99 €</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 6 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1610701596007-11502861dcfa?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Planche à découper</h3>
-                            <div class="product-price">24,99 €</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 7 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1592156328697-ee6e1c071a3a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Mixeur plongeant</h3>
-                            <div class="product-price">49,99 €</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 8 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1607877742574-a7253426f5af?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Moules à pâtisserie</h3>
-                            <div class="product-price">19,99 €</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 
                 <!-- Pagination -->

@@ -3,13 +3,18 @@ from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Client, Fournisseur
+from .models import Client, Fournisseur, PanierItem, Produit
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 # Pages principales
 def accueil(request):
-    return render(request, 'accueil.html')
+    produits = Produit.objects.all().order_by('-date_ajout')[:6]  # Les 6 produits les plus récents
+    return render(request, 'accueil.html', {'produits': produits})
 
 def promotion(request):
     return render(request, 'promotion.html')
@@ -19,28 +24,36 @@ def contact(request):
 
 # Pages catégories
 def categorie_bijoux(request):
-    return render(request, 'categories/categorie-bijoux.html')
+    produits = Produit.objects.filter(categorie__nom__iexact='Bijoux')
+    return render(request, 'categories/categorie-bijoux.html', {'produits': produits})
 
 def categorie_cuisine(request):
-    return render(request, 'categories/categorie-cuisine.html')
+    produits = Produit.objects.filter(categorie__nom__iexact='Cuisine')
+    return render(request, 'categories/categorie-cuisine.html', {'produits': produits})
 
 def categorie_decoration(request):
-    return render(request, 'categories/categorie-decoration.html')
+    produits = Produit.objects.filter(categorie__nom__iexact='Décoration')
+    return render(request, 'categories/categorie-decoration.html', {'produits': produits})
 
 def categorie_high_tech(request):
-    return render(request, 'categories/categorie-high-tech.html')
+    produits = Produit.objects.filter(categorie__nom__iexact='High-Tech')
+    return render(request, 'categories/categorie-high-tech.html', {'produits': produits})
 
 def categorie_jeux(request):
-    return render(request, 'categories/categorie-jeux.html')
+    produits = Produit.objects.filter(categorie__nom__iexact='Jeux')
+    return render(request, 'categories/categorie-jeux.html', {'produits': produits})
 
 def categorie_livres(request):
-    return render(request, 'categories/categorie-livres.html')
+    produits = Produit.objects.filter(categorie__nom__iexact='Livres')
+    return render(request, 'categories/categorie-livres.html', {'produits': produits})
 
 def categorie_sport(request):
-    return render(request, 'categories/categorie-sport.html')
+    produits = Produit.objects.filter(categorie__nom__iexact='Sport')
+    return render(request, 'categories/categorie-sport.html', {'produits': produits})
 
 def categorie_vetements(request):
-    return render(request, 'categories/categorie-vetements.html')
+    produits = Produit.objects.filter(categorie__nom__iexact='Vêtements')
+    return render(request, 'categories/categorie-vetements.html', {'produits': produits})
 
 # Pages utilisateur
 # Ajoutez cette vue modifiée dans votre views.py
@@ -102,7 +115,7 @@ def user_profile(request):
     
     return render(request, 'user-profile.html', context)
 
-def login_view(request):
+def login_view(request): 
     if request.method == 'POST':
         login_field = request.POST.get('email')  # Peut être un email ou un username
         password = request.POST.get('password')
@@ -336,3 +349,193 @@ def add_product(request):
 # Page panier
 def panier(request):
     return render(request, 'panier.html')
+
+@login_required
+def afficher_panier(request):
+    items = PanierItem.objects.filter(user=request.user).select_related('produit')
+    total = sum(item.produit.prix * item.quantite for item in items)
+    return render(request, 'panier.html', {'items': items, 'total': total})
+
+@login_required
+def ajouter_au_panier(request):
+    if request.method == 'POST':
+        produit_id = request.POST.get('produit_id')
+        quantite = int(request.POST.get('quantite', 1))
+        try:
+            produit = Produit.objects.get(id=produit_id)
+            item, created = PanierItem.objects.get_or_create(user=request.user, produit=produit)
+            if not created:
+                item.quantite += quantite
+            else:
+                item.quantite = quantite
+            item.save()
+            return JsonResponse({'success': True, 'message': 'Produit ajouté au panier.'})
+        except Produit.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Produit introuvable.'})
+    return JsonResponse({'success': False, 'message': 'Méthode non autorisée.'})
+
+@login_required
+def modifier_quantite_panier(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        quantite = int(request.POST.get('quantite', 1))
+        try:
+            item = PanierItem.objects.get(id=item_id, user=request.user)
+            if quantite > 0:
+                item.quantite = quantite
+                item.save()
+                return JsonResponse({'success': True, 'message': 'Quantité modifiée.'})
+            else:
+                item.delete()
+                return JsonResponse({'success': True, 'message': 'Produit supprimé du panier.'})
+        except PanierItem.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Article introuvable.'})
+    return JsonResponse({'success': False, 'message': 'Méthode non autorisée.'})
+
+@login_required
+def supprimer_du_panier(request):
+    if request.method == 'POST':
+        item_id = request.POST.get('item_id')
+        try:
+            item = PanierItem.objects.get(id=item_id, user=request.user)
+            item.delete()
+            return JsonResponse({'success': True, 'message': 'Produit supprimé du panier.'})
+        except PanierItem.DoesNotExist:
+            return JsonResponse({'success': False, 'message': 'Article introuvable.'})
+    return JsonResponse({'success': False, 'message': 'Méthode non autorisée.'})
+
+@login_required
+def panier_json(request):
+    if request.method == 'GET':
+        items = PanierItem.objects.filter(user=request.user).select_related('produit')
+        data = []
+        for item in items:
+            data.append({
+                'id': item.id,
+                'produit_id': item.produit.id,
+                'name': item.produit.nom,
+                'price': float(item.produit.prix),
+                'image': item.produit.produitimage_set.first().image_url.url if hasattr(item.produit, 'produitimage_set') and item.produit.produitimage_set.exists() else '',
+                'quantity': item.quantite,
+            })
+        return JsonResponse({'items': data})
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+
+@login_required
+@csrf_exempt
+def verifier_mdp(request):
+    if request.method == 'POST' and request.is_ajax():
+        import json
+        data = json.loads(request.body)
+        current_password = data.get('current_password')
+        if request.user.check_password(current_password):
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False})
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+
+@login_required
+@csrf_exempt
+def changer_mdp(request):
+    if request.method == 'POST' and request.is_ajax():
+        import json
+        data = json.loads(request.body)
+        new_password = data.get('new_password')
+        if len(new_password) < 8:
+            return JsonResponse({'success': False, 'error': 'Le mot de passe doit contenir au moins 8 caractères.'})
+        request.user.set_password(new_password)
+        request.user.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+
+@login_required
+@csrf_exempt
+def maj_client(request):
+    if request.method == 'POST' and request.is_ajax():
+        user = request.user
+        username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        photo = request.FILES.get('profile_photo')
+        if username and username != user.username:
+            if User.objects.filter(username=username).exclude(pk=user.pk).exists():
+                return JsonResponse({'success': False, 'error': "Ce nom d'utilisateur est déjà utilisé."})
+            user.username = username
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+        # Photo de profil (à stocker dans Client si champ prévu)
+        try:
+            client = Client.objects.get(email=user.email)
+            if photo:
+                path = default_storage.save(f'profile_photos/{user.pk}_{photo.name}', ContentFile(photo.read()))
+                client.photo = path  # suppose un champ photo dans Client
+                client.save()
+        except Client.DoesNotExist:
+            pass
+        return JsonResponse({'success': True})
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+
+@login_required
+@csrf_exempt
+def maj_fournisseur(request):
+    if request.method == 'POST' and request.is_ajax():
+        user = request.user
+        company_name = request.POST.get('company_name')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        photo = request.FILES.get('profile_photo')
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+        try:
+            fournisseur = Fournisseur.objects.get(email=user.email)
+            if company_name:
+                fournisseur.nom_entreprise = company_name
+            if photo:
+                path = default_storage.save(f'profile_photos/{user.pk}_{photo.name}', ContentFile(photo.read()))
+                fournisseur.photo = path  # suppose un champ photo dans Fournisseur
+            fournisseur.save()
+        except Fournisseur.DoesNotExist:
+            pass
+        return JsonResponse({'success': True})
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+
+@login_required
+@csrf_exempt
+def supprimer_boutique(request):
+    if request.method == 'POST' and request.is_ajax():
+        try:
+            fournisseur = Fournisseur.objects.get(email=request.user.email)
+            # Suppression des produits liés à la boutique
+            Produit.objects.filter(fournisseur=fournisseur).delete()
+            fournisseur.delete()
+            return JsonResponse({'success': True})
+        except Fournisseur.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Boutique introuvable.'})
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+
+@login_required
+@csrf_exempt
+def supprimer_compte(request):
+    if request.method == 'POST' and request.is_ajax():
+        user = request.user
+        try:
+            # Si fournisseur, supprimer la boutique et les produits
+            try:
+                fournisseur = Fournisseur.objects.get(email=user.email)
+                Produit.objects.filter(fournisseur=fournisseur).delete()
+                fournisseur.delete()
+            except Fournisseur.DoesNotExist:
+                pass
+            # Si client, supprimer le profil client
+            try:
+                client = Client.objects.get(email=user.email)
+                client.delete()
+            except Client.DoesNotExist:
+                pass
+            user.delete()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)

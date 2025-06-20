@@ -248,3 +248,14 @@ class Produitimage(models.Model):
     class Meta:
         managed = False
         db_table = 'produitimage'
+
+class PanierItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    produit = models.ForeignKey('Produit', on_delete=models.CASCADE)
+    quantite = models.PositiveIntegerField()
+    date_ajout = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'produit')
+        db_table = 'panier_item'
+        managed = True

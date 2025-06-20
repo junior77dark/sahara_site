@@ -139,85 +139,20 @@
         <section class="products">
             <div class="container">
                 <div class="products-grid">
-                    <!-- Produit 1 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1513519245088-0e12902e5a38?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Vase en céramique</h3>
-                            <div class="product-price">29,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                    {% for produit in produits %}
+                        <div class="product-card" data-produit-id="{{ produit.id }}">
+                            {% if produit.produitimage_set.first %}
+                                <div class="product-image" style="background-image: url('{{ produit.produitimage_set.first.image_url.url }}');"></div>
+                            {% else %}
+                                <div class="product-image" style="background-image: url('{% static 'logo.png' %}');"></div>
+                            {% endif %}
+                            <div class="product-info">
+                                <h3 class="product-name">{{ produit.nom }}</h3>
+                                <div class="product-price">{{ produit.prix }} Fcfa</div>
+                                <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Produit 2 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1540638349517-3abd5afc5847?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Coussin décoratif</h3>
-                            <div class="product-price">19,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 3 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1507473885765-e6ed057f782c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Miroir mural</h3>
-                            <div class="product-price">59,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 4 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Lampe de table</h3>
-                            <div class="product-price">49,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 5 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1556020685-ae41abfc9365?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Cadre photo</h3>
-                            <div class="product-price">15,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 6 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1526057565006-20beab8dd2ed?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Plante artificielle</h3>
-                            <div class="product-price">24,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 7 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1505409628601-edc9af17fda6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Horloge murale</h3>
-                            <div class="product-price">39,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 8 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1519710164239-da123dc03ef4?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Tapis décoratif</h3>
-                            <div class="product-price">79,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 
                 <!-- Pagination -->

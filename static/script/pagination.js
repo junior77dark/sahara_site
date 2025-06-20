@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Configuration
-    const productsPerPage = 8; // Nombre de produits par page
+    const productsPerPage = 6; // Nombre de produits par page
     let currentPage = 1;
     const allProducts = document.querySelectorAll('.product-card');
     const totalProducts = allProducts.length;

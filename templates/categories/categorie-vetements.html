@@ -139,85 +139,20 @@
         <section class="products">
             <div class="container">
                 <div class="products-grid">
-                    <!-- Produit 1 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1576566588028-4147f3842f27?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">T-shirt coton bio</h3>
-                            <div class="product-price">19,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                    {% for produit in produits %}
+                        <div class="product-card" data-produit-id="{{ produit.id }}">
+                            {% if produit.produitimage_set.first %}
+                                <div class="product-image" style="background-image: url('{{ produit.produitimage_set.first.image_url.url }}');"></div>
+                            {% else %}
+                                <div class="product-image" style="background-image: url('{% static 'logo.png' %}');"></div>
+                            {% endif %}
+                            <div class="product-info">
+                                <h3 class="product-name">{{ produit.nom }}</h3>
+                                <div class="product-price">{{ produit.prix }} Fcfa</div>
+                                <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Produit 2 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1598522325074-042db73aa4e6?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Chemise lin homme</h3>
-                            <div class="product-price">39,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 3 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1551028719-00167b16eac5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Robe d'été femme</h3>
-                            <div class="product-price">49,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 4 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1560243563-062bfc001d68?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Jean slim homme</h3>
-                            <div class="product-price">59,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 5 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Veste légère femme</h3>
-                            <div class="product-price">69,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 6 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1618354691373-d851c5c3a990?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Pull en laine mérinos</h3>
-                            <div class="product-price">79,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 7 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1596755094514-f87e34085b2c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Ensemble enfant</h3>
-                            <div class="product-price">29,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 8 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Manteau d'hiver</h3>
-                            <div class="product-price">129,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 
                 <!-- Pagination -->

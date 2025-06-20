@@ -139,85 +139,20 @@
         <section class="products">
             <div class="container">
                 <div class="products-grid">
-                    <!-- Produit 1 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Ballon de football</h3>
-                            <div class="product-price">29,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                    {% for produit in produits %}
+                        <div class="product-card" data-produit-id="{{ produit.id }}">
+                            {% if produit.produitimage_set.first %}
+                                <div class="product-image" style="background-image: url('{{ produit.produitimage_set.first.image_url.url }}');"></div>
+                            {% else %}
+                                <div class="product-image" style="background-image: url('{% static 'logo.png' %}');"></div>
+                            {% endif %}
+                            <div class="product-info">
+                                <h3 class="product-name">{{ produit.nom }}</h3>
+                                <div class="product-price">{{ produit.prix }} Fcfa</div>
+                                <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <!-- Produit 2 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Raquette de tennis</h3>
-                            <div class="product-price">89,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 3 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1434596922112-19c563067271?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Vélo de montagne</h3>
-                            <div class="product-price">499,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 4 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1575361204480-aadea25e6e68?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Tapis de yoga</h3>
-                            <div class="product-price">39,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 5 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Haltères</h3>
-                            <div class="product-price">59,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 6 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Sac de randonnée</h3>
-                            <div class="product-price">79,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 7 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1565992441121-4367c2967103?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Tente de camping</h3>
-                            <div class="product-price">129,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <!-- Produit 8 -->
-                    <div class="product-card">
-                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1560073744-7643b964bdf8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80');"></div>
-                        <div class="product-info">
-                            <h3 class="product-name">Montre de sport</h3>
-                            <div class="product-price">149,99 Fcfa</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
                 
                 <!-- Pagination -->

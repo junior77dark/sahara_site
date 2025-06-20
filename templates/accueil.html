@@ -143,48 +143,20 @@
             <div class="container">
                 <h2 class="section-title">NOUVEAUTÉS</h2>
                 <div class="products-grid">
-                    <div class="product-card slide-in-right" data-delay="0">
-                        <div class="product-badge">NOUVEAU</div>
-                        <div class="product-image lazy-image" data-src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">MONTRE PREMIUM</div>
-                        <div class="product-info">
-                            <h3 class="product-name">Smartwatch Pro</h3>
-                            <div class="product-price">199,99 Fcfa</div>
-                            <div class="product-rating">★★★★☆</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                    {% for produit in produits %}
+                        <div class="product-card slide-in-right" data-produit-id="{{ produit.id }}">
+                            {% if produit.produitimage_set.first %}
+                                <div class="product-image lazy-image" data-src="{{ produit.produitimage_set.first.image_url.url }}"></div>
+                            {% else %}
+                                <div class="product-image lazy-image" data-src="{% static 'logo.png' %}"></div>
+                            {% endif %}
+                            <div class="product-info">
+                                <h3 class="product-name">{{ produit.nom }}</h3>
+                                <div class="product-price">{{ produit.prix }} Fcfa</div>
+                                <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div class="product-card slide-in-right" data-delay="100">
-                        <div class="product-badge">POPULAIRE</div>
-                        <div class="product-image lazy-image" data-src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">CASQUE AUDIO</div>
-                        <div class="product-info">
-                            <h3 class="product-name">Casque Bluetooth Premium</h3>
-                            <div class="product-price">149,99 Fcfa</div>
-                            <div class="product-rating">★★★★★</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card slide-in-right" data-delay="200">
-                        <div class="product-image lazy-image" data-src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">CHAUSSURES</div>
-                        <div class="product-info">
-                            <h3 class="product-name">Baskets Confort</h3>
-                            <div class="product-price">89,99 Fcfa</div>
-                            <div class="product-rating">★★★★☆</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
-                    
-                    <div class="product-card slide-in-right" data-delay="300">
-                        <div class="product-badge">PROMO</div>
-                        <div class="product-image lazy-image" data-src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80">APPAREIL PHOTO</div>
-                        <div class="product-info">
-                            <h3 class="product-name">Appareil Photo Numérique</h3>
-                            <div class="product-price">299,99 Fcfa</div>
-                            <div class="product-rating">★★★★☆</div>
-                            <button class="btn btn-primary add-to-cart">AJOUTER AU PANIER</button>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
