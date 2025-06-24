@@ -1,15 +1,16 @@
 # Create your views here.
-from django.contrib.auth import login, logout, authenticate
-from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Client, Fournisseur, PanierItem, Produit
+from .models import Client, Fournisseur, PanierItem, Produit, AvisProduit, Commande, Orderitem, Paiement, AuthUser
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
+from django.urls import reverse
 
 # Pages principales
 def accueil(request):
@@ -106,11 +107,29 @@ def user_profile(request):
         for eng, fr in mois_fr.items():
             date_inscription = date_inscription.replace(eng, fr)
     
+    # Correction : utiliser AuthUser pour le filter des commandes
+    try:
+        auth_user = AuthUser.objects.get(email=user.email)
+    except AuthUser.DoesNotExist:
+        auth_user = None
+    commandes_data = []
+    if auth_user:
+        commandes_payees = Commande.objects.filter(user=auth_user, paiement__isnull=False).distinct().order_by('-date_commande')
+        for commande in commandes_payees:
+            items = Orderitem.objects.filter(commande=commande).select_related('produit')
+            paiement = Paiement.objects.filter(commande=commande).first()
+            commandes_data.append({
+                'commande': commande,
+                'items': items,
+                'paiement': paiement,
+            })
+    
     context = {
         'user': user,
         'user_info': user_info,
         'user_type': user_type,
         'date_inscription': date_inscription,
+        'commandes_data': commandes_data,
     }
     
     return render(request, 'user-profile.html', context)
@@ -247,7 +266,6 @@ def inscription(request):
                     required_fields = {
                         'username': "Le nom d'utilisateur",
                         'business-name': "Le nom de l'entreprise",
-                        'rccm': 'Le numéro RCCM',
                         'phone': 'Le numéro de téléphone',
                         'email': "L'adresse email professionnelle",
                         'password': 'Le mot de passe',
@@ -273,11 +291,6 @@ def inscription(request):
                         messages.error(request, "Cette adresse email est déjà utilisée.")
                         return render(request, "s'inscrire.html")
 
-                    # Validation RCCM
-                    if Fournisseur.objects.filter(rccm=request.POST.get('rccm')).exists():
-                        messages.error(request, "Ce numéro RCCM est déjà enregistré.")
-                        return render(request, "s'inscrire.html")
-
                     # Validation mot de passe
                     if len(password) < 8:
                         messages.error(request, "Le mot de passe doit contenir au moins 8 caractères.")
@@ -290,7 +303,6 @@ def inscription(request):
                     # Création du fournisseur
                     fournisseur = Fournisseur.objects.create(
                         nom_entreprise=request.POST.get('business-name'),
-                        rccm=request.POST.get('rccm'),
                         email=email,
                         description=request.POST.get('description'),  # Optionnel
                         telephone=request.POST.get('phone'),
@@ -303,7 +315,6 @@ def inscription(request):
                         date_inscription=timezone.now(),
                         document_identite=request.FILES.get('id'),
                         statut='en_attente'
-                        
                     )
 
                     # Création du compte utilisateur pour le fournisseur
@@ -437,16 +448,28 @@ def verifier_mdp(request):
 @login_required
 @csrf_exempt
 def changer_mdp(request):
-    if request.method == 'POST' and request.is_ajax():
-        import json
-        data = json.loads(request.body)
-        new_password = data.get('new_password')
+    user = request.user
+    step = request.GET.get('step') or request.POST.get('step') or '2'
+    redirect_url = reverse('user_profile') + f'?tab=security&step={step}'
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        if not user.check_password(current_password):
+            messages.error(request, "Mot de passe actuel incorrect.")
+            return HttpResponseRedirect(redirect_url)
+        if new_password != confirm_password:
+            messages.error(request, "La confirmation du nouveau mot de passe ne correspond pas.")
+            return HttpResponseRedirect(redirect_url)
         if len(new_password) < 8:
-            return JsonResponse({'success': False, 'error': 'Le mot de passe doit contenir au moins 8 caractères.'})
-        request.user.set_password(new_password)
-        request.user.save()
-        return JsonResponse({'success': True})
-    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+            messages.error(request, "Le nouveau mot de passe doit contenir au moins 8 caractères.")
+            return HttpResponseRedirect(redirect_url)
+        user.set_password(new_password)
+        user.save()
+        update_session_auth_hash(request, user)  # Pour ne pas déconnecter l'utilisateur
+        messages.success(request, "Mot de passe modifié avec succès.")
+        return HttpResponseRedirect(redirect_url)
+    return HttpResponseRedirect(redirect_url)
 
 @login_required
 @csrf_exempt
@@ -456,11 +479,16 @@ def maj_client(request):
         username = request.POST.get('username')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
         photo = request.FILES.get('profile_photo')
         if username and username != user.username:
             if User.objects.filter(username=username).exclude(pk=user.pk).exists():
                 return JsonResponse({'success': False, 'error': "Ce nom d'utilisateur est déjà utilisé."})
             user.username = username
+        if email and email != user.email:
+            if User.objects.filter(email=email).exclude(pk=user.pk).exists():
+                return JsonResponse({'success': False, 'error': "Cette adresse email est déjà utilisée."})
+            user.email = email
         user.first_name = first_name
         user.last_name = last_name
         user.save()
@@ -484,7 +512,12 @@ def maj_fournisseur(request):
         company_name = request.POST.get('company_name')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
         photo = request.FILES.get('profile_photo')
+        if email and email != user.email:
+            if User.objects.filter(email=email).exclude(pk=user.pk).exists():
+                return JsonResponse({'success': False, 'error': "Cette adresse email est déjà utilisée."})
+            user.email = email
         user.first_name = first_name
         user.last_name = last_name
         user.save()
@@ -504,7 +537,7 @@ def maj_fournisseur(request):
 @login_required
 @csrf_exempt
 def supprimer_boutique(request):
-    if request.method == 'POST' and request.is_ajax():
+    if request.method == 'POST':
         try:
             fournisseur = Fournisseur.objects.get(email=request.user.email)
             # Suppression des produits liés à la boutique
@@ -516,26 +549,142 @@ def supprimer_boutique(request):
     return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
 
 @login_required
-@csrf_exempt
 def supprimer_compte(request):
-    if request.method == 'POST' and request.is_ajax():
+    if request.method == 'POST':
         user = request.user
+        # Supprime explicitement Client et Fournisseur liés à l'email de l'utilisateur
+        Client.objects.filter(email=user.email).delete()
+        Fournisseur.objects.filter(email=user.email).delete()
+        user.delete()
+        logout(request)
+        return redirect('accueil')
+    return redirect('user_profile')
+
+def description_produit(request, produit_id):
+    produit = get_object_or_404(Produit, id=produit_id)
+    if request.method == 'POST':
+        nom = request.POST.get('reviewer-name')
+        note = int(request.POST.get('rating', 0))
+        commentaire = request.POST.get('review-text')
+        user = request.user if request.user.is_authenticated else None
+        if nom and note and commentaire:
+            AvisProduit.objects.create(
+                produit=produit,
+                user=user,
+                nom=nom,
+                note=note,
+                commentaire=commentaire
+            )
+            messages.success(request, "Votre avis a été publié !")
+        else:
+            messages.error(request, "Veuillez remplir tous les champs et donner une note.")
+        return redirect('description_produit', produit_id=produit.id)
+    avis = produit.avis.all()
+    return render(request, 'description_produit.html', {'produit': produit, 'avis': avis})
+
+@login_required
+def mes_commandes(request):
+    # Récupère les commandes de l'utilisateur qui ont un paiement associé (donc payées)
+    commandes_payees = Commande.objects.filter(user=request.user, paiement__isnull=False).distinct().order_by('-date_commande')
+    commandes_data = []
+    for commande in commandes_payees:
+        items = Orderitem.objects.filter(commande=commande).select_related('produit')
+        paiement = Paiement.objects.filter(commande=commande).first()
+        commandes_data.append({
+            'commande': commande,
+            'items': items,
+            'paiement': paiement,
+        })
+    return render(request, 'mes_commandes.html', {'commandes_data': commandes_data})
+
+@login_required
+def modifier_infos(request):
+    user = request.user
+    user_type = 'Client'
+    step = request.GET.get('step') or request.POST.get('step') or '1'
+    redirect_url = reverse('user_profile') + f'?tab=security&step={step}'
+    try:
+        client = Client.objects.get(email=user.email)
+        user_type = 'Client'
+    except Client.DoesNotExist:
         try:
-            # Si fournisseur, supprimer la boutique et les produits
-            try:
-                fournisseur = Fournisseur.objects.get(email=user.email)
-                Produit.objects.filter(fournisseur=fournisseur).delete()
-                fournisseur.delete()
-            except Fournisseur.DoesNotExist:
-                pass
-            # Si client, supprimer le profil client
-            try:
-                client = Client.objects.get(email=user.email)
-                client.delete()
-            except Client.DoesNotExist:
-                pass
-            user.delete()
-            return JsonResponse({'success': True})
-        except Exception as e:
-            return JsonResponse({'success': False, 'error': str(e)})
-    return JsonResponse({'error': 'Méthode non autorisée'}, status=405)
+            fournisseur = Fournisseur.objects.get(email=user.email)
+            user_type = 'Fournisseur'
+        except Fournisseur.DoesNotExist:
+            fournisseur = None
+            client = None
+    if request.method == 'POST':
+        if user_type == 'Client':
+            username = request.POST.get('username')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            email = request.POST.get('email')
+            telephone = request.POST.get('telephone')
+            if username and username != user.username:
+                if User.objects.filter(username=username).exclude(pk=user.pk).exists():
+                    messages.error(request, "Ce nom d'utilisateur est déjà utilisé.")
+                    return HttpResponseRedirect(redirect_url)
+                user.username = username
+            if email and email != user.email:
+                # Vérification dans User, Client, Fournisseur
+                email_exists = (
+                    User.objects.filter(email=email).exclude(pk=user.pk).exists() or
+                    Client.objects.filter(email=email).exclude(pk=getattr(client, 'pk', None)).exists() or
+                    Fournisseur.objects.filter(email=email).exists()
+                )
+                if email_exists:
+                    messages.error(request, "Cette adresse email est déjà utilisée.")
+                    return HttpResponseRedirect(redirect_url)
+                user.email = email
+            if telephone:
+                # Vérification dans Client et Fournisseur
+                tel_exists = (
+                    Client.objects.filter(telephone=telephone).exclude(pk=getattr(client, 'pk', None)).exists() or
+                    Fournisseur.objects.filter(telephone=telephone).exists()
+                )
+                if tel_exists:
+                    messages.error(request, "Ce numéro de téléphone est déjà utilisé.")
+                    return HttpResponseRedirect(redirect_url)
+            user.first_name = first_name
+            user.last_name = last_name
+            user.save()
+            if client:
+                client.prenom = first_name
+                client.nom = last_name
+                if telephone:
+                    client.telephone = telephone
+                client.save()
+            messages.success(request, "Informations du profil mises à jour avec succès.")
+        else:
+            company_name = request.POST.get('company_name')
+            email = request.POST.get('email')
+            telephone = request.POST.get('telephone')
+            if fournisseur and company_name:
+                fournisseur.nom_entreprise = company_name
+            if email and email != user.email:
+                # Vérification dans User, Client, Fournisseur
+                email_exists = (
+                    User.objects.filter(email=email).exclude(pk=user.pk).exists() or
+                    Fournisseur.objects.filter(email=email).exclude(pk=getattr(fournisseur, 'pk', None)).exists() or
+                    Client.objects.filter(email=email).exists()
+                )
+                if email_exists:
+                    messages.error(request, "Cette adresse email est déjà utilisée.")
+                    return HttpResponseRedirect(redirect_url)
+                user.email = email
+            if telephone:
+                # Vérification dans Fournisseur et Client
+                tel_exists = (
+                    Fournisseur.objects.filter(telephone=telephone).exclude(pk=getattr(fournisseur, 'pk', None)).exists() or
+                    Client.objects.filter(telephone=telephone).exists()
+                )
+                if tel_exists:
+                    messages.error(request, "Ce numéro de téléphone est déjà utilisé.")
+                    return HttpResponseRedirect(redirect_url)
+                fournisseur.telephone = telephone
+            user.save()
+            if fournisseur:
+                fournisseur.save()
+            messages.success(request, "Informations du profil mises à jour avec succès.")
+        return HttpResponseRedirect(redirect_url)
+    return HttpResponseRedirect(redirect_url)

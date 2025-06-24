@@ -78,7 +78,7 @@ class AuthUserUserPermissions(models.Model):
 
 
 class Boutique(models.Model):
-    fournisseur = models.ForeignKey('Fournisseur', models.DO_NOTHING)
+    fournisseur = models.ForeignKey('Fournisseur', on_delete=models.CASCADE)
     nom = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     date_creation = models.DateTimeField(blank=True, null=True)
@@ -114,7 +114,7 @@ class Client(models.Model):
 
 
 class Commande(models.Model):
-    user = models.ForeignKey(AuthUser, models.DO_NOTHING)
+    user = models.ForeignKey(AuthUser, on_delete=models.CASCADE)
     date_commande = models.DateTimeField(blank=True, null=True)
     statut = models.CharField(max_length=10, blank=True, null=True)
 
@@ -176,7 +176,6 @@ STATUT_CHOICES = [
 class Fournisseur(models.Model):
     id = models.AutoField(primary_key=True)
     nom_entreprise = models.CharField(max_length=255)
-    rccm = models.CharField(unique=True, max_length=14)
     description = models.TextField(blank=True, null=True)  # Nouveau champ description
     telephone = models.CharField(max_length=20)
     adresse = models.CharField(max_length=255)
@@ -205,8 +204,8 @@ class ValidationFournisseur(models.Model):
         db_table = 'validation_fournisseur'
 
 class Orderitem(models.Model):
-    commande = models.ForeignKey(Commande, models.DO_NOTHING)
-    produit = models.ForeignKey('Produit', models.DO_NOTHING)
+    commande = models.ForeignKey(Commande, on_delete=models.CASCADE)
+    produit = models.ForeignKey('Produit', on_delete=models.CASCADE)
     quantite = models.IntegerField()
     prix_unitaire = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -216,7 +215,7 @@ class Orderitem(models.Model):
 
 
 class Paiement(models.Model):
-    commande = models.ForeignKey(Commande, models.DO_NOTHING)
+    commande = models.ForeignKey(Commande, on_delete=models.CASCADE)
     mode = models.CharField(max_length=8)
     montant = models.DecimalField(max_digits=10, decimal_places=2)
     statut = models.CharField(max_length=6, blank=True, null=True)
@@ -232,8 +231,8 @@ class Produit(models.Model):
     description = models.TextField(blank=True, null=True)
     prix = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField(blank=True, null=True)
-    boutique = models.ForeignKey(Boutique, models.DO_NOTHING)
-    categorie = models.ForeignKey(Categorie, models.DO_NOTHING, blank=True, null=True)
+    boutique = models.ForeignKey(Boutique, on_delete=models.CASCADE)
+    categorie = models.ForeignKey(Categorie, on_delete=models.CASCADE, blank=True, null=True)
     date_ajout = models.DateTimeField(blank=True, null=True)
 
     class Meta:
@@ -242,7 +241,7 @@ class Produit(models.Model):
 
 
 class Produitimage(models.Model):
-    produit = models.ForeignKey(Produit, models.DO_NOTHING)
+    produit = models.ForeignKey(Produit, on_delete=models.CASCADE)
     image_url = models.ImageField(upload_to='produit/', blank=True, null=True)
 
     class Meta:
@@ -259,3 +258,15 @@ class PanierItem(models.Model):
         unique_together = ('user', 'produit')
         db_table = 'panier_item'
         managed = True
+
+class AvisProduit(models.Model):
+    produit = models.ForeignKey('Produit', on_delete=models.CASCADE, related_name='avis')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    nom = models.CharField(max_length=100)
+    note = models.PositiveSmallIntegerField(default=5)
+    commentaire = models.TextField()
+    date_ajout = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'avis_produit'
+        ordering = ['-date_ajout']

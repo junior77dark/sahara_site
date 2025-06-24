@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from sahara_webapp import views
@@ -60,6 +60,7 @@ urlpatterns = [
     path('profil/maj-fournisseur/', views.maj_fournisseur, name='maj_fournisseur'),
     path('profil/supprimer-boutique/', views.supprimer_boutique, name='supprimer_boutique'),
     path('profil/supprimer-compte/', views.supprimer_compte, name='supprimer_compte'),
+    path('', include('sahara_webapp.urls')),
 ]
 
 if settings.DEBUG:

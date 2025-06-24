@@ -16,6 +16,35 @@
             display: flex;
             margin-left: -35px;
         }
+        .messages-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 20px;
+        }
+        .alert {
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .alert-error {
+            background-color: #fff8f8;
+            border-left: 4px solid #dc3545;
+            color: #721c24;
+        }
+        .alert-success {
+            background-color: #f8fff9;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+        .alert-info {
+            background-color: #f8faff;
+            border-left: 4px solid #17a2b8;
+            color: #0c5460;
+        }
     </style>
     <header>
         <div class="container header-container">
@@ -194,7 +223,7 @@
                         
                         <ul class="profile-nav">
                             <li class="profile-nav-item">
-                                <a href="#" class="profile-nav-link active" data-tab="orders">
+                                <a href="{% url 'mes_commandes' %}" class="profile-nav-link active" data-tab="orders">
                                     <i class="fas fa-shopping-bag profile-nav-icon"></i>
                                     <span>Mes commandes</span>
                                 </a>
@@ -233,89 +262,51 @@
                         <div class="profile-tab-content active" data-content="orders">
                             {% if user_type == 'Client' %}
                             <div class="order-history">
+                                {% if commandes_data %}
+                                    {% for c in commandes_data %}
                                 <div class="order-card">
                                     <div class="order-header">
-                                        <div class="order-id">#ORD-2025-1234</div>
-                                        <div class="order-date">15 Mars 2025</div>
-                                        <span class="order-status status-delivered">Livré</span>
+                                            <div class="order-id">#ORD-{{ c.commande.id }}</div>
+                                            <div class="order-date">{{ c.commande.date_commande|date:'d F Y' }}</div>
+                                            <span class="order-status status-{{ c.commande.statut|default:'en_attente' }}">
+                                                {{ c.commande.statut|title }}
+                                            </span>
                                     </div>
-                                    
                                     <div class="order-items">
+                                            {% for item in c.items %}
                                         <div class="order-item">
                                             <div class="order-item-image">
-                                                <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25" alt="Canapé en cuir">
+                                                    {% if item.produit.produitimage_set.first %}
+                                                        <img src="{{ item.produit.produitimage_set.first.image_url.url }}" alt="{{ item.produit.nom }}">
+                                                    {% else %}
+                                                        <img src="{% static 'product-main.png' %}" alt="{{ item.produit.nom }}">
+                                                    {% endif %}
                                             </div>
                                             <div class="order-item-details">
-                                                <div class="order-item-name">Canapé en cuir marron</div>
-                                                <div class="order-item-price">899,00 Fcfa</div>
+                                                    <div class="order-item-name">{{ item.produit.nom }}</div>
+                                                    <div class="order-item-price">{{ item.prix_unitaire }} Fcfa</div>
                                             </div>
-                                            <div class="order-item-quantity">x1</div>
+                                                <div class="order-item-quantity">x{{ item.quantite }}</div>
                                         </div>
-                                        
-                                        <div class="order-item">
-                                            <div class="order-item-image">
-                                                <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15" alt="Lampe de table">
+                                            {% endfor %}
                                             </div>
-                                            <div class="order-item-details">
-                                                <div class="order-item-name">Lampe de table en laiton</div>
-                                                <div class="order-item-price">149,00 Fcfa</div>
-                                            </div>
-                                            <div class="order-item-quantity">x2</div>
-                                        </div>
-                                    </div>
-                                    
                                     <div class="order-footer">
                                         <div class="order-total">
-                                            Total: <span class="order-total-value">1 197,00 Fcfa</span>
+                                                Total: <span class="order-total-value">{{ c.paiement.montant|default:'?' }} Fcfa</span>
                                         </div>
                                         <div class="order-actions">
-                                            <button class="btn btn-outline btn-sm">Détails</button>
                                             <button class="btn btn-primary btn-sm">Acheter à nouveau</button>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="order-card">
-                                    <div class="order-header">
-                                        <div class="order-id">#ORD-2025-1189</div>
-                                        <div class="order-date">28 Février 2025</div>
-                                        <span class="order-status status-delivered">Livré</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="order-empty-message">
+                                        <i class="fas fa-box-open"></i>
+                                        <p>Vous n'avez pas encore de commande payée.</p>
+                                        <span>Parcourez la boutique et faites votre premier achat !</span>
                                     </div>
-                                    
-                                    <div class="order-items">
-                                        <div class="order-item">
-                                            <div class="order-item-image">
-                                                <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11" alt="Coussin décoratif">
-                                            </div>
-                                            <div class="order-item-details">
-                                                <div class="order-item-name">Coussin décoratif motif désert</div>
-                                                <div class="order-item-price">39,90 Fcfa</div>
-                                            </div>
-                                            <div class="order-item-quantity">x3</div>
-                                        </div>
-                                        
-                                        <div class="order-item">
-                                            <div class="order-item-image">
-                                                <img src="https://images.unsplash.com/photo-1526057565006-20beab8dd2ed" alt="Vase en céramique">
-                                            </div>
-                                            <div class="order-item-details">
-                                                <div class="order-item-name">Vase en céramique artisanal</div>
-                                                <div class="order-item-price">79,00 Fcfa</div>
-                                            </div>
-                                            <div class="order-item-quantity">x1</div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="order-footer">
-                                        <div class="order-total">
-                                            Total: <span class="order-total-value">198,70 Fcfa</span>
-                                        </div>
-                                        <div class="order-actions">
-                                            <button class="btn btn-outline btn-sm">Détails</button>
-                                            <button class="btn btn-primary btn-sm">Acheter à nouveau</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                {% endif %}
                             </div>
                             {% else %}
                             <div class="supplier-section">
@@ -435,65 +426,101 @@
                         {% endif %}
                         
                         <div class="profile-tab-content" data-content="security">
-                            <div class="security-section">
-                                <!-- Change Profile Information Card -->
                                 <div class="security-card">
+                                {% if messages %}
+                                    <div class="messages-container">
+                                        {% for message in messages %}
+                                        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+                                            {{ message }}
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <!-- Barre d'étapes -->
+                                <div class="security-steps-bar">
+                                    <div class="step-indicator active" data-step="1">
+                                        <span class="step-circle">1</span>
+                                        <span class="step-label">Informations du profil</span>
+                                    </div>
+                                    <div class="step-indicator" data-step="2">
+                                        <span class="step-circle">2</span>
+                                        <span class="step-label">Changer le mot de passe</span>
+                                    </div>
+                                    <div class="step-indicator" data-step="3">
+                                        <span class="step-circle">3</span>
+                                        <span class="step-label">Zone de danger</span>
+                                    </div>
+                                </div>
+                                <!-- Étape 1 : Informations du profil -->
+                                <div class="security-step active" data-step="1">
                                     <h3 class="security-card-title">Informations du profil</h3>
-                                    <form class="profile-info-form">
+                                    <form class="profile-info-form" method="post" action="{% url 'modifier_infos' %}" data-tab="security">
+                                        {% csrf_token %}
                                         <div class="profile-info-fields">
                                             {% if user_type == 'Client' %}
                                             <div class="form-group">
                                                 <label for="user-username">Nom d'utilisateur</label>
-                                                <input type="text" id="user-username" value="{{ user.username }}">
+                                                <input type="text" id="user-username" name="username" value="{{ user.username }}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="user-firstname">Prénom</label>
-                                                <input type="text" id="user-firstname" value="{% if user_info %}{{ user_info.prenom }}{% else %}{{ user.first_name }}{% endif %}">
+                                                <input type="text" id="user-firstname" name="first_name" value="{% if user_info %}{{ user_info.prenom }}{% else %}{{ user.first_name }}{% endif %}">
                                             </div>
                                             <div class="form-group">
                                                 <label for="user-lastname">Nom</label>
-                                                <input type="text" id="user-lastname" value="{% if user_info %}{{ user_info.nom }}{% else %}{{ user.last_name }}{% endif %}">
+                                                <input type="text" id="user-lastname" name="last_name" value="{% if user_info %}{{ user_info.nom }}{% else %}{{ user.last_name }}{% endif %}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="user-email">Adresse email</label>
+                                                <input type="email" id="user-email" name="email" value="{{ user.email }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="user-phone">Téléphone</label>
+                                                <input type="tel" id="user-phone" name="telephone" value="{% if user_info and user_info.telephone %}{{ user_info.telephone }}{% endif %}">
                                             </div>
                                             {% else %}
                                             <div class="form-group">
                                                 <label for="shop-name">Nom de la boutique</label>
-                                                <input type="text" id="shop-name" value="{% if user_info %}{{ user_info.nom_entreprise }}{% endif %}">
+                                                <input type="text" id="shop-name" name="company_name" value="{% if user_info %}{{ user_info.nom_entreprise }}{% endif %}">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="user-email">Adresse email</label>
+                                                <input type="email" id="user-email" name="email" value="{{ user.email }}" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="user-phone">Téléphone</label>
+                                                <input type="tel" id="user-phone" name="telephone" value="{% if user_info and user_info.telephone %}{{ user_info.telephone }}{% endif %}">
                                             </div>
                                             {% endif %}
                                             <button type="submit" class="btn btn-primary btn-sm">Enregistrer les modifications</button>
                                         </div>
                                     </form>
                                 </div>
-                                
-                                <!-- Change Password Card -->
-                                <div class="security-card">
+                                <!-- Étape 2 : Changer le mot de passe -->
+                                <div class="security-step" data-step="2">
                                     <h3 class="security-card-title">Changer le mot de passe</h3>
-                                    <form id="change-password-form">
-                                        <div id="current-password-section">
-                                            <p>Pour des raisons de sécurité, veuillez confirmer votre mot de passe actuel avant d'en choisir un nouveau.</p>
-                                            <div class="form-group-inline">
-                                                <input type="password" id="current-password" placeholder="Mot de passe actuel" required>
-                                                <button type="button" id="verify-password-btn" class="btn btn-outline btn-sm">Confirmer</button>
+                                    <form id="change-password-form" method="post" action="{% url 'changer_mdp' %}" data-tab="security">
+                                        {% csrf_token %}
+                                        <p>Pour des raisons de sécurité, veuillez entrer votre mot de passe actuel et choisir un nouveau mot de passe.</p>
+                                        <div class="change-password-fields">
+                                            <div class="form-group">
+                                                <label for="current-password">Mot de passe actuel</label>
+                                                <input type="password" id="current-password" name="current_password" placeholder="Mot de passe actuel" required>
                                             </div>
-                                            <div id="password-error-message" class="error-message" style="display: none;">Mot de passe actuel incorrect.</div>
-                                        </div>
-                                        <div id="new-password-section" style="display: none;">
-                                            <p>Choisissez un nouveau mot de passe fort.</p>
                                             <div class="form-group">
                                                 <label for="new-password">Nouveau mot de passe</label>
-                                                <input type="password" id="new-password" required>
+                                                <input type="password" id="new-password" name="new_password" placeholder="Nouveau mot de passe" required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="confirm-password">Confirmer le nouveau mot de passe</label>
-                                                <input type="password" id="confirm-password" required>
+                                                <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirmer le nouveau mot de passe" required>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Changer le mot de passe</button>
                                         </div>
+                                        <button type="submit" class="btn btn-primary btn-block" style="margin-top: 18px;">Changer le mot de passe</button>
                                     </form>
                                 </div>
-                                
-                                <!-- Danger Zone Card -->
-                                <div class="security-card danger-zone">
+                                <!-- Étape 3 : Zone de danger -->
+                                <div class="security-step" data-step="3">
                                     <h3 class="security-card-title">Zone de Danger</h3>
                                     {% if user_type == 'Fournisseur' %}
                                     <div class="danger-action">
@@ -502,6 +529,9 @@
                                             <p>Cette action est irréversible. Tous vos produits et données de vente seront définitivement supprimés.</p>
                                         </div>
                                         <button class="btn btn-danger" id="delete-shop-btn">Supprimer la boutique</button>
+                                        <form id="delete-shop-form" method="post" action="{% url 'supprimer_boutique' %}" style="display:none;">
+                                            {% csrf_token %}
+                                        </form>
                                     </div>
                                     {% endif %}
                                     <div class="danger-action">
@@ -510,7 +540,28 @@
                                             <p>Cette action est irréversible. Toutes vos données personnelles et votre historique de commandes seront définitivement supprimés.</p>
                                         </div>
                                         <button class="btn btn-danger" id="delete-account-btn">Supprimer mon compte</button>
+                                        <form id="delete-account-form" method="post" action="{% url 'supprimer_compte' %}" style="display:none;">
+                                            {% csrf_token %}
+                                        </form>
                                     </div>
+                                </div>
+                                <!-- Modale de confirmation danger -->
+                                <div id="danger-modal-overlay" class="danger-modal-overlay" style="display:none;">
+                                    <div class="danger-modal">
+                                        <h3 id="danger-modal-title">Confirmer la suppression du compte</h3>
+                                        <p id="danger-modal-message">Êtes-vous absolument sûr ? Cette action est irréversible.<br>Pour confirmer, tapez&nbsp;: <b id="danger-modal-required">SUPPRIMER MON COMPTE</b></p>
+                                        <input type="text" id="danger-modal-input" placeholder="Texte de confirmation" autocomplete="off">
+                                        <div class="danger-modal-actions">
+                                            <button class="btn btn-danger" id="danger-modal-confirm" disabled>Confirmer</button>
+                                            <button class="btn btn-outline" id="danger-modal-cancel">Annuler</button>
+                                        </div>
+                                        <div id="danger-modal-error" class="error-message" style="display:none;">Texte incorrect.</div>
+                                    </div>
+                                </div>
+                                <!-- Pagination boutons -->
+                                <div class="security-pagination">
+                                    <button type="button" class="btn btn-outline btn-prev" style="display:none;">Précédent</button>
+                                    <button type="button" class="btn btn-primary btn-next">Suivant</button>
                                 </div>
                             </div>
                         </div>
@@ -571,208 +622,59 @@
         </div>
     </footer>
     
+    <script src="{% static 'script/profile.js' %}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // --- MENU ET NAVIGATION ---
-            // Menu burger mobile
-            const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileMenuClose = document.getElementById('mobile-menu-close');
-            const mobileCategoriesToggle = document.getElementById('mobile-categories-toggle');
-            const mobileCategoriesSubmenu = document.getElementById('mobile-categories-submenu');
-            
-            if (mobileMenuToggle) {
-                mobileMenuToggle.addEventListener('click', function() {
-                    mobileMenu.classList.add('active');
-                    mobileMenuToggle.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            }
-            
-            if (mobileMenuClose) {
-                mobileMenuClose.addEventListener('click', function() {
-                    mobileMenu.classList.remove('active');
-                    mobileMenuToggle.classList.remove('active');
-                    document.body.style.overflow = '';
-                });
-            }
-            
-            if (mobileCategoriesToggle) {
-                mobileCategoriesToggle.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    mobileCategoriesToggle.classList.toggle('active');
-                    mobileCategoriesSubmenu.classList.toggle('active');
-                });
-            }
-            
-            // Dropdown des catégories (desktop)
-            const categoriesDropdown = document.querySelector('.categories-dropdown');
-            if (categoriesDropdown) {
-                const categoriesBtn = categoriesDropdown.querySelector('.categories-dropdown-btn');
-                categoriesBtn.addEventListener('click', function() {
-                    categoriesDropdown.classList.toggle('active');
-                });
-                document.addEventListener('click', function(event) {
-                    if (!categoriesDropdown.contains(event.target)) {
-                        categoriesDropdown.classList.remove('active');
+            // Ajout dynamique du paramètre ?tab=... à l'action de chaque formulaire du profil
+            document.querySelectorAll('.profile-content form[data-tab]').forEach(function(form) {
+                form.addEventListener('submit', function(e) {
+                    const tab = form.getAttribute('data-tab');
+                    // Ajout du paramètre step=2 pour le formulaire de mot de passe
+                    if (form.id === 'change-password-form') {
+                        if (!form.action.includes('step=2')) {
+                            if (form.action.includes('?')) {
+                                form.action += '&step=2';
+                            } else {
+                                form.action += '?step=2';
+                            }
+                        }
                     }
-                });
-            }
-
-            // --- GESTION DES ONGLETS DU PROFIL ---
-            const navLinks = document.querySelectorAll('.profile-nav-link[data-tab]');
-            const tabContents = document.querySelectorAll('.profile-tab-content');
-            const contentTitle = document.querySelector('.profile-content-title');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const tabName = this.getAttribute('data-tab');
-
-                    // Mise à jour des liens de navigation
-                    navLinks.forEach(navLink => navLink.classList.remove('active'));
-                    this.classList.add('active');
-
-                    // Mise à jour du titre
-                    switch(tabName) {
-                        case 'orders':
-                            contentTitle.textContent = document.getElementById('account-type').textContent === 'Fournisseur' ? 'Tableau de bord' : 'Historique des commandes';
-                            break;
-                        case 'products':
-                            contentTitle.textContent = 'Mes produits';
-                            break;
-                        case 'security':
-                            contentTitle.textContent = 'Sécurité et Informations';
-                            break;
+                    // Ajout du paramètre step=1 pour le formulaire d'infos profil
+                    if (form.classList.contains('profile-info-form')) {
+                        if (!form.action.includes('step=1')) {
+                            if (form.action.includes('?')) {
+                                form.action += '&step=1';
+                            } else {
+                                form.action += '?step=1';
+                            }
+                        }
                     }
-
-                    // Affichage du contenu de l'onglet
-                    tabContents.forEach(content => {
-                        if (content.getAttribute('data-content') === tabName) {
-                            content.classList.add('active');
+                    if (tab && !form.action.includes('tab=' + tab)) {
+                        if (form.action.includes('?')) {
+                            form.action += '&tab=' + tab;
                         } else {
-                            content.classList.remove('active');
+                            form.action += '?tab=' + tab;
                         }
-                    });
-                });
-            });
-
-            // --- FONCTIONNALITÉS DE L'ONGLET SÉCURITÉ ---
-
-            // Changement de la photo de profil
-            const profilePicUpload = document.getElementById('profile-picture-upload');
-            const profilePicPreview = document.getElementById('profile-picture-preview');
-            if(profilePicUpload && profilePicPreview) {
-                profilePicUpload.addEventListener('change', function(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            profilePicPreview.src = e.target.result;
-                        }
-                        reader.readAsDataURL(file);
-                    }
-                });
-            }
-
-            // Vérification du mot de passe actuel
-            const verifyPasswordBtn = document.getElementById('verify-password-btn');
-            const currentPasswordInput = document.getElementById('current-password');
-            const newPasswordSection = document.getElementById('new-password-section');
-            const passwordErrorMessage = document.getElementById('password-error-message');
-
-            if (verifyPasswordBtn) {
-                verifyPasswordBtn.addEventListener('click', function() {
-                    // Simulation: on considère que "password123" est le mot de passe correct
-                    if (currentPasswordInput.value === 'password123') { 
-                        newPasswordSection.style.display = 'block';
-                        passwordErrorMessage.style.display = 'none';
-                        currentPasswordInput.style.borderColor = '';
-                    } else {
-                        newPasswordSection.style.display = 'none';
-                        passwordErrorMessage.style.display = 'block';
-                        currentPasswordInput.style.borderColor = '#C62828'; // Rouge erreur
-                    }
-                });
-            }
-            
-            // Actions de la "Danger Zone"
-            const deleteAccountBtn = document.getElementById('delete-account-btn');
-            const deleteShopBtn = document.getElementById('delete-shop-btn');
-
-            if (deleteAccountBtn) {
-                deleteAccountBtn.addEventListener('click', function() {
-                    const confirmation = prompt("Êtes-vous absolument sûr ? Cette action est irréversible. Pour confirmer, tapez 'SUPPRIMER MON COMPTE' dans le champ ci-dessous.");
-                    if (confirmation === 'SUPPRIMER MON COMPTE') {
-                        alert('Votre compte a été supprimé.');
-                        // Redirection vers la page d'accueil ou de déconnexion
-                        window.location.href = "{% url 'accueil' %}";
-                    } else {
-                        alert('La suppression a été annulée.');
-                    }
-                });
-            }
-
-            if (deleteShopBtn) {
-                deleteShopBtn.addEventListener('click', function() {
-                    const confirmation = prompt("Êtes-vous absolument sûr ? La suppression de votre boutique entraînera la perte de tous vos produits et données de vente. Pour confirmer, tapez 'SUPPRIMER MA BOUTIQUE'.");
-                    if (confirmation === 'SUPPRIMER MA BOUTIQUE') {
-                        alert('Votre boutique a été supprimée.');
-                        // Ici, logique de suppression backend
-                    } else {
-                        alert('La suppression a été annulée.');
-                    }
-                });
-            }
-
-
-            // --- ACTIONS DIVERSES ---
-            
-            // Boutons "Détails de la commande"
-            document.querySelectorAll('.order-actions .btn-outline').forEach(button => {
-                button.addEventListener('click', function() {
-                    const orderId = this.closest('.order-card').querySelector('.order-id').textContent;
-                    alert(`Détails de la commande ${orderId} - Cette fonctionnalité sera bientôt disponible.`);
-                });
-            });
-            
-            // Boutons "Acheter à nouveau"
-            document.querySelectorAll('.order-actions .btn-primary').forEach(button => {
-                button.addEventListener('click', function() {
-                    const cartCounter = document.querySelector('.cart-counter');
-                    const currentCount = parseInt(cartCounter.textContent);
-                    cartCounter.textContent = currentCount + 1;
-                    cartCounter.classList.add('bounce');
-                    setTimeout(() => cartCounter.classList.remove('bounce'), 500);
-                    alert(`Les produits ont été ajoutés à votre panier.`);
-                });
-            });
-            
-            // Actions sur les produits du fournisseur
-            document.querySelectorAll('.action-btn.edit').forEach(button => {
-                button.addEventListener('click', function() {
-                    const productName = this.closest('tr').querySelector('.product-name').textContent;
-                    alert(`Modifier le produit : ${productName} - Bientôt disponible.`);
-                });
-            });
-            
-            document.querySelectorAll('.action-btn.delete').forEach(button => {
-                button.addEventListener('click', function() {
-                    const productRow = this.closest('tr');
-                    const productName = productRow.querySelector('.product-name').textContent;
-                    if (confirm(`Êtes-vous sûr de vouloir supprimer le produit : ${productName} ?`)) {
-                        alert(`Le produit ${productName} a été supprimé.`);
-                        productRow.remove();
                     }
                 });
             });
-
-            // Initialiser le titre au chargement
-            const initialActiveTab = document.querySelector('.profile-nav-link.active');
-            if (initialActiveTab) {
-                const event = new Event('click');
-                initialActiveTab.dispatchEvent(event);
-            }
+            // Animation disparition douce des messages (comme inscription)
+            const messages = document.querySelectorAll('.alert');
+            messages.forEach(function(message) {
+                message.style.opacity = '1';
+                setTimeout(function() {
+                    message.style.opacity = '0';
+                    message.style.transform = 'translateY(-10px)';
+                    setTimeout(function() {
+                        message.style.maxHeight = '0';
+                        message.style.padding = '0';
+                        message.style.margin = '0';
+                        setTimeout(function() {
+                            message.remove();
+                        }, 300);
+                    }, 500);
+                }, 5000);
+            });
         });
     </script>
 </body>
