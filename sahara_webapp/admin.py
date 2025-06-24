@@ -130,11 +130,11 @@ def refuser_validation(modeladmin, request, queryset):
 @admin.register(Fournisseur)
 class FournisseurAdmin(admin.ModelAdmin):
     list_display = (
-        'nom_entreprise', 'email', 'rccm', 'statut',
+        'nom_entreprise', 'email', 'statut',
         'decision_validation', 'compte_actif'
     )
     list_filter = ('statut', 'pays', 'ville', 'type_entreprise')
-    search_fields = ('nom_entreprise', 'email', 'rccm')
+    search_fields = ('nom_entreprise', 'email')
     readonly_fields = ('document_identite',)
     actions = [activer_utilisateur, refuser_validation]
 

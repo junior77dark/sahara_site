@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <section class="page-title-section">
+        <h1>Mes commandes</h1>
+        <p>Retrouvez ici l'historique de vos commandes payées.</p>
+    </section>
+    <div class="order-history">
+        {% if commandes_data %}
+            {% for c in commandes_data %}
+            <div class="order-card">
+                <div class="order-header">
+                    <div class="order-id">#ORD-{{ c.commande.id }}</div>
+                    <div class="order-date">{{ c.commande.date_commande|date:'d M Y' }}</div>
+                    <span class="order-status status-{{ c.commande.statut|default:'en_attente' }}">
+                        {{ c.commande.statut|title }}
+                    </span>
+                </div>
+                <div class="order-items">
+                    {% for item in c.items %}
+                    <div class="order-item">
+                        <div class="order-item-image">
+                            {% if item.produit.produitimage_set.first %}
+                                <img src="{{ item.produit.produitimage_set.first.image_url.url }}" alt="{{ item.produit.nom }}">
+                            {% else %}
+                                <img src="{% static 'product-main.png' %}" alt="{{ item.produit.nom }}">
+                            {% endif %}
+                        </div>
+                        <div class="order-item-details">
+                            <div class="order-item-name">{{ item.produit.nom }}</div>
+                            <div class="order-item-price">{{ item.prix_unitaire }} Fcfa</div>
+                        </div>
+                        <div class="order-item-quantity">x{{ item.quantite }}</div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="order-footer">
+                    <div class="order-total">
+                        Total: <span class="order-total-value">{{ c.paiement.montant|default:'?' }} Fcfa</span>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn btn-primary btn-sm">Acheter à nouveau</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>Vous n'avez pas encore de commande payée.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

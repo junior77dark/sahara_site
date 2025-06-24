@@ -1,0 +1,363 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SAHARA - Smartphone Premium Élégant - Découvrez notre sélection de produits high-tech de qualité">
+    <title>Smartphone Premium Élégant - SAHARA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'style/product-page.css' %}">
+</head>
+<body>
+    <!-- Header identique à celui de l'accueil -->
+    <header>
+        <div class="container header-container">
+            <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            
+            <nav class="main-nav">
+                <a href="accueil">Accueil</a>
+                <div class="categories-dropdown" id="categories-dropdown">
+                    <div class="categories-dropdown-btn" id="categories-btn">
+                        Catégories <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="categories-dropdown-content">
+                        <a href="high-tech"><span>🖥️</span> High-Tech</a>
+                        <a href="vetements"><span>👕</span> Vêtements</a>
+                        <a href="decoration"><span>🏠</span> Décoration</a>
+                        <a href="bijoux"><span>💎</span> Bijoux</a>
+                        <a href="livres"><span>📚</span> Livres</a>
+                        <a href="jeux"><span>🎮</span> Jeux/Jouets</a>
+                        <a href="cuisine"><span>🍽️</span> Cuisine</a>
+                        <a href="sport"><span>🏋️</span> Sport/Loisirs</a>
+                    </div>
+                </div>
+                <a href="promotions">Promotions</a>
+                <a href="contact">Contact</a>
+            </nav>
+            
+            <div class="header-icons">
+                <a href="profile" aria-label="Mon profil">
+                    <i class="fas fa-user"></i>
+                </a>
+                <a href="panier" class="cart-icon-container" aria-label="Mon panier" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-counter" id="cart-counter">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Menu mobile -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-header">
+            <div class="logo">
+                <img src="{% static 'logo.png' %}" alt="SAHARA Logo">
+            </div>
+            <button class="mobile-menu-close" id="mobile-menu-close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <nav class="mobile-nav">
+            <a href="accueil">Accueil</a>
+            <div class="mobile-categories-toggle" id="mobile-categories-toggle">
+                <a href="categories">Catégories</a>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="mobile-categories-submenu" id="mobile-categories-submenu">
+                <a href="high-tech"><span>🖥️</span> High-Tech</a>
+                <a href="vetements"><span>👕</span> Vêtements</a>
+                <a href="decoration"><span>🏠</span> Décoration</a>
+                <a href="bijoux"><span>💎</span> Bijoux</a>
+                <a href="livres"><span>📚</span> Livres</a>
+                <a href="jeux"><span>🎮</span> Jeux</a>
+                <a href="cuisine"><span>🍽️</span> Cuisine</a>
+                <a href="sport"><span>🏋️</span> Sport</a>
+            </div>
+            <a href="nouveautes">Nouveautés</a>
+            <a href="promotions">Promotions</a>
+            <a href="contact">Contact</a>
+            <a href="login">Mon compte</a>
+            <a href="panier">Mon panier</a>
+        </nav>
+    </div>
+    
+    <!-- Barre de recherche -->
+    <div class="search-bar-container">
+        <div class="search-container-center">
+            <input type="text" class="search-input-center" id="search-input-center" placeholder="Rechercher un produit..." aria-label="Rechercher un produit">
+            <button class="search-btn-center" id="search-btn-center" aria-label="Rechercher">
+                <i class="fas fa-search" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    
+    <main>
+        <!-- Section principale du produit -->
+        <section class="product-section">
+            <div class="container">
+                <div class="product-container" data-produit-id="{{ produit.id }}">
+                    <!-- Galerie d'images -->
+                    <div class="product-gallery">
+                        <div class="main-image-container">
+                            <img src="{% if produit.produitimage_set.first %}{{ produit.produitimage_set.first.image_url.url }}{% else %}{% static 'product-main.png' %}{% endif %}" alt="{{ produit.nom }}" class="main-product-image" id="main-image">
+                        </div>
+                        <div class="thumbnail-gallery">
+                            {% for image in produit.produitimage_set.all %}
+                                <img src="{{ image.image_url.url }}" alt="Vue {{ forloop.counter }}" class="thumbnail" data-main="{{ image.image_url.url }}">
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Informations du produit -->
+                    <div class="product-info">
+                        <div class="product-badge">
+                            <span class="badge-new">Nouveau</span>
+                        </div>
+                        
+                        <h1 class="product-title">{{ produit.nom }}</h1>
+                        <p class="product-subtitle">{{ produit.sous_titre|default:"" }}</p>
+                        
+                        <div class="product-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-text">(4.5/5 - 127 avis)</span>
+                        </div>
+                        
+                        <div class="product-price">
+                            <span class="current-price">{{ produit.prix|floatformat:0 }} Fcfa</span>
+                            <span class="original-price"></span>
+                        </div>
+                        
+                        <div class="quantity-selector">
+                            <label class="quantity-label">Quantité :</label>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" id="decrease-qty">-</button>
+                                <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="10">
+                                <button class="quantity-btn" id="increase-qty">+</button>
+                            </div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-primary add-to-cart" id="add-to-cart" data-produit-id="{{ produit.id }}">
+                                <i class="fas fa-shopping-cart"></i>
+                                Ajouter au panier
+                            </button>
+                        </div>
+                        
+                        <div class="product-features">
+                            <div class="feature-item">
+                                <i class="fas fa-truck"></i>
+                                <span>Livraison gratuite</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Garantie 2 ans</span>
+                            </div>
+                            <div class="feature-item">
+                                <i class="fas fa-undo"></i>
+                                <span>Retour 30 jours</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section des onglets -->
+        <section class="product-tabs-section">
+            <div class="container">
+                <div class="tabs-container">
+                    <div class="tabs-nav">
+                        <button class="tab-btn active" data-tab="description">Description</button>
+                        <button class="tab-btn" data-tab="specifications">Caractéristiques</button>
+                        <button class="tab-btn" data-tab="reviews">Avis clients</button>
+                    </div>
+                    
+                    <div class="tabs-content">
+                        <!-- Onglet Description -->
+                        <div class="tab-content active" id="description">
+                            <h3>Description du produit</h3>
+                            <p>{{ produit.description|linebreaks }}</p>
+                            
+                            <!-- Points forts si disponibles -->
+                            {% if produit.points_forts %}
+                            <h4>Points forts :</h4>
+                            <ul>
+                                {% for point in produit.points_forts.splitlines %}
+                                    <li>{{ point }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Onglet Caractéristiques -->
+                        <div class="tab-content" id="specifications">
+                            <h3>Caractéristiques techniques</h3>
+                            {% if produit.caracteristiques %}
+                            <div class="specs-grid">
+                                {% for ligne in produit.caracteristiques.splitlines %}
+                                <div class="spec-category">
+                                        <span class="spec-label">{{ ligne }}</span>
+                                    </div>
+                                {% endfor %}
+                                </div>
+                            {% else %}
+                                <p>Aucune caractéristique technique renseignée.</p>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Onglet Avis -->
+                        <div class="tab-content" id="reviews">
+                            <h3>Avis clients</h3>
+                            <div class="reviews-list">
+                                {% for review in avis %}
+                                    <div class="review-item">
+                                        <div class="review-header">
+                                            <div class="reviewer-info">
+                                                <span class="reviewer-name">{{ review.nom }}</span>
+                                                <div class="review-rating">
+                                                    {% for i in "12345"|slice:":review.note" %}
+                                            <i class="fas fa-star"></i>
+                                                    {% endfor %}
+                                                    {% for i in "12345"|slice:"review.note:" %}
+                                                        <i class="far fa-star"></i>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                            <span class="review-date">{{ review.date_ajout|date:"d/m/Y" }}</span>
+                                        </div>
+                                        <p class="review-text">{{ review.commentaire }}</p>
+                                    </div>
+                                {% empty %}
+                                    <p>Aucun avis pour ce produit.</p>
+                                {% endfor %}
+                            </div>
+                            <!-- Formulaire pour ajouter un avis -->
+                            <div class="add-review-section">
+                                <h4>Laisser un avis</h4>
+                                <form class="review-form" id="review-form" method="post">
+                                    {% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="reviewer-name">Votre nom :</label>
+                                        <input type="text" id="reviewer-name" name="reviewer-name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Votre note :</label>
+                                        <div class="star-rating" id="star-rating">
+                                            <i class="far fa-star" data-rating="1"></i>
+                                            <i class="far fa-star" data-rating="2"></i>
+                                            <i class="far fa-star" data-rating="3"></i>
+                                            <i class="far fa-star" data-rating="4"></i>
+                                            <i class="far fa-star" data-rating="5"></i>
+                                        </div>
+                                        <input type="hidden" id="rating" name="rating" value="0">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="review-text">Votre commentaire :</label>
+                                        <textarea id="review-text" name="review-text" rows="4" placeholder="Partagez votre expérience avec ce produit..." required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Publier l'avis</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Footer identique à celui de l'accueil -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>À propos</h3>
+                    <ul>
+                        <li><a href="#">Notre histoire</a></li>
+                        <li><a href="#">Nos valeurs</a></li>
+                        <li><a href="#">Nos engagements</a></li>
+                        <li><a href="#">Carrières</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Service client</h3>
+                    <ul>
+                        <li><a href="#">Contactez-nous</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Livraison & Retours</a></li>
+                        <li><a href="#">Conditions générales</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Mon compte</h3>
+                    <ul>
+                        <li><a href="#">Connexion</a></li>
+                        <li><a href="#">Inscription</a></li>
+                        <li><a href="#">Historique des commandes</a></li>
+                        <li><a href="#">Liste de souhaits</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Inscrivez-vous pour recevoir nos offres exclusives</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Votre email" required>
+                        <button type="submit" class="btn btn-primary">S'INSCRIRE</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 SAHARA. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Notification toast -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <i class="fas fa-check-circle"></i>
+            <span class="toast-message">Produit ajouté au panier !</span>
+        </div>
+    </div>
+    
+    <script src="{% static 'script/product-page.js' %}"></script>
+    <script>
+    // JS pour mettre à jour le champ caché 'rating' lors du clic sur les étoiles
+    const stars = document.querySelectorAll('#star-rating i');
+    const ratingInput = document.getElementById('rating');
+    stars.forEach((star, idx) => {
+        star.addEventListener('click', function() {
+            ratingInput.value = idx + 1;
+            stars.forEach((s, i) => {
+                if (i <= idx) {
+                    s.classList.remove('far');
+                    s.classList.add('fas', 'active');
+                } else {
+                    s.classList.remove('fas', 'active');
+                    s.classList.add('far');
+                }
+            });
+        });
+    });
+    </script>
+</body>
+</html>
+
