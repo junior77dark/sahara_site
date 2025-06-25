@@ -45,6 +45,9 @@
             border-left: 4px solid #17a2b8;
             color: #0c5460;
         }
+        .categories-dropdown-content.show {
+            display: block !important;
+        }
     </style>
     <header>
         <div class="container header-container">
@@ -60,23 +63,21 @@
             
             <nav class="main-nav">
                 <a href="{% url 'accueil' %}">Accueil</a>
-                
                 <div class="categories-dropdown">
                     <div class="categories-dropdown-btn">
                         Catégories <i class="fas fa-chevron-down"></i>
                     </div>
                     <div class="categories-dropdown-content">
-                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> Électronique</a>
+                        <a href="{% url 'categorie_high_tech' %}"><span>🖥️</span> High-Tech</a>
                         <a href="{% url 'categorie_vetements' %}"><span>👕</span> Vêtements</a>
-                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Maison</a>
+                        <a href="{% url 'categorie_decoration' %}"><span>🏠</span> Décoration</a>
                         <a href="{% url 'categorie_bijoux' %}"><span>💎</span> Bijoux</a>
                         <a href="{% url 'categorie_livres' %}"><span>📚</span> Livres</a>
-                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux</a>
+                        <a href="{% url 'categorie_jeux' %}"><span>🎮</span> Jeux/Jouets</a>
                         <a href="{% url 'categorie_cuisine' %}"><span>🍽️</span> Cuisine</a>
-                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport</a>
+                        <a href="{% url 'categorie_sport' %}"><span>🏋️</span> Sport/Loisirs</a>
                     </div>
                 </div>
-                
                 <a href="{% url 'promotion' %}">Promotions</a>
                 <a href="{% url 'contact' %}">Contact</a>
             </nav>
@@ -340,10 +341,13 @@
                         {% if user_type == 'Fournisseur' %}
                         <div class="profile-tab-content" data-content="products">
                             <div class="product-list">
-                                <div class="product-list-header">
-                                    <h3 class="product-list-title">Mes produits</h3>
-                                    <a href="add-product.html" class="btn btn-primary btn-sm">Ajouter un produit</a>
+                                <div class="product-list-header" style="display:flex;align-items:center;justify-content:space-between;">
+                                    <h3 class="product-list-title" style="margin-bottom:0;">Mes produits</h3>
+                                    <a href="{% url 'add_product' %}?from_profile=1" class="btn btn-primary btn-sm">Ajouter un produit</a>
                                 </div>
+                                {% if no_boutique_error %}
+                                    <div class="alert alert-error" style="margin:10px 0 20px 0;">{{ no_boutique_error }}</div>
+                                {% endif %}
                                 <table class="product-table">
                                     <thead>
                                         <tr>
@@ -355,72 +359,61 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {% for produit in produits %}
                                         <tr>
                                             <td>
                                                 <div class="product-image">
-                                                    <img src="https://images.unsplash.com/photo-1540574163026-643ea20ade25" alt="Canapé en cuir">
+                                                    {% if produit.produitimage_set.first %}
+                                                        <img src="{{ produit.produitimage_set.first.image_url.url }}" alt="{{ produit.nom }}">
+                                                    {% else %}
+                                                        <img src="{% static 'product-main.png' %}" alt="{{ produit.nom }}">
+                                                    {% endif %}
                                                 </div>
                                             </td>
-                                            <td class="product-name">Canapé en cuir marron</td>
-                                            <td class="product-price">899,00 Fcfa</td>
+                                            <td class="product-name">{{ produit.nom }}</td>
+                                            <td class="product-price">{{ produit.prix|floatformat:2 }} Fcfa</td>
                                             <td class="product-stock">
-                                                <span class="product-stock-value stock-in">En stock (12)</span>
+                                                {% if produit.stock > 10 %}
+                                                    <span class="product-stock-value stock-in">En stock ({{ produit.stock }})</span>
+                                                {% elif produit.stock > 0 %}
+                                                    <span class="product-stock-value stock-low">Stock bas ({{ produit.stock }})</span>
+                                                {% else %}
+                                                    <span class="product-stock-value stock-out">Rupture</span>
+                                                {% endif %}
                                             </td>
                                             <td class="product-actions">
                                                 <button class="action-btn edit"><i class="fas fa-edit"></i></button>
                                                 <button class="action-btn delete"><i class="fas fa-trash"></i></button>
                                             </td>
                                         </tr>
+                                        {% empty %}
                                         <tr>
-                                            <td>
-                                                <div class="product-image">
-                                                    <img src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15" alt="Lampe de table">
-                                                </div>
-                                            </td>
-                                            <td class="product-name">Lampe de table en laiton</td>
-                                            <td class="product-price">149,00 Fcfa</td>
-                                            <td class="product-stock">
-                                                <span class="product-stock-value stock-low">Stock bas (3)</span>
-                                            </td>
-                                            <td class="product-actions">
-                                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
-                                            </td>
+                                            <td colspan="5" style="text-align:center;">Aucun produit pour le moment.</td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="product-image">
-                                                    <img src="https://images.unsplash.com/photo-1586105251261-72a756497a11" alt="Coussin décoratif">
-                                                </div>
-                                            </td>
-                                            <td class="product-name">Coussin décoratif motif désert</td>
-                                            <td class="product-price">39,90 Fcfa</td>
-                                            <td class="product-stock">
-                                                <span class="product-stock-value stock-in">En stock (45)</span>
-                                            </td>
-                                            <td class="product-actions">
-                                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <div class="product-image">
-                                                    <img src="https://images.unsplash.com/photo-1556909114-44e3e9699e2b" alt="Service de table">
-                                                </div>
-                                            </td>
-                                            <td class="product-name">Service de table complet 12 pièces</td>
-                                            <td class="product-price">249,00 Fcfa</td>
-                                            <td class="product-stock">
-                                                <span class="product-stock-value stock-out">Rupture</span>
-                                            </td>
-                                            <td class="product-actions">
-                                                <button class="action-btn edit"><i class="fas fa-edit"></i></button>
-                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
+                                {% if page_obj and page_obj.paginator.num_pages > 1 %}
+                                    <div class="pagination" style="display:flex;justify-content:center;gap:8px;margin:20px 0;align-items:center;">
+                                        {% if page_obj.has_previous %}
+                                            <a href="?tab=products&page={{ page_obj.previous_page_number }}" class="pagination-link" title="Précédent">
+                                                <i class="fas fa-chevron-left"></i>
+                                            </a>
+                                        {% endif %}
+                                        {% for num in page_obj.paginator.page_range %}
+                                            {% if page_obj.number == num %}
+                                                <span class="pagination-link active" style="font-weight:bold;">{{ num }}</span>
+                                            {% else %}
+                                                <a href="?tab=products&page={{ num }}" class="pagination-link">{{ num }}</a>
+                                            {% endif %}
+                                        {% endfor %}
+                                        {% if page_obj.has_next %}
+                                            <a href="?tab=products&page={{ page_obj.next_page_number }}" class="pagination-link" title="Suivant">
+                                                <i class="fas fa-chevron-right"></i>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
                         {% endif %}
@@ -675,6 +668,23 @@
                     }, 500);
                 }, 5000);
             });
+            // Gestion du menu déroulant Catégories (header)
+            var btn = document.querySelector('.categories-dropdown-btn');
+            var dropdown = document.querySelector('.categories-dropdown-content');
+            if (btn && dropdown) {
+                btn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('show');
+                });
+                // Fermer le menu si on clique ailleurs
+                document.addEventListener('click', function() {
+                    dropdown.classList.remove('show');
+                });
+                // Empêcher la fermeture si on clique dans le menu
+                dropdown.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
         });
     </script>
 </body>

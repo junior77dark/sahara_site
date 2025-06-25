@@ -3,7 +3,7 @@ from django.contrib.auth import login, logout, authenticate, update_session_auth
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .models import Client, Fournisseur, PanierItem, Produit, AvisProduit, Commande, Orderitem, Paiement, AuthUser
+from .models import Client, Fournisseur, PanierItem, Produit, AvisProduit, Commande, Orderitem, Paiement, AuthUser, Boutique, Categorie, Produitimage
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.http import JsonResponse, HttpResponseRedirect
@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.urls import reverse
+from django.core.paginator import Paginator
 
 # Pages principales
 def accueil(request):
@@ -67,7 +68,7 @@ def user_profile(request):
     user = request.user
     user_type = 'Client'  # Par défaut
     user_info = None
-    
+    has_boutique = False
     try:
         # Vérifier si l'utilisateur est un client
         client = Client.objects.get(email=user.email)
@@ -79,6 +80,8 @@ def user_profile(request):
             fournisseur = Fournisseur.objects.get(email=user.email)
             user_info = fournisseur
             user_type = 'Fournisseur'
+            # Vérifier s'il a une boutique
+            has_boutique = Boutique.objects.filter(fournisseur=fournisseur).exists()
         except Fournisseur.DoesNotExist:
             # Utilisateur sans profil client ou fournisseur
             user_info = None
@@ -124,12 +127,25 @@ def user_profile(request):
                 'paiement': paiement,
             })
     
+    no_boutique_error = request.session.pop('no_boutique_error', None)
+    produits = []
+    page_obj = None
+    if user_type == 'Fournisseur' and user_info:
+        produits_qs = Produit.objects.filter(boutique__fournisseur=user_info)
+        paginator = Paginator(produits_qs, 6)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+        produits = page_obj.object_list
     context = {
         'user': user,
         'user_info': user_info,
         'user_type': user_type,
         'date_inscription': date_inscription,
         'commandes_data': commandes_data,
+        'has_boutique': has_boutique,
+        'no_boutique_error': no_boutique_error,
+        'produits': produits,
+        'page_obj': page_obj,
     }
     
     return render(request, 'user-profile.html', context)
@@ -354,8 +370,64 @@ def logout_view(request):
 # Pages fournisseur
 def espace_fournisseur(request):
     return render(request, 'espace_fournisseur.html')
+
 def add_product(request):
-    return render(request, 'add-product.html')
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+    try:
+        fournisseur = Fournisseur.objects.get(email=user.email)
+    except Fournisseur.DoesNotExist:
+        messages.error(request, "Vous devez être un fournisseur pour ajouter un produit.")
+        return redirect('accueil')
+    categories = Categorie.objects.all()
+    boutiques = Boutique.objects.filter(fournisseur=fournisseur)
+    if not boutiques.exists():
+        from_profile = request.GET.get('from_profile')
+        if from_profile == '1':
+            # Redirige vers le profil avec message d'erreur et onglet produits
+            url = reverse('user_profile') + '?tab=products'
+            request.session['no_boutique_error'] = "Vous devez d'abord créer une boutique avant de pouvoir ajouter un produit."
+            return redirect(url)
+        else:
+            messages.error(request, "Vous devez d'abord créer une boutique avant de pouvoir ajouter un produit.")
+            return redirect('espace_fournisseur')
+    if request.method == 'POST':
+        nom = request.POST.get('nom')
+        description = request.POST.get('description')
+        prix = request.POST.get('prix')
+        stock = request.POST.get('stock')
+        categorie_id = request.POST.get('categorie')
+        boutique_id = request.POST.get('boutique')
+        main_photo = request.FILES.get('main_photo')
+        additional_photos = request.FILES.getlist('additional_photos')
+        # Validation minimale
+        if not (nom and description and prix and stock and categorie_id and boutique_id and main_photo):
+            messages.error(request, "Veuillez remplir tous les champs obligatoires et ajouter une photo principale.")
+            return render(request, 'add-product.html', {'categories': categories, 'boutiques': boutiques})
+        try:
+            categorie = Categorie.objects.get(id=categorie_id)
+            boutique = Boutique.objects.get(id=boutique_id)
+            produit = Produit.objects.create(
+                nom=nom,
+                description=description,
+                prix=prix,
+                stock=stock,
+                boutique=boutique,
+                categorie=categorie,
+                date_ajout=timezone.now()
+            )
+            # Photo principale
+            Produitimage.objects.create(produit=produit, image_url=main_photo)
+            # Photos supplémentaires
+            for photo in additional_photos:
+                if photo:
+                    Produitimage.objects.create(produit=produit, image_url=photo)
+            messages.success(request, "Produit ajouté avec succès !")
+            return redirect('espace_fournisseur')
+        except Exception as e:
+            messages.error(request, f"Erreur lors de l'ajout du produit : {str(e)}")
+    return render(request, 'add-product.html', {'categories': categories, 'boutiques': boutiques})
 
 # Page panier
 def panier(request):
